@@ -71,12 +71,14 @@ class Car(observable.Observable):
         frame = ""
 
         for motor in self.motors:
-            frame = frame + motor.getState() + motor.getSpeed()
+            frame = frame + chr(motor.getState() + motor.getSpeed())
 
         for sensor in self.sensors:
-            frame = frame + sensor.fillFrame()
+            frame = frame + chr(sensor.fillFrame())
 
-        frame = frame + battery.fillFrame()
+        frame = frame + chr(battery.fillFrame())
+
+        print (frame)
         
         return frame
 
