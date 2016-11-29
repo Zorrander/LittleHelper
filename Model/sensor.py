@@ -74,6 +74,10 @@ class UltrasoundSensor(Sensor):
 
     def __init__(self):
         super(self.__class__, self).__init__()
+        self.distance = 0
 
     def notify():
         pass
+    
+    def set_distance(distance):
+        self.distance = distance

@@ -10,7 +10,7 @@
 import sys
 import PyQt5
 from PyQt5.QtWidgets import QApplication
-from Controllers import window, StmController
+from Controllers import window, StmController, preloadedPath
 from Model import car
 
 
@@ -45,10 +45,11 @@ class MilesApp():
 
     def __init__(self):
         self.model = car.Car()
+        self.preloadedPaths = preloadedPath.PreloadedPaths(self.model)
         self.spi = StmController.StmController(self.model)
-        self.window = window.Window(self.model)
+        self.window = window.Window(self.model, self.preloadedPaths)
         self.window.show()
-
+        self.spi.start()
 
 
 
@@ -60,8 +61,9 @@ def main():
 
     app = QApplication(sys.argv)
     miles = MilesApp()
-
+        
     sys.exit(app.exec_())
+    miles.spi.join()
 
 if __name__ == "__main__":
 

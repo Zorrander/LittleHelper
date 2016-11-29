@@ -13,121 +13,13 @@
 import sys
 from abc import ABCMeta, abstractmethod
 
+LEFT=0
+RIGHT=128
+FORWARD = 0
+BACKWARD = 128
 
 
-class Motor:
-    """
-
-        The Motor abstract class
-        ------------------------
-
-        Caracteristics :
-            >>> 2 attributs
-            >>> 6 abstract functions
-
-    """
-    __metaclass__ = ABCMeta
-
-    def __init__(self):
-        self.state = 0
-        self.speed = 0
-
-    @abstractmethod
-    def notify():
-        pass
-
-    @abstractmethod
-    def moveForward():
-        pass
-    @abstractmethod
-    def moveBackward():
-        pass
-    @abstractmethod
-    def stop():
-        pass
-    @abstractmethod
-    def turnLeft():
-        pass
-    @abstractmethod
-    def turnRight():
-        pass
-
-    def setState(state):
-
-        """
-
-            The setState function
-            ---------------------
-
-            Used to change the model
-
-            Model of the state v.1 :
-                     -----------------------------------------------------------
-                >>> | 0=nul | 1=stop  | 2=left or forward | 3=right or backward |
-                     -----------------------------------------------------------
-
-        """
-        self.state = state
-
-    def getState():
-
-        """
-
-            The getState function
-            ---------------------
-
-            Used to retrieve the actual state in the model and translate it
-            into the right format for the SPI communication.
-
-        """
-
-        tmp = ""
-        tmp = tmp + '{0:b}'.format(self.state)
-        while ( len(str(tmp)) < 2 ):
-            tmp = '0' + tmp
-
-        return tmp
-
-    def setSpeed(speed):
-
-        """
-
-            The setState function
-            ---------------------
-
-            Used to change the model
-
-            Model of the speed v.1 :
-
-                >>> Only use pair values. Indicated using %.
-
-        """
-
-        self.speed = speed
-
-
-    def getSpeed():
-
-        """
-
-            The getSpeed function
-            ---------------------
-
-            Used to retrieve the actual speed in the model and translate it
-            into the right format for the SPI communication.
-
-        """
-        tmp = ""
-        tmp = tmp + '{0:b}'.format(self.speed)
-        while ( len(str(tmp)) < 6 ):
-            tmp = '0' + tmp
-
-        return tmp
-
-
-
-
-class FrontMotor(Motor):
+class FrontMotor():
 
     """
 
@@ -139,28 +31,29 @@ class FrontMotor(Motor):
     """
 
     def __init__(self):
-        super(self.__class__, self).__init__()
+        self.state = 0
+        self.angle = 0 
 
-    def notify():
+    def notify(self):
         pass
 
-    def moveForward(self):
-        setState(1)
+    def turnLeft(self, angle):
+        print("turnLeft")
+        self.state = LEFT
+        self.angle = angle
 
-    def moveBackward():
-        setState(1)
+    def turnRight(self, angle):
+        print("turnRight")
+        self.state = RIGHT
+        self.angle = angle
 
-    def stop():
-        setState(1)
+    def getState(self):
+        return self.state
 
-    def turnLeft():
-        setState(2)
+    def getAngle(self):
+        return self.angle
 
-    def turnRight():
-        setState(3)
-
-
-class RearMotor(Motor):
+class RearMotor():
 
     """
 
@@ -172,24 +65,31 @@ class RearMotor(Motor):
     """
 
     def __init__(self):
-        super(self.__class__, self).__init__()
+        self.state = 0 
+        self.speed = 0
 
-    def moveForward(self):
-        setState(2)
+    def moveForward(self, speed):
+        print("moveForward")
+        self.state = FORWARD
+        self.speed = speed
 
-    def moveBackward():
-        setState(3)
+    def moveBackward(self, speed):
+        print("moveBackward")
+        self.state = BACKWARD
+        self.speed = speed
 
-    def stop():
-        setState(1)
-
-    def turnLeft():
-        setState(1)
-
-    def turnRight():
-        setState(1)
-
-    def notify():
+    
+    def stop(self):
+        print("stop")
+        self.speed = 0
+    
+    def notify(self):
         pass
+
+    def getState(self):
+        return self.state
+
+    def getSpeed(self):
+        return self.speed
 
 

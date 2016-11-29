@@ -11,9 +11,10 @@
 """
 
 import sys
-from . import battery, motor, sensor
+from . import battery, motor, sensor, path
 from struct import *
 from Observer import observable
+
 
 class Car(observable.Observable):
 
@@ -33,10 +34,12 @@ class Car(observable.Observable):
         """
         observable.Observable.__init__(self)
         self.battery = battery.Battery()
-        self.motors = []
-        self.motors.append(motor.FrontMotor())
-        self.motors.append(motor.RearMotor())
-        self.motors.append(motor.RearMotor())
+	
+        self.direction_motor = motor.FrontMotor()
+
+        self.rear_motors = [] 
+        self.rear_motors.append(motor.RearMotor())
+        self.rear_motors.append(motor.RearMotor())
         self.sensors = []
         self.sensors.append(sensor.UltrasoundSensor())
         self.sensors.append(sensor.UltrasoundSensor())
@@ -45,7 +48,9 @@ class Car(observable.Observable):
         self.sensors.append(sensor.UltrasoundSensor())
         self.sensors.append(sensor.UltrasoundSensor())
 
-    def modelToFrame(lengthFrame):
+        self.actual_path = path.Path()
+
+    def modelToFrame(self):
         """
 
             The modelToFrame function
@@ -57,7 +62,12 @@ class Car(observable.Observable):
                 >>> | FrontMotor | rearLeftMotor | rearRightMotor | 00....00 |
                      --------------------------------------------------------
 
-            Model for one motor :
+            Model for front motor : 
+                     -----------------------------------
+                >>> | State (2 bites) | angle (6 bites) |
+                     -----------------------------------
+
+            Model for rear motor :
                      -----------------------------------
                 >>> | State (2 bites) | speed (6 bites) |
                      -----------------------------------
@@ -69,21 +79,23 @@ class Car(observable.Observable):
 
         """
         frame = ""
-
-        for motor in self.motors:
+	
+        frame = chr(self.direction_motor.getState() + self.direction_motor.getAngle())
+	
+        for motor in self.rear_motors:
             frame = frame + chr(motor.getState() + motor.getSpeed())
-
-        for sensor in self.sensors:
-            frame = frame + chr(sensor.fillFrame())
-
-        frame = frame + chr(battery.fillFrame())
-
-        print (frame)
         
+        for _ in self.rear_motors:
+            frame = frame + chr(0) # distance 
+        for _ in self.sensors:
+            frame = frame + chr(0) # sensor
+
+        frame = frame + chr(0) # battery
+
         return frame
 
 
-    def frameToModel(dataReceived):
+    def frameToModel(self, dataReceived):
         """
 
             The frameToModel function
@@ -91,27 +103,30 @@ class Car(observable.Observable):
 
             Used to translate a frame received from the STM to update the model
             Model of the frame v.1 :
-                     --------------------------------------
-                >>> | 00..00 | UltrasoundSensors | Battery |
-                     --------------------------------------
+                     -------------------------------------------------
+                >>> | 00..00 | Distance | UltrasoundSensors | Battery |
+                     -------------------------------------------------
 
-            Model for one sensor:
+            Model for the battery:
                      ---------------------------------------
                 >>> | 0..0 (7 bites) | 0/1 (charged or not) |
                      ---------------------------------------
-
-            For the battery:
-                >>>
 
             :param a: The received frame
             :type a: string of 80 characters
 
         """
-        notify_observers(self, dataReceived)
+        self.actual_path.set_distance(int(dataReceived[3]), int(dataReceived[4]))  
+
+        for i in range(0..len(self.sensors)):
+            self.sensors.set_distance(int(dataReceived[5+i]))
+        
+        self.battery.set_charged(int(dataReceived[11]))
+        #observable.notify_observers(self, dataReceived)
 
 
 
-    def moveForward():
+    def moveForward(self, speed):
         """
 
             The moveForward function
@@ -120,10 +135,10 @@ class Car(observable.Observable):
             Used to transmite the command to move forward to all the motors.
 
         """
-        for motor in self.motors:
-            motor.moveForward
+        for motor in self.rear_motors:
+            motor.moveForward(speed)
 
-    def moveBackward():
+    def moveBackward(self, speed):
         """
 
             The moveForward function
@@ -132,10 +147,10 @@ class Car(observable.Observable):
             Used to transmite the command to move backward to all the motors.
 
         """
-        for motor in self.motors:
-            motor.moveBackward
+        for motor in self.rear_motors:
+            motor.moveBackward(speed)
 
-    def stop():
+    def stop(self):
         """
 
             The moveForward function
@@ -144,35 +159,34 @@ class Car(observable.Observable):
             Used to transmite the command to stop to all the motors.
 
         """
-        for motor in self.motors:
-            motor.stop
+        for motor in self.rear_motors:
+            motor.stop()
 
-    def turnLeft():
+    def turnLeft(self, angle):
         """
 
-            The moveForward function
+            The turnLeft function
             -------------------------
 
             Used to transmite the command to turn left to all the motors.
 
         """
-        for motor in self.motors:
-            motor.turnLeft
+        self.direction_motor.turnLeft(angle)
 
-    def turnRight():
+    def turnRight(self,angle):
         """
 
-            The moveForward function
+            The turnRight function
             -------------------------
 
             Used to transmite the command to turn right to all the motors.
 
         """
-        for motor in self.motors:
-            motor.turnRight
+        self.direction_motor.turnRight(angle)
 
 
-
+    def set_path(self, path):
+        self.actual_path = path
 
 
 

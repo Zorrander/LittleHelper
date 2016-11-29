@@ -26,23 +26,13 @@ class Battery():
 
     """
 
-    def fillFrame():
-        """
-
-            The fillFrame function
-            ----------------------
-
-            used to send information about the battery to the STM32
-
-        """
-        tmp = ''
-
-        while ( len(str(tmp)) < 8 ):
-            tmp = '0' + tmp
-
-        return tmp
-
     def __init__(self):
        self.charged = True
+
+    def set_charged(value):
+        if(value == 1):
+            self.charged = True
+        else:
+            self.charged = False     
 
 
