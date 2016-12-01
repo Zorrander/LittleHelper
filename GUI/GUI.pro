@@ -37,4 +37,7 @@ DISTFILES += \
     ../Controllers/window.py \
     ../Observer/observable.py \
     ../Observer/observer.py \
-    ../Controllers/StmController.py
+    ../Controllers/StmController.py \
+    ../Controllers/preloadedPath.py \
+    ../Model/path.py \
+    ../Model/instructions.py

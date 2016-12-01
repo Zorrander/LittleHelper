@@ -12,7 +12,7 @@
 
 import sys
 from Model import car
-import wiringpi
+#import wiringpi
 import time
 from threading import Thread
 
@@ -32,8 +32,8 @@ class StmController(Thread):
         self.model = model
         self.SPIchannel = 0
         SPIspeed = 562500
-        wiringpi.wiringPiSetupGpio()
-        wiringpi.wiringPiSPISetupMode(self.SPIchannel, SPIspeed, 0)
+        #wiringpi.wiringPiSetupGpio()
+        #wiringpi.wiringPiSPISetupMode(self.SPIchannel, SPIspeed, 0)
         
         Thread.__init__(self)
 
@@ -41,7 +41,7 @@ class StmController(Thread):
 
         while(1):
             sendData = self.buildFrame()
-            recvData = wiringpi.wiringPiSPIDataRW(self.SPIchannel, sendData)
+            #recvData = wiringpi.wiringPiSPIDataRW(self.SPIchannel, sendData)
 
     def buildFrame(self):
 

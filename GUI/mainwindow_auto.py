@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Mon Nov 28 21:21:16 2016
-#      by: PyQt5 UI code generator 5.0
+# Created by: PyQt5 UI code generator 5.7
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -26,7 +25,8 @@ class Ui_MainWindow(object):
 "    background-image: url(:/img/background.png)\n"
 "}\n"
 "\n"
-"QWidget#MyPaths, QWidget#Cmd, QWidget#GeneralView, QWidget#TabMotors,QWidget#TabSensors{\n"
+"QWidget#MyPaths, QWidget#Cmd, QWidget#GeneralView, QWidget#TabMotors,QWidget#TabSensors,QWidget#TabCamera\n"
+"{\n"
 "    background-image: url(:/img/background2.png)\n"
 "}\n"
 "\n"
@@ -179,6 +179,38 @@ class Ui_MainWindow(object):
 "border:none;\n"
 "")
         self.textBrowser_8.setObjectName("textBrowser_8")
+        self.label = QtWidgets.QLabel(self.GeneralView)
+        self.label.setGeometry(QtCore.QRect(300, 160, 241, 211))
+        self.label.setText("")
+        self.label.setPixmap(QtGui.QPixmap(":/img/car-top-view.png"))
+        self.label.setObjectName("label")
+        self.textBrowser_3 = QtWidgets.QTextBrowser(self.GeneralView)
+        self.textBrowser_3.setGeometry(QtCore.QRect(120, 170, 111, 41))
+        self.textBrowser_3.setObjectName("textBrowser_3")
+        self.textBrowser_4 = QtWidgets.QTextBrowser(self.GeneralView)
+        self.textBrowser_4.setGeometry(QtCore.QRect(120, 250, 111, 41))
+        self.textBrowser_4.setObjectName("textBrowser_4")
+        self.textBrowser_11 = QtWidgets.QTextBrowser(self.GeneralView)
+        self.textBrowser_11.setGeometry(QtCore.QRect(120, 330, 111, 41))
+        self.textBrowser_11.setObjectName("textBrowser_11")
+        self.textBrowser_12 = QtWidgets.QTextBrowser(self.GeneralView)
+        self.textBrowser_12.setGeometry(QtCore.QRect(610, 250, 111, 41))
+        self.textBrowser_12.setObjectName("textBrowser_12")
+        self.textBrowser_13 = QtWidgets.QTextBrowser(self.GeneralView)
+        self.textBrowser_13.setGeometry(QtCore.QRect(610, 330, 111, 41))
+        self.textBrowser_13.setObjectName("textBrowser_13")
+        self.textBrowser_14 = QtWidgets.QTextBrowser(self.GeneralView)
+        self.textBrowser_14.setGeometry(QtCore.QRect(610, 170, 111, 41))
+        self.textBrowser_14.setObjectName("textBrowser_14")
+        self.textBrowser_15 = QtWidgets.QTextBrowser(self.GeneralView)
+        self.textBrowser_15.setGeometry(QtCore.QRect(300, 110, 81, 41))
+        self.textBrowser_15.setObjectName("textBrowser_15")
+        self.textBrowser_16 = QtWidgets.QTextBrowser(self.GeneralView)
+        self.textBrowser_16.setGeometry(QtCore.QRect(460, 110, 81, 41))
+        self.textBrowser_16.setObjectName("textBrowser_16")
+        self.textBrowser_17 = QtWidgets.QTextBrowser(self.GeneralView)
+        self.textBrowser_17.setGeometry(QtCore.QRect(300, 400, 241, 31))
+        self.textBrowser_17.setObjectName("textBrowser_17")
         self.tabWidget.addTab(self.GeneralView, "")
         self.TabMotors = QtWidgets.QWidget()
         self.TabMotors.setStyleSheet("")
@@ -212,10 +244,25 @@ class Ui_MainWindow(object):
 "")
         self.textBrowser_10.setObjectName("textBrowser_10")
         self.tabWidget.addTab(self.TabSensors, "")
+        self.TabCamera = QtWidgets.QWidget()
+        self.TabCamera.setObjectName("TabCamera")
+        self.textBrowser_18 = QtWidgets.QTextBrowser(self.TabCamera)
+        self.textBrowser_18.setGeometry(QtCore.QRect(120, 40, 571, 41))
+        self.textBrowser_18.setStyleSheet("background-color: rgb(114, 114, 114);\n"
+"color: rgb(255, 255, 255);\n"
+"border:none;\n"
+"")
+        self.textBrowser_18.setObjectName("textBrowser_18")
+        self.videoFrame = QtWidgets.QLabel(self.TabCamera)
+        self.videoFrame.setGeometry(QtCore.QRect(30, 110, 361, 311))
+        self.videoFrame.setStyleSheet("background-color: rgb(0, 0, 0);")
+        self.videoFrame.setText("")
+        self.videoFrame.setObjectName("videoFrame")
+        self.tabWidget.addTab(self.TabCamera, "")
         MainWindow.setCentralWidget(self.centralWidget)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(6)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -275,6 +322,51 @@ class Ui_MainWindow(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">General state of the car</span></p></body></html>"))
+        self.textBrowser_3.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">0</p></body></html>"))
+        self.textBrowser_4.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">0</p></body></html>"))
+        self.textBrowser_11.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">0</p></body></html>"))
+        self.textBrowser_12.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">0</p></body></html>"))
+        self.textBrowser_13.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">0</p></body></html>"))
+        self.textBrowser_14.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">0</p></body></html>"))
+        self.textBrowser_15.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">0</p></body></html>"))
+        self.textBrowser_16.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">0</p></body></html>"))
+        self.textBrowser_17.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Battery</p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.GeneralView), _translate("MainWindow", "Overview"))
         self.textBrowser_6.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -285,7 +377,7 @@ class Ui_MainWindow(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">Motors diagnostic</span></p></body></html>"))
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">Motors diagnosis</span></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.TabMotors), _translate("MainWindow", "Motors"))
         self.textBrowser_7.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -296,7 +388,13 @@ class Ui_MainWindow(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">Sensors diagnostic</span></p></body></html>"))
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">Sensors diagnosis</span></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.TabSensors), _translate("MainWindow", "Sensors"))
+        self.textBrowser_18.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">Camera point of view</span></p></body></html>"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.TabCamera), _translate("MainWindow", "Camera"))
 
 import GUI.res_rc
