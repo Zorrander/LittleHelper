@@ -25,6 +25,8 @@ from . import preloadedPath
 
 class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
 
+
+
     def __init__(self, model, preloadPath):
 
         observer.Observer.__init__(self, model)
@@ -38,7 +40,6 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.play)
         self.timer.start(27)
-        #self.update()
         # Buttons
         self.ui.myPathsButton.clicked.connect(lambda: self.pressedMyPathsButton())
         self.ui.cmdButton.clicked.connect(lambda: self.pressedCmdButton())

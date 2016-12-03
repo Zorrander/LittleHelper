@@ -120,9 +120,10 @@ class Car(observable.Observable):
 
         for i in range(0..len(self.sensors)):
             self.sensors.set_distance(int(dataReceived[5+i]))
+            self.notify_distance_observers(self, dataReceived[5+i])
         
         self.battery.set_charged(int(dataReceived[11]))
-        #observable.notify_observers(self, dataReceived)
+
 
 
 
