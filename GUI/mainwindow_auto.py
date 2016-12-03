@@ -246,18 +246,28 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.TabSensors, "")
         self.TabCamera = QtWidgets.QWidget()
         self.TabCamera.setObjectName("TabCamera")
-        self.textBrowser_18 = QtWidgets.QTextBrowser(self.TabCamera)
-        self.textBrowser_18.setGeometry(QtCore.QRect(120, 40, 571, 41))
-        self.textBrowser_18.setStyleSheet("background-color: rgb(114, 114, 114);\n"
+        self.titleCameraTab = QtWidgets.QTextBrowser(self.TabCamera)
+        self.titleCameraTab.setGeometry(QtCore.QRect(120, 40, 571, 41))
+        self.titleCameraTab.setStyleSheet("background-color: rgb(114, 114, 114);\n"
 "color: rgb(255, 255, 255);\n"
 "border:none;\n"
 "")
-        self.textBrowser_18.setObjectName("textBrowser_18")
+        self.titleCameraTab.setObjectName("titleCameraTab")
         self.videoFrame = QtWidgets.QLabel(self.TabCamera)
         self.videoFrame.setGeometry(QtCore.QRect(30, 110, 361, 311))
         self.videoFrame.setStyleSheet("background-color: rgb(0, 0, 0);")
         self.videoFrame.setText("")
         self.videoFrame.setObjectName("videoFrame")
+        self.computedVideoFrame = QtWidgets.QLabel(self.TabCamera)
+        self.computedVideoFrame.setGeometry(QtCore.QRect(410, 110, 361, 311))
+        self.computedVideoFrame.setStyleSheet("background-color: rgb(0, 0, 0);")
+        self.computedVideoFrame.setText("")
+        self.computedVideoFrame.setObjectName("computedVideoFrame")
+        self.textBrowser_18 = QtWidgets.QTextBrowser(self.TabCamera)
+        self.textBrowser_18.setGeometry(QtCore.QRect(130, 436, 611, 25))
+        self.textBrowser_18.setStyleSheet("background-color: rgb(98, 4, 0);\n"
+"border:none")
+        self.textBrowser_18.setObjectName("textBrowser_18")
         self.tabWidget.addTab(self.TabCamera, "")
         MainWindow.setCentralWidget(self.centralWidget)
 
@@ -390,11 +400,16 @@ class Ui_MainWindow(object):
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">Sensors diagnosis</span></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.TabSensors), _translate("MainWindow", "Sensors"))
-        self.textBrowser_18.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.titleCameraTab.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">Camera point of view</span></p></body></html>"))
+        self.textBrowser_18.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"right\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">Miles Prower 2017.</span></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.TabCamera), _translate("MainWindow", "Camera"))
 
 import GUI.res_rc

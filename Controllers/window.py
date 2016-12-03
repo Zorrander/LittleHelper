@@ -13,36 +13,15 @@
 import sys
 import PyQt5
 import cv2
-import numpy as np
 from PyQt5.QtWidgets import *
 from PyQt5 import QtGui, QtCore, Qt
 import GUI.mainwindow_auto
 from Model import car
 from Observer import observer
+from . import video
 from . import preloadedPath
 
 
-class Video():
-
-    def __init__(self,capture):
-        self.capture = capture
-        self.currentFrame = np.array([])
-
-    def captureNextFrame(self):
-        ret, readFrame = self.capture.read()
-        if(ret == True):
-            self.currentFrame=cv2.cvtColor(readFrame,cv2.COLOR_BGR2RGB)
-
-
-    def convertFrame(self):
-        try:
-            height,width = self.currentFrame.shape[:2]
-            img = QtGui.QImage(self.currentFrame, width, height, QtGui.QImage.Format_RGB888)
-            img = QtGui.QPixmap.fromImage(img)
-            self.previousFrame = self.currentFrame
-            return img
-        except:
-            return None
 
 class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
 
@@ -55,12 +34,12 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
         self.ui.setupUi(self)
 
         # Video
-        self.video = Video(cv2.VideoCapture(0))
+        self.video = video.Video(cv2.VideoCapture(0))
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.play)
         self.timer.start(27)
-        self.update()
-        # go!
+        #self.update()
+        # Buttons
         self.ui.myPathsButton.clicked.connect(lambda: self.pressedMyPathsButton())
         self.ui.cmdButton.clicked.connect(lambda: self.pressedCmdButton())
         self.ui.overviewButton.clicked.connect(lambda: self.pressedOverviewButton())
@@ -73,11 +52,22 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
         self.ui.rightButton.clicked.connect(lambda: self.pressedRightButton())
         self.ui.pathButton.clicked.connect(lambda: self.pressedPathButton())
 
+
+
+
+
+    def stop(self):
+        self.timer.stop()
+        self.video.stop()
+        self.close()
+
     def play(self):
            try:
+
                self.video.captureNextFrame()
-               self.ui.videoFrame.setPixmap(self.video.convertFrame())
-               self.ui.videoFrame.setScaledContents(True)
+               self.video.displayCamera(self.ui)
+               #self.video.displayEdgeDetection(self.ui)
+               self.video.displayBackgroundSubstraction(self.ui)
            except TypeError:
                print ("No frame")
 

@@ -15,21 +15,7 @@ from Model import car
 
 
 
-def singleton(classe):
 
-    """
-        This will be used to ensure the unicity of the instance of our application
-    """
-
-    instances = {}
-    def get_instance():
-        if classe not in instances:
-            instances[classe] = classe()
-        return instances[classe]
-    return get_instance
-
-
-@singleton
 class MilesApp():
 
     """
@@ -43,13 +29,21 @@ class MilesApp():
 
     """
 
-    def __init__(self):
+    def __init__(self, instance):
+        self.app = instance
+        instance.aboutToQuit.connect(self.cleanUp)
         self.model = car.Car()
         self.preloadedPaths = preloadedPath.PreloadedPaths(self.model)
         self.spi = StmController.StmController(self.model)
         self.window = window.Window(self.model, self.preloadedPaths)
         self.window.show()
         self.spi.start()
+
+    def cleanUp(self):
+        self.window.stop()
+        print("window closed")
+        #self.spi.stop()
+
 
 
 
@@ -60,10 +54,9 @@ def main():
     """
 
     app = QApplication(sys.argv)
-    miles = MilesApp()
-        
+    miles = MilesApp(app)
     sys.exit(app.exec_())
-    miles.spi.join()
+
 
 if __name__ == "__main__":
 

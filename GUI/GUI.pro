@@ -40,4 +40,5 @@ DISTFILES += \
     ../Controllers/StmController.py \
     ../Controllers/preloadedPath.py \
     ../Model/path.py \
-    ../Model/instructions.py
+    ../Model/instructions.py \
+    ../Controllers/video.py
