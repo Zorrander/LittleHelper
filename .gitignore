@@ -7,5 +7,6 @@
 *.pro
 *.user
 *.qrc
-Makefile
-GUI
+
+#init files
+__init__.py

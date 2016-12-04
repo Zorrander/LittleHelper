@@ -18,8 +18,8 @@ from PyQt5 import QtGui, QtCore, Qt
 import GUI.mainwindow_auto
 from Model import car
 from Observer import observer
-from . import video
-from . import preloadedPath
+import video
+import preloadedPath
 
 
 
@@ -52,9 +52,12 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
         self.ui.leftButton.clicked.connect(lambda: self.pressedLeftButton())
         self.ui.rightButton.clicked.connect(lambda: self.pressedRightButton())
         self.ui.pathButton.clicked.connect(lambda: self.pressedPathButton())
+        self.ui.changeButton.clicked.connect(lambda: self.pressedChangeButton())
 
 
 
+    def pressedChangeButton(self):
+        self.model.changeValues()
 
 
     def stop(self):
@@ -71,6 +74,32 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
                self.video.displayBackgroundSubstraction(self.ui)
            except TypeError:
                print ("No frame")
+
+    def checkSensor(self, sensor):
+        """
+        Perform analysis on the sensor before displaying on the RasPi
+
+        ////!!!!!\\\\\
+        NEED TO BE MODIFIED TO TAKE INTO ACCOUNT ALL THE SENSORS
+        ////!!!!!\\\\\
+        """
+        distance = sensor.getDist()
+        if (distance < 40):
+            self.ui.us_ar.setText(str(distance))
+            self.ui.us_ar.setStyleSheet("background-color:red;")
+        elif (distance < 80):
+            self.ui.us_ar.setText(str(distance))
+            self.ui.us_ar.setStyleSheet("background-color:orange;")
+        elif (distance < 180):
+            self.ui.us_ar.setText(str(distance))
+            self.ui.us_ar.setStyleSheet("background-color:green;")
+        elif (distance > 300):
+            print("POTENTIAL ERROR")
+
+
+    def update(self):
+        for sensor in self.model.sensors:
+            self.checkSensor(sensor)
 
 
     def pressedMyPathsButton(self):

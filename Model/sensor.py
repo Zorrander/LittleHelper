@@ -79,5 +79,8 @@ class UltrasoundSensor(Sensor):
     def notify():
         pass
     
-    def set_distance(distance):
+    def set_distance(self, distance):
         self.distance = distance
+
+    def getDist(self):
+        return self.distance

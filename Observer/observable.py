@@ -20,6 +20,6 @@ class Observable:
         self.__observers.append(observer)
 
 
-    def notify_distance_observers(self, distance):
+    def notify_distance_observers(self):
         for observer in self.__observers:
-            observer.notify_distance(self, distance)
+            observer.notify_distance()

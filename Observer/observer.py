@@ -15,5 +15,7 @@ class Observer:
     def __init__(self, observable):
         observable.register_observer(self)
 
-    def notify_distance(self, distance):
-        print('Got : ', distance)
+    def notify_distance(self):
+        print('Got notified')
+        self.update()
+

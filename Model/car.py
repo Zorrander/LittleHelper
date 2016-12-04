@@ -10,9 +10,7 @@
 
 """
 
-import sys
-from . import battery, motor, sensor, path
-from struct import *
+from Model import battery, motor, path, sensor
 from Observer import observable
 
 
@@ -49,6 +47,15 @@ class Car(observable.Observable):
         self.sensors.append(sensor.UltrasoundSensor())
 
         self.actual_path = path.Path()
+
+    def changeValues(self):
+        for sensor in self.sensors:
+            sensor.set_distance(1700)
+
+        self.notify_distance_observers()
+
+    def getSensor(self, index):
+        return self.sensors[index].getDist()
 
     def modelToFrame(self):
         """
@@ -120,7 +127,7 @@ class Car(observable.Observable):
 
         for i in range(0..len(self.sensors)):
             self.sensors.set_distance(int(dataReceived[5+i]))
-            self.notify_distance_observers(self, dataReceived[5+i])
+            self.notify_distance_observers(self, dataReceived[5+i], i)
         
         self.battery.set_charged(int(dataReceived[11]))
 
