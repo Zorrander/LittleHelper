@@ -1,0 +1,11 @@
+# Python bytecode
+*.pyc
+
+#Qt code
+*.cpp
+*.o
+*.pro
+*.user
+*.qrc
+Makefile
+GUI
