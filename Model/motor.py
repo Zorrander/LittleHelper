@@ -13,11 +13,6 @@
 import sys
 from abc import ABCMeta, abstractmethod
 
-LEFT=0
-RIGHT=128
-FORWARD = 0
-BACKWARD = 128
-
 
 class FrontMotor():
 
@@ -31,7 +26,6 @@ class FrontMotor():
     """
 
     def __init__(self):
-        self.state = 0
         self.angle = 0 
 
     def notify(self):
@@ -39,16 +33,11 @@ class FrontMotor():
 
     def turnLeft(self, angle):
         print("turnLeft")
-        self.state = LEFT
         self.angle = angle
 
     def turnRight(self, angle):
         print("turnRight")
-        self.state = RIGHT
-        self.angle = angle
-
-    def getState(self):
-        return self.state
+        self.angle = -angle
 
     def getAngle(self):
         return self.angle
@@ -65,18 +54,15 @@ class RearMotor():
     """
 
     def __init__(self):
-        self.state = 0 
         self.speed = 0
 
     def moveForward(self, speed):
         print("moveForward")
-        self.state = FORWARD
         self.speed = speed
 
     def moveBackward(self, speed):
         print("moveBackward")
-        self.state = BACKWARD
-        self.speed = speed
+        self.speed = -speed
 
     
     def stop(self):
@@ -85,9 +71,6 @@ class RearMotor():
     
     def notify(self):
         pass
-
-    def getState(self):
-        return self.state
 
     def getSpeed(self):
         return self.speed

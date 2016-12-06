@@ -12,13 +12,13 @@
 
 import sys
 import PyQt5
-import cv2
+#import cv2
 from PyQt5.QtWidgets import *
 from PyQt5 import QtGui, QtCore, Qt
 import GUI.mainwindow_auto
 from Model import car
 from Observer import observer
-import video
+#import video
 import preloadedPath
 
 
@@ -34,12 +34,12 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
         self.model = model
         self.ui = GUI.mainwindow_auto.Ui_MainWindow()
         self.ui.setupUi(self)
-
+	self.preloadPath = preloadPath
         # Video
-        self.video = video.Video(cv2.VideoCapture(0))
-        self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.play)
-        self.timer.start(27)
+        #self.video = video.Video(cv2.VideoCapture(0))
+        #self.timer = QtCore.QTimer(self)
+        #self.timer.timeout.connect(self.play)
+        #self.timer.start(27)
         # Buttons
         self.ui.myPathsButton.clicked.connect(lambda: self.pressedMyPathsButton())
         self.ui.cmdButton.clicked.connect(lambda: self.pressedCmdButton())
@@ -52,12 +52,6 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
         self.ui.leftButton.clicked.connect(lambda: self.pressedLeftButton())
         self.ui.rightButton.clicked.connect(lambda: self.pressedRightButton())
         self.ui.pathButton.clicked.connect(lambda: self.pressedPathButton())
-        self.ui.changeButton.clicked.connect(lambda: self.pressedChangeButton())
-
-
-
-    def pressedChangeButton(self):
-        self.model.changeValues()
 
 
     def stop(self):
@@ -103,19 +97,19 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
 
 
     def pressedMyPathsButton(self):
-        self.tabWidget.setCurrentIndex(1)
+        self.ui.tabWidget.setCurrentIndex(1)
 
     def pressedCmdButton(self):
-        self.tabWidget.setCurrentIndex(2)
+        self.ui.tabWidget.setCurrentIndex(2)
 
     def pressedOverviewButton(self):
-        self.tabWidget.setCurrentIndex(3)
+        self.ui.tabWidget.setCurrentIndex(3)
 
     def pressedMotorsButton(self):
-        self.tabWidget.setCurrentIndex(4)
+        self.ui.tabWidget.setCurrentIndex(4)
 
     def pressedSensorsButton(self):
-        self.tabWidget.setCurrentIndex(5)
+        self.ui.tabWidget.setCurrentIndex(5)
 
     def pressedForwardButton(self):
         self.model.moveForward(20)

@@ -80,10 +80,10 @@ class Car(observable.Observable):
         """
         frame = ""
 	
-        frame = self.to_chr(self.direction_motor.getAngle())
+        frame = to_chr(self.direction_motor.getState() + self.direction_motor.getAngle())
 	
         for motor in self.rear_motors:
-            frame = frame + self.to_chr(motor.getSpeed())
+            frame = frame + to_chr(motor.getState() + motor.getSpeed())
         
         for _ in self.rear_motors:
             frame = frame + chr(0) # distance 
@@ -189,11 +189,6 @@ class Car(observable.Observable):
     def set_path(self, path):
         self.actual_path = path
 
-    @staticmethod
-    def to_chr(n):
-        if n<0:
-            res=256+n
-        else:
-            res=n
-        return chr(res)
+
+
 
