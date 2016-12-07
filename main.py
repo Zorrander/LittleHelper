@@ -42,7 +42,7 @@ class MilesApp():
     def cleanUp(self):
         self.window.stop()
         print("window closed")
-        #self.spi.stop()
+#        self.spi.stop()
 
 
 

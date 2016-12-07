@@ -116,14 +116,14 @@ class Car(observable.Observable):
             :type a: string of 80 characters
 
         """
-        self.actual_path.set_distance(int(dataReceived[3]), int(dataReceived[4]))  
-
-        for i in range(0..len(self.sensors)):
-            self.sensors.set_distance(int(dataReceived[5+i]))
-            self.notify_distance_observers(self, dataReceived[5+i])
+        # We transform the received Frame data from hexa to integer
+        recvValue = map(ord, dataReceived[1])
+        self.actual_path.set_distance(recvValue[3],recvValue[4])  
+#        for i in range(0..len(self.sensors[:])):
+#            self.sensors.set_distance(recvValue[5+i])
+#            self.notify_distance_observers(self, recvValue[5+i])
         
-        self.battery.set_charged(int(dataReceived[11]))
-
+#        self.battery.set_charged(recvValue[11])
 
 
 

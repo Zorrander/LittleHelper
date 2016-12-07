@@ -127,6 +127,6 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
         self.model.turnRight(30)
 
     def pressedPathButton(self):
-        self.preloadPath.start_moving(0)
+        self.preloadPath.start_path(0)
 
 
