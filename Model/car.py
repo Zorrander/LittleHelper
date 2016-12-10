@@ -15,6 +15,12 @@ from . import battery, motor, sensor, path
 from struct import *
 from Observer import observable
 
+FRONT_SENSOR = 0
+FRONT_LEFT_SENSOR = 1
+FRONT_RIGHT_SENSOR = 2
+REAR_SENSOR = 3
+REAR_LEFT_SENSOR = 4
+REAR_RIGHT_SENSOR = 5
 
 class Car(observable.Observable):
 
@@ -41,12 +47,12 @@ class Car(observable.Observable):
         self.rear_motors.append(motor.RearMotor())
         self.rear_motors.append(motor.RearMotor())
         self.sensors = []
-        self.sensors.append(sensor.UltrasoundSensor())
-        self.sensors.append(sensor.UltrasoundSensor())
-        self.sensors.append(sensor.UltrasoundSensor())
-        self.sensors.append(sensor.UltrasoundSensor())
-        self.sensors.append(sensor.UltrasoundSensor())
-        self.sensors.append(sensor.UltrasoundSensor())
+        self.sensors.append(sensor.UltrasoundSensor(FRONT_SENSOR))
+        self.sensors.append(sensor.UltrasoundSensor(FRONT_LEFT_SENSOR))
+        self.sensors.append(sensor.UltrasoundSensor(FRONT_RIGHT_SENSOR))
+        self.sensors.append(sensor.UltrasoundSensor(REAR_SENSOR))
+        self.sensors.append(sensor.UltrasoundSensor(REAR_LEFT_SENSOR))
+        self.sensors.append(sensor.UltrasoundSensor(REAR_RIGHT_SENSOR))
 
         self.actual_path = path.Path()
 
@@ -118,11 +124,12 @@ class Car(observable.Observable):
         """
         # We transform the received Frame data from hexa to integer
         recvValue = map(ord, dataReceived[1])
-        self.actual_path.set_distance(recvValue[3],recvValue[4])  
-#        for i in range(0..len(self.sensors[:])):
-#            self.sensors.set_distance(recvValue[5+i])
-#            self.notify_distance_observers(self, recvValue[5+i])
-        
+        self.actual_path.set_distance(recvValue[3],recvValue[4])
+        i = 0  
+        for sensor in self.sensors :
+            sensor.set_distance(recvValue[5+i])
+            i = i+1
+        self.notify_distance_observers()      
 #        self.battery.set_charged(recvValue[11])
 
 

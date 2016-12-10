@@ -20,11 +20,12 @@ from Model import car
 from Observer import observer
 #import video
 import preloadedPath
-
+from PyQt5.QtCore import pyqtSignal, pyqtSlot
 
 
 class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
 
+    update = pyqtSignal()
 
 
     def __init__(self, model, preloadPath):
@@ -33,8 +34,10 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
         super(self.__class__, self).__init__()
         self.model = model
         self.ui = GUI.mainwindow_auto.Ui_MainWindow()
-        self.ui.setupUi(self)
-	self.preloadPath = preloadPath
+        self.ui.setupUi(self)  
+	self.preloadPath = preloadPath  
+#        self.update.connect(self.checkSensor)
+
         # Video
         #self.video = video.Video(cv2.VideoCapture(0))
         #self.timer = QtCore.QTimer(self)
@@ -69,32 +72,34 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
            except TypeError:
                print ("No frame")
 
-    def checkSensor(self, sensor):
+    def processId(self, sensor, distance):
+        id = sensor.getId()
+        if id == 0:
+            self.ui.us_av.setText(str(distance))
+        if id == 1:
+            self.ui.us_av_g.setText(str(distance))
+        if id == 2:
+            self.ui.us_av_d.setText(str(distance))
+        if id == 3:
+            self.ui.us_ar.setText(str(distance))
+        if id == 4:
+            self.ui.us_ar_g.setText(str(distance))
+        if id == 5:
+            self.ui.us_ar_d.setText(str(distance))
+
+    @pyqtSlot()
+    def checkSensor(self):
         """
         Perform analysis on the sensor before displaying on the RasPi
-
-        ////!!!!!\\\\\
-        NEED TO BE MODIFIED TO TAKE INTO ACCOUNT ALL THE SENSORS
-        ////!!!!!\\\\\
-        """
-        distance = sensor.getDist()
-        if (distance < 40):
-            self.ui.us_ar.setText(str(distance))
-            self.ui.us_ar.setStyleSheet("background-color:red;")
-        elif (distance < 80):
-            self.ui.us_ar.setText(str(distance))
-            self.ui.us_ar.setStyleSheet("background-color:orange;")
-        elif (distance < 180):
-            self.ui.us_ar.setText(str(distance))
-            self.ui.us_ar.setStyleSheet("background-color:green;")
-        elif (distance > 300):
-            print("POTENTIAL ERROR")
+        """ 
+        for sensor in self.model.sensors: 
+            distance = sensor.getDist()
+            print("Got a distance of " + str(distance))
+            sensor = self.processId(sensor, distance)
 
 
     def update(self):
-        for sensor in self.model.sensors:
-            self.checkSensor(sensor)
-
+        self.update.emit()
 
     def pressedMyPathsButton(self):
         self.ui.tabWidget.setCurrentIndex(1)

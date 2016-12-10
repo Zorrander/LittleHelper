@@ -10,7 +10,7 @@
 
 import sys
 
-class Observer:
+class Observer():
 
     def __init__(self, observable):
         observable.register_observer(self)

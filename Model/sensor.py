@@ -12,7 +12,7 @@
 
 import sys
 from abc import ABCMeta, abstractmethod
-
+from PyQt5.QtCore import QObject, pyqtSignal
 
 class Sensor:
 
@@ -72,15 +72,18 @@ class UltrasoundSensor(Sensor):
 
     """
 
-    def __init__(self):
+    def __init__(self, id):
         super(self.__class__, self).__init__()
         self.distance = 0
+        self.id = id
 
     def notify():
         pass
+    def getId(self):
+        return self.id
     
     def set_distance(self, distance):
         self.distance = distance
-
+        print(str(distance))
     def getDist(self):
         return self.distance
