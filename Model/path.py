@@ -24,6 +24,7 @@ class Path():
         # list of instructions corresponding to the path
         self.instructions_list = []
         self.distance = [0,0]
+        self.flag = False
 
     def add_instruction(self, instruction):
         """
@@ -52,17 +53,16 @@ class Path():
     def update_current_instruction(self):
         """
         """
+        flag = False
         current_distance = (self.distance[0] + self.distance[1])/2
+        print(str(self.distance[0]) + " - " + str(self.distance[1]) + "current distance : " +str(current_distance))
         # si on parcouru la distance recherché 
-        if(self.instructions_list[0].get_distance() == current_distance):
-            del_first_instruction(self) # on passe a l'action suivante
-            if (self.instructions_list):
-                pass 
-                #updateModel() 
-        # si on parcouru plus que la distance recherché
-        elif(current_distance > self.instructions_list[0].get_distance()):
-            del_first_instruction(self)
-            print ("Too far, careful")
+        if(self.instructions_list[0].get_distance() <= current_distance):
+            self.del_first_instruction() # on passe a l'action suivante
+            flag = True
+            
+        return flag
+            
 
         
 
