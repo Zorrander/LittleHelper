@@ -20,11 +20,12 @@ class Instruction():
        >>> specification 	
     """
     
-    def __init__(self, action, speed, angle, distance):
+    def __init__(self, action, speed, angle, distance, sleep_time):
 	self.action = action
 	self.speed = speed
-        self.angle = angle
-        self.distance = distance
+    self.angle = angle
+    self.distance = distance
+    self.sleep_time = 0
 
     def get_distance(self):
         return self.distance
@@ -37,3 +38,6 @@ class Instruction():
 
     def get_action(self):
         return self.action
+        
+    def get_sleep_time(self):
+        return self.sleep_time

@@ -12,6 +12,7 @@
 from Model import path
 from Model import instructions
 import threading 
+import time
 
 class PreloadedPaths():
 
@@ -33,25 +34,32 @@ class PreloadedPaths():
         self.thread.start() 
 
     def build_list(self):
-        forward_left = 0
-        forward_right = 1 
-        backward_left = 2
-        backward_right = 3
-        forward = 4
-        backward = 5
-        instruct_move = instructions.Instruction(forward, 35, 0, 100) 
-        instruct_move_fast = instructions.Instruction(forward, 75, 0, 200)
-        instruct_stop = instructions.Instruction(forward, 0, 0, 200)
-        instruct_turn_left = instructions.Instruction(forward_left, 35, 40, 150)
-        instruct_turn_right = instructions.Instruction(forward_right, 35, 40, 200)
+    
+        #instructions.Instruction(action, speed, angle, distance, sleep_time):
+        forward = 0
+        backward = 1
+        left = 2
+        right = 3
+        stop = 4
+        
+        # move 
+        instruct_move1 = instructions.Instruction(forward, 35, 0, 100, 0) 
+        instruct_move2 = instructions.Instruction(forward, 35, 0, 200, 0) 
+        # move fast
+        instruct_move_fast = instructions.Instruction(forward, 75, 0, 150, 0)
+        # stop 
+        instruct_stop = instructions.Instruction(stop, 0, 0, 0, 5)
+        # turn left
+        instruct_turn_left = instructions.Instruction(left, 0, 40, 0, 0)
+        # turn right
+        instruct_turn_right = instructions.Instruction(right, 0, 40, 0, 0)
 
         new_path = path.Path()
         new_path.add_instruction(instruct_move)
-#        new_path.add_instruction(instruct_move_fast)
-#        new_path.add_instruction(instruct_stop)
+        new_path.add_instruction(instruct_move_fast)
         new_path.add_instruction(instruct_turn_left)
-        new_path.add_instruction(instruct_turn_right)
-#        new_path.add_instruction(instruct_stop)
+        new_path.add_instruction(instruct_move)
+        new_path.add_instruction(instruct_stop)
       
         self.list_paths.append(new_path)
         print("Done building path") 
@@ -66,39 +74,66 @@ class PreloadedPaths():
       
 
     def start_moving(self):
+    forward = 0
+        backward = 1
+        left = 2
+        right = 3
+        stop = 4
+        
         while(1):	
             if (len(self.path_copy.get_path()) != 0):
                 current_instruction = self.path_copy.get_current_instruction()
-                instruction_speed = current_instruction.get_speed()
-                instruction_angle = current_instruction.get_angle()
                 
+                # forward
                 if (current_instruction.get_action() == 0):
+                    instruction_speed = current_instruction.get_speed()                
                     self.model.moveForward(instruction_speed)
-                    self.model.turnLeft(instruction_angle)
+                    if(current_instruction.get_distance() <= self.path_copy.get_current_distance()):
+                        self.path_copy.del_first_instruction() 
+                # backward
                 elif (current_instruction.get_action() == 1):
-                    self.model.moveForward(instruction_speed)
-                    self.model.turnRight(instruction_angle)
+                    instruction_speed = current_instruction.get_speed()        
+                    self.model.moveBackward(instruction_speed)
+                    if(current_instruction.get_distance() <= self.path_copy.get_current_distance()):
+                        self.path_copy.del_first_instruction() 
+                # left
                 elif (current_instruction.get_action() == 2):
-                    self.model.moveBackward(instruction_speed)
+                    # we stop the car before turning
+                    self.model.moveForward(0)
+                    instruction_angle = current_instruction.get_angle()
                     self.model.turnLeft(instruction_angle)
+                    # we update the position of the car 
+                    self.model.update_angle(instruction_angle)
+                    # We go on to the next action
+                    self.path_copy.del_first_instruction() 
+                # right 
                 elif (current_instruction.get_action() ==3):
-                    self.model.moveBackward(instruction_speed)
+                    # we stop the car before turning
+                    self.model.moveForward(0)
+                    instruction_angle = current_instruction.get_angle()
                     self.model.turnRight(instruction_angle)
+                    # we update the position of the car 
+                    self.model.update_angle(-instruction_angle)
+                    # We go on to the next action
+                    self.path_copy.del_first_instruction() 
+                # stop 
                 elif (current_instruction.get_action() == 4):
-                    self.model.moveForward(instruction_speed)
-                    self.model.turnRight(0)
-                elif (current_instruction.get_action() == 5):
-                    self.model.moveBackward(instruction_speed)
-                    self.model.turnRight(0)
+                    self.model.moveForward(0)
+                    time_sleep = current_instruction.get_time_sleep()
+                    time.sleep(time_sleep)
+                    # We go on to the next action
+                    self.path_copy.del_first_instruction() 
                 else:
                     print ("ERROR: Impossible to retrieve the informations of the current instruction")
 
-            changement = self.path_copy.update_current_instruction()
-            if(changement && (len(self.path_copy.get_path()) != 0)):
-                self.model.update_angle(current_instruction.get_angle())
+            if(len(self.path_copy.get_path()) != 0):
+                changement = self.path_copy.update_current_instruction()    
 
 
-
+        # si on parcouru la distance recherché 
+        if(current_instruction.get_distance() <= self.path_copy.get_current_distance()):
+            self.del_first_instruction() # on passe a l'action suivante
+        
 
 
     
