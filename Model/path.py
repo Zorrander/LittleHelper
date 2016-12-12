@@ -50,7 +50,7 @@ class Path():
         self.distance[0] = left_distance
         self.distance[1] = right_distance
         
-    def get_current_distance():
+    def get_current_distance(self):
         current_distance = (self.distance[0] + self.distance[1])/2  
         return current_distance
 

@@ -55,7 +55,7 @@ class Car(observable.Observable):
         self.last_distance = 0
         self.orientation = 0
 
-    def update_position(distance):
+    def update_position(self, distance):
         """
         Calcul of the new position according to the old position 
         the distance traveled since the old position and the current orientation 
@@ -72,17 +72,19 @@ class Car(observable.Observable):
         
         # calcul of the new position 
         self.position[0] += dx
-        self.position[0] += dy
+        self.position[1] += dy
+
+        print("position : ("+str(self.position[0])+","+str(self.position[1])+") + orientation : "+str(self.orientation))
     
-    def update_angle(angle):
+    def update_angle(self, angle):
         self.orientation += angle
-        if self.orientation => 360:
+        if self.orientation >= 360:
             self.orientation -= 360
-        else if self.orientation < 0
+        elif self.orientation < 0:
             self.orientation += 360
             
-    def update_distance(distance1, distance2):
-        current_distance = (recvValue[3] + recvValue[4])/2
+    def update_distance(self, distance1, distance2):
+        current_distance = (distance1 + distance2)/2
         delta_distance =  current_distance - self.last_distance
         
         # if the new distance is smaller than the old one, 

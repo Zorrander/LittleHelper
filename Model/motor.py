@@ -69,7 +69,6 @@ class RearMotor():
         self.speed = 0
 
     def moveForward(self, speed):
-        print("moveForward")
         self.state = FORWARD
         self.speed = speed
 
