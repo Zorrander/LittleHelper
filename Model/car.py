@@ -10,7 +10,10 @@
 
 """
 
-from Model import battery, motor, path, sensor
+import sys
+import math
+from . import battery, motor, sensor, path
+from struct import *
 from Observer import observable
 
 
@@ -48,15 +51,52 @@ class Car(observable.Observable):
 
         self.actual_path = path.Path()
 
-    def changeValues(self):
-        for sensor in self.sensors:
-            sensor.set_distance(1700)
+        self.position = [0,0] # coordonnee (x,y)
+        self.last_distance = 0
+        self.orientation = 0
 
-        self.notify_distance_observers()
+    def update_position(self, distance):
+        """
+        Calcul of the new position according to the old position 
+        the distance traveled since the old position and the current orientation 
+        
+        :param distance: the distance traveled since the old position in centimeter
+        :type distance: float
+        :param orientation: the current orientation in degrees
+        :type orientation: float 
+        
+        """
+        # calcul of delta x
+        dx = distance * math.cos(math.radians(self.orientation))
+        dy = distance * math.sin(math.radians(self.orientation))
+        
+        # calcul of the new position 
+        self.position[0] += dx
+        self.position[1] += dy
 
-    def getSensor(self, index):
-        return self.sensors[index].getDist()
-
+        print("position : ("+str(self.position[0])+","+str(self.position[1])+") + orientation : "+str(self.orientation))
+    
+    def update_angle(self, angle):
+        self.orientation += angle
+        if self.orientation >= 360:
+            self.orientation -= 360
+        elif self.orientation < 0:
+            self.orientation += 360
+            
+    def update_distance(self, distance1, distance2):
+        current_distance = (distance1 + distance2)/2
+        delta_distance =  current_distance - self.last_distance
+        
+        # if the new distance is smaller than the old one, 
+        # we take into account only the new distance 
+        # We have a small lost of value 
+        if(delta_distance < 0):
+            self.update_position(current_distance)
+        else :
+            self.update_position(delta_distance)
+        self.last_distance = current_distance
+        
+		
     def modelToFrame(self):
         """
 
@@ -87,10 +127,10 @@ class Car(observable.Observable):
         """
         frame = ""
 	
-        frame = chr(self.direction_motor.getState() + self.direction_motor.getAngle())
+        frame = self.to_chr(self.direction_motor.getAngle())
 	
         for motor in self.rear_motors:
-            frame = frame + chr(motor.getState() + motor.getSpeed())
+            frame = frame + self.to_chr(motor.getSpeed())
         
         for _ in self.rear_motors:
             frame = frame + chr(0) # distance 
@@ -123,14 +163,16 @@ class Car(observable.Observable):
             :type a: string of 80 characters
 
         """
-        self.actual_path.set_distance(int(dataReceived[3]), int(dataReceived[4]))  
-
-        for i in range(0..len(self.sensors)):
-            self.sensors.set_distance(int(dataReceived[5+i]))
-            self.notify_distance_observers(self, dataReceived[5+i], i)
+        # We transform the received Frame data from hexa to integer
+        recvValue = map(ord, dataReceived[1])
+        self.actual_path.set_distance(recvValue[3],recvValue[4])  
+        self.update_distance(recvValue[3], recvValue[4])
         
-        self.battery.set_charged(int(dataReceived[11]))
-
+#        for i in range(0..len(self.sensors[:])):
+#            self.sensors.set_distance(recvValue[5+i])
+#            self.notify_distance_observers(self, recvValue[5+i])
+        
+#        self.battery.set_charged(recvValue[11])
 
 
 
@@ -196,6 +238,11 @@ class Car(observable.Observable):
     def set_path(self, path):
         self.actual_path = path
 
-
-
+    @staticmethod
+    def to_chr(n):
+        if n<0:
+            res=256+n
+        else:
+            res=n
+        return chr(res)
 
