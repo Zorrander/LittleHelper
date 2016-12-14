@@ -29,7 +29,7 @@ class Battery():
     def __init__(self):
        self.charged = True
 
-    def set_charged(value):
+    def set_charged(self, value):
         if(value == 1):
             self.charged = True
         else:

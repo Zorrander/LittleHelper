@@ -10,9 +10,10 @@
 """
 from Model import path
 from Model import instructions
+from threading import Thread
 import time
 
-class PreloadedPaths():
+class PreloadedPaths(Thread):
 
     """
         The path class
@@ -23,6 +24,7 @@ class PreloadedPaths():
     """
 
     def __init__(self, model):
+        Thread.__init__(self)
         self.model = model
         self.list_paths = []
         print("__init__ preloaded path")
@@ -48,11 +50,11 @@ class PreloadedPaths():
         # ====================================================================
         # creation of the instructions
             # forward 100 cm - left 0°
-        inst1 = instructions.Instruction(forward, left, 35, 0, 100, 0)
-            # forward 150 cm - left 40°
+        inst1 = instructions.Instruction(forward, left, 35, 0, 200, 0)
+            # forward 50 cm - left 40°
         inst2 = instructions.Instruction(forward, left, 35, 40, 150, 0)
             # forward 200 cm - left 0°
-        inst3 = instructions.Instruction(forward, left, 35, 0, 200, 0)
+        inst3 = instructions.Instruction(forward, left, 35, 0, 100, 0)
             # stop
         inst4 = instructions.Instruction(stop, left, 0, 0, 0, 5)
 
@@ -69,25 +71,28 @@ class PreloadedPaths():
 
         self.path_copy = self.list_paths[index]
         self.model.set_path(self.path_copy)
-        self.start_moving()
+#        self.start_moving()
 
-    def start_moving(self):
+    def run(self):
+#    def start_moving(self):
         """
         Control the progress of the path
 
         Case action = Stop
             We stop the car, the angle of the wheels don't change
         """
-#        while(1):
-           # if (len(self.path_copy.get_path()) != 0):
-            while (len(self.path_copy.get_path()) != 0):
+        while(1):
+#        if(True):
+            if (len(self.path_copy.get_path()) != 0):
+#                print("distance : "+str(self.model.get_distance()))
+#            while (len(self.path_copy.get_path()) != 0):
                 # flag that check if an action end during the loop
-                flag = False
+ #               flag = False
 
                 # Current instruction and action
                 current_instruction = self.path_copy.get_current_instruction()
                 current_action = current_instruction.get_action()
-
+          
                 # action is stop
                 if(current_action == 2):
                     # we stop the car
@@ -99,7 +104,7 @@ class PreloadedPaths():
 
                     # We go on to the next action
                     self.path_copy.del_first_instruction()
-                    flag = True
+#                    flag = True
 
                 else:
                     # get the parameters
@@ -109,10 +114,10 @@ class PreloadedPaths():
 
                     # action is forward
                     if(current_action == 0):
-                        self.model.moveForward(instruction_speed) # Move the car
+                        self.model.moveForward(speed)
                     # action is backward
                     else:
-                        self.model.moveBackward(instruction_speed) # Move the car
+                        self.model.moveBackward(speed)
 
                     # direction is left
                     if(direction == 0):
@@ -125,13 +130,10 @@ class PreloadedPaths():
                     distance_to_travel = current_instruction.get_distance()
                     distance_traveled = self.model.get_distance()
                     if(distance_to_travel <= distance_traveled):
+                        print("distance to travel : "+str(distance_to_travel)+" - distance traveled : "+str(distance_traveled))
+                        
+                        self.model.reset_distance()
+                        while(self.model.get_distance_ack() == 0):
+                            test = 0
+                        
                         self.path_copy.del_first_instruction()
-                        flag = True
-
-                # if an action end during the loop
-                if(flag):
-                    # we ask the distance to be reset
-                    self.model.reset_distance()
-                    # and wait for the ack of the STM
-                    while(self.model.get_distance_ack()):
-                        pass

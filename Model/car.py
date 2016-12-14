@@ -59,7 +59,7 @@ class Car(observable.Observable):
         self.current_distance = 0
 
         # ack byte
-        self.init_distance_flag = False
+        self.reset_distance_flag = False
         self.reset_distance_ack = True
 
         # variables usefull for the path
@@ -75,11 +75,12 @@ class Car(observable.Observable):
         """
         # update of the reset distance bit
         bin_ack = self.dec2bin(0)
-        if(self.init_distance_flag):
-            bin_ack[6] = 1
+        if(self.reset_distance_flag):
+            tmp = list(bin_ack)
+            tmp[6] = '1'
+            bin_ack = "".join(tmp)
 
         return self.bin2dec(bin_ack)
-
 
     def get_distance_ack(self):
         return self.reset_distance_ack
@@ -114,7 +115,7 @@ class Car(observable.Observable):
         # Update the distance
         self.current_distance = (distance1 + distance2)/2
 
-    def get_distance():
+    def get_distance(self):
         return self.current_distance
         
     def modelToFrame(self):
@@ -180,7 +181,6 @@ class Car(observable.Observable):
 
         # Convert a int in binary number to read each bits separately
         ack_bin = self.dec2bin(recvValue[12])
-
         # read distances values
         # ack for initialisation of the distance is the last bit of the byte
         self.update_distance(recvValue[3],recvValue[4], ack_bin[7] )
@@ -190,7 +190,7 @@ class Car(observable.Observable):
         for sensor in self.sensors:
             sensor.set_distance(recvValue[5+i])
             i+=1
-        self.notify_distance_observers()
+#        self.notify_distance_observers()
 
         # read battery value
         self.battery.set_charged(recvValue[11])
