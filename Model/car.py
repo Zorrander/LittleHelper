@@ -15,7 +15,7 @@ import math
 from . import battery, motor, sensor, path
 from struct import *
 from Observer import observable
-import time 
+import time
 
 class Car(observable.Observable):
 
@@ -34,13 +34,19 @@ class Car(observable.Observable):
 
         """
         observable.Observable.__init__(self)
+
+        # battery
         self.battery = battery.Battery()
-	
+
+        # front motor
         self.direction_motor = motor.FrontMotor()
 
-        self.rear_motors = [] 
+        # rear motors
+        self.rear_motors = []
         self.rear_motors.append(motor.RearMotor())
         self.rear_motors.append(motor.RearMotor())
+
+        # sensors
         self.sensors = []
         self.sensors.append(sensor.UltrasoundSensor("avant"))
         self.sensors.append(sensor.UltrasoundSensor("avant gauche"))
@@ -49,57 +55,68 @@ class Car(observable.Observable):
         self.sensors.append(sensor.UltrasoundSensor("arriere gauche"))
         self.sensors.append(sensor.UltrasoundSensor("arriere droit"))
 
-        self.actual_path = path.Path()
+        # distances
+        self.current_distance = 0
 
-        self.position = [0,0] # coordonnee (x,y)
-        self.last_distance = 0
-        self.orientation = 0
+        # ack byte
+        self.init_distance_flag = False
+        self.reset_distance_ack = True
 
-    def get_position(self):
-        return [int(self.position[0]), int(self.position[1])]
+        # variables usefull for the path
+        self.current_path = path.Path()
 
-    def update_position(self, distance):
+    def get_ack_byte(self):
         """
-        Calcul of the new position according to the old position 
-        the distance traveled since the old position and the current orientation 
-        
-        :param distance: the distance traveled since the old position in centimeter
-        :type distance: float
-        :param orientation: the current orientation in degrees
-        :type orientation: float 
-        
-        """
-        # calcul of delta x
-        dx = distance * math.cos(math.radians(self.orientation))
-        dy = distance * math.sin(math.radians(self.orientation))
-        
-        # calcul of the new position 
-        self.position[0] += dx
-        self.position[1] += dy
+        Return the ack byte according to the different information of the car
 
-#        print("position : ("+str(self.position[0])+","+str(self.position[1])+") + orientation : "+str(self.orientation))
-    
-    def update_angle(self, angle):
-        self.orientation += angle
-        if self.orientation >= 360:
-            self.orientation -= 360
-        elif self.orientation < 0:
-            self.orientation += 360
-            
-    def update_distance(self, distance1, distance2):
-        current_distance = (distance1 + distance2)/2
-        delta_distance =  current_distance - self.last_distance
+         -------------------------------------------------------------
+        | 00 | 00 | 00 | 00 | 00 | 00 | reset distance | ack distance |
+         -------------------------------------------------------------
+        """
+        # update of the reset distance bit
+        bin_ack = self.dec2bin(0)
+        if(self.init_distance_flag):
+            bin_ack[6] = 1
+
+        return self.bin2dec(bin_ack)
+
+
+    def get_distance_ack(self):
+        return self.reset_distance_ack
+
+    def reset_distance(self):
+        """
+        reset_distance_flag become true when we want the distance to be reset by the STM
+        """
+        self.reset_distance_flag = True
+        self.reset_distance_ack = False
+
+    def update_distance(self, distance1, distance2, ack_bit):
+        """
+        Update the reset_distance_flag according to the ack bit
+        Notify the actual path if necessary
+        Update the distance
+
+        :param distance1: The distance of the wheel 1
+        :type distance1: integer
+        :param distance2: The distance of the wheel 2
+        :type distance2: integer
+        :param ack_bit: The ack bit send by the STM
+        :type distance2: binary number (0 if false, 1 if true)
+
+
+        """
+        # If we receive a Ack Response for reinit distance
+        if(ack_bit):
+            self.reset_distance_flag = False
+            self.reset_distance_ack = True
+
+        # Update the distance
+        self.current_distance = (distance1 + distance2)/2
+
+    def get_distance():
+        return self.current_distance
         
-        # if the new distance is smaller than the old one, 
-        # we take into account only the new distance 
-        # We have a small lost of value 
-        if(delta_distance < 0):
-            self.update_position(current_distance)
-        else :
-            self.update_position(delta_distance)
-        self.last_distance = current_distance
-        
-		
     def modelToFrame(self):
         """
 
@@ -107,40 +124,32 @@ class Car(observable.Observable):
             -------------------------
 
             Used to translate the model into a frame that can be sent to the STM32
-            Model of the frame v.1 :
+            Model of the frame :
                      --------------------------------------------------------
                 >>> | FrontMotor | rearLeftMotor | rearRightMotor | 00....00 |
                      --------------------------------------------------------
 
-            Model for front motor : 
-                     -----------------------------------
-                >>> | State (2 bites) | angle (6 bites) |
-                     -----------------------------------
-
-            Model for rear motor :
-                     -----------------------------------
-                >>> | State (2 bites) | speed (6 bites) |
-                     -----------------------------------
-
-            :param a: The length of the frame to be sent
-            :type a: int
             :return: The frame to be sent
             :rtype: String of 80 characters.
 
         """
         frame = ""
-	
+
+        # front motor
         frame = self.to_chr(self.direction_motor.getAngle())
-	
+        # rear motors
         for motor in self.rear_motors:
             frame = frame + self.to_chr(motor.getSpeed())
-        
+        # distance
         for _ in self.rear_motors:
-            frame = frame + chr(0) # distance 
+            frame = frame + chr(0)
+        # sensors
         for _ in self.sensors:
-            frame = frame + chr(0) # sensor
-
-        frame = frame + chr(0) # battery
+            frame = frame + chr(0)
+        # battery
+        frame = frame + chr(0)
+        # Ack byte
+        frame = frame + self.to_chr(self.get_ack_byte())
 
         return frame
 
@@ -153,9 +162,9 @@ class Car(observable.Observable):
 
             Used to translate a frame received from the STM to update the model
             Model of the frame v.1 :
-                     -------------------------------------------------
-                >>> | 00..00 | Distance | UltrasoundSensors | Battery |
-                     -------------------------------------------------
+                     -----------------------------------------------------------
+                >>> | 00..00 | Distance | UltrasoundSensors | Battery | AckByte |
+                     -----------------------------------------------------------
 
             Model for the battery:
                      ---------------------------------------
@@ -168,15 +177,23 @@ class Car(observable.Observable):
         """
         # We transform the received Frame data from hexa to integer
         recvValue = map(ord, dataReceived[1])
-        self.actual_path.set_distance(recvValue[3],recvValue[4])  
-        self.update_distance(recvValue[3], recvValue[4])
+
+        # Convert a int in binary number to read each bits separately
+        ack_bin = self.dec2bin(recvValue[12])
+
+        # read distances values
+        # ack for initialisation of the distance is the last bit of the byte
+        self.update_distance(recvValue[3],recvValue[4], ack_bin[7] )
+
+        # read sensors values
         i = 0
-        for sensor in self.sensors: 
+        for sensor in self.sensors:
             sensor.set_distance(recvValue[5+i])
             i+=1
-#        self.battery.set_charged(recvValue[11])
         self.notify_distance_observers()
 
+        # read battery value
+        self.battery.set_charged(recvValue[11])
 
     def moveForward(self, speed):
         """
@@ -238,7 +255,7 @@ class Car(observable.Observable):
 
 
     def set_path(self, path):
-        self.actual_path = path
+        self.current_path = path
 
     @staticmethod
     def to_chr(n):
@@ -248,3 +265,19 @@ class Car(observable.Observable):
             res=n
         return chr(res)
 
+    @staticmethod
+    def dec2bin(d,nb=8):
+        """Représentation d'un nombre entier en chaine binaire (nb: nombre de bits du mot)"""
+        if d == 0:
+            return "0".zfill(nb)
+        if d<0:
+            d += 1<<nb
+        b=""
+        while d != 0:
+            d, r = divmod(d, 2)
+            b = "01"[r] + b
+        return b.zfill(nb)
+
+    @staticmethod
+    def bin2dec(s):
+        return int(s,2)

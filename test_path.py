@@ -1,9 +1,9 @@
 from Model import car
 from Controllers import preloadedPath, StmController
-#from carto import first_test2
+#from Map import map
 
 #from PyQt5.QtCore import pyqtSignal
-import time 
+import time
 
 def test():
     model = car.Car()
@@ -12,8 +12,8 @@ def test():
     spi.start()
 #    pPath.start()
 
-#    map_car = first_test2.Map([100,100])
-#    display_car = first_test2.Display(map_car, model)
+#    map_car = map.Map([100,100])
+#    display_car = map.Display(map_car, model)
 #    display_car.sig.connect(display_car.a, display_car.updateFunction)
 #    display_car.sig.connect(display_car.updateFunction)
 #    t = Thread(target=display_car.triggerUpdate);
@@ -28,35 +28,35 @@ def test2():
     model.turnRight(40)
     time.sleep(2)
 
-    print("turn left 40")    
+    print("turn left 40")
     model.turnLeft(40)
     time.sleep(2)
-    
-    print("turn left 0")    
+
+    print("turn left 0")
     model.turnLeft(0)
     time.sleep(2)
-    
-    print("turn right 40")    
+
+    print("turn right 40")
     model.turnRight(40)
     time.sleep(2)
 
-    print("turn left 40")    
+    print("turn left 40")
     model.turnLeft(40)
     time.sleep(2)
-    
-    print("turn right 0")    
+
+    print("turn right 0")
     model.turnRight(0)
     time.sleep(2)
 
-    print("turn right 40")    
+    print("turn right 40")
     model.turnRight(40)
     time.sleep(2)
 
-    print("turn right 0")    
+    print("turn right 0")
     model.turnRight(0)
     time.sleep(2)
 
-    print("turn left 0")    
+    print("turn left 0")
     model.turnLeft(0)
 
 test()
