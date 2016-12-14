@@ -10,7 +10,7 @@
 """
 from Model import path
 from Model import instructions
-import threading 
+#import threading 
 import time
 
 class PreloadedPaths():
@@ -42,22 +42,22 @@ class PreloadedPaths():
         stop = 4
         
         # move 
-        instruct_move1 = instructions.Instruction(forward, 35, 0, 100, 0) 
-        instruct_move2 = instructions.Instruction(forward, 35, 0, 200, 0) 
+        instruct_move1 = instructions.Instruction(forward, 35, 0, 50, 0) 
+        instruct_move2 = instructions.Instruction(forward, 35, 0, 250, 0) 
         # move fast
         instruct_move_fast = instructions.Instruction(forward, 75, 0, 150, 0)
         # stop
         instruct_stop = instructions.Instruction(stop, 0, 0, 0, 5)
         # turn left
-        instruct_turn_left = instructions.Instruction(left, 0, 40, 0, 0)
+        instruct_turn_left = instructions.Instruction(left, 0, 40, 200, 0)
         # turn right
         instruct_turn_right = instructions.Instruction(right, 0, 40, 0, 0)
 
         new_path = path.Path()
         new_path.add_instruction(instruct_move1)
-        new_path.add_instruction(instruct_move_fast)
-        new_path.add_instruction(instruct_turn_right)
-        new_path.add_instruction(instruct_stop)
+#        new_path.add_instruction(instruct_move_fast)
+        new_path.add_instruction(instruct_turn_left)
+#        new_path.add_instruction(instruct_stop)
         new_path.add_instruction(instruct_move2)
         new_path.add_instruction(instruct_stop)
       
@@ -81,6 +81,7 @@ class PreloadedPaths():
                     instruction_speed = current_instruction.get_speed()                
                     self.model.moveForward(instruction_speed)
                     self.model.turnRight(0)
+                    print(self.path_copy.get_current_distance())
                     if(current_instruction.get_distance() <= self.path_copy.get_current_distance()):
                         self.path_copy.del_first_instruction() 
 
@@ -95,24 +96,29 @@ class PreloadedPaths():
                 # left
                 elif (current_instruction.get_action() == 2):
                     # we stop the car before turning
-                    self.model.moveForward(0)
+                    self.model.moveForward(35)
                     instruction_angle = current_instruction.get_angle()
                     self.model.turnLeft(instruction_angle)
                     # we update the position of the car 
                     self.model.update_angle(instruction_angle)
+                    if(current_instruction.get_distance() <= self.path_copy.get_current_distance()):
+                        self.path_copy.del_first_instruction() 
+
                     # We go on to the next action
-                    self.path_copy.del_first_instruction() 
+#                    self.path_copy.del_first_instruction() 
 
                 # right 
                 elif (current_instruction.get_action() ==3):
                     # we stop the car before turning
-                    self.model.moveForward(0)
+                    self.model.moveForward(35)
                     instruction_angle = current_instruction.get_angle()
                     self.model.turnRight(instruction_angle)
                     # we update the position of the car 
                     self.model.update_angle(-instruction_angle)
-                    # We go on to the next action
-                    self.path_copy.del_first_instruction() 
+                    if(current_instruction.get_distance() <= self.path_copy.get_current_distance()):
+                        self.path_copy.del_first_instruction() 
+                   # We go on to the next action
+#                    self.path_copy.del_first_instruction() 
 
                 # stop 
                 elif (current_instruction.get_action() == 4):

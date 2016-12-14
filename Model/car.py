@@ -15,7 +15,7 @@ import math
 from . import battery, motor, sensor, path
 from struct import *
 from Observer import observable
-
+import time 
 
 class Car(observable.Observable):
 
@@ -42,18 +42,21 @@ class Car(observable.Observable):
         self.rear_motors.append(motor.RearMotor())
         self.rear_motors.append(motor.RearMotor())
         self.sensors = []
-        self.sensors.append(sensor.UltrasoundSensor())
-        self.sensors.append(sensor.UltrasoundSensor())
-        self.sensors.append(sensor.UltrasoundSensor())
-        self.sensors.append(sensor.UltrasoundSensor())
-        self.sensors.append(sensor.UltrasoundSensor())
-        self.sensors.append(sensor.UltrasoundSensor())
+        self.sensors.append(sensor.UltrasoundSensor("avant"))
+        self.sensors.append(sensor.UltrasoundSensor("avant gauche"))
+        self.sensors.append(sensor.UltrasoundSensor("avant droit"))
+        self.sensors.append(sensor.UltrasoundSensor("arriere"))
+        self.sensors.append(sensor.UltrasoundSensor("arriere gauche"))
+        self.sensors.append(sensor.UltrasoundSensor("arriere droit"))
 
         self.actual_path = path.Path()
 
         self.position = [0,0] # coordonnee (x,y)
         self.last_distance = 0
         self.orientation = 0
+
+    def get_position(self):
+        return [int(self.position[0]), int(self.position[1])]
 
     def update_position(self, distance):
         """
@@ -74,7 +77,7 @@ class Car(observable.Observable):
         self.position[0] += dx
         self.position[1] += dy
 
-        print("position : ("+str(self.position[0])+","+str(self.position[1])+") + orientation : "+str(self.orientation))
+#        print("position : ("+str(self.position[0])+","+str(self.position[1])+") + orientation : "+str(self.orientation))
     
     def update_angle(self, angle):
         self.orientation += angle
@@ -167,13 +170,12 @@ class Car(observable.Observable):
         recvValue = map(ord, dataReceived[1])
         self.actual_path.set_distance(recvValue[3],recvValue[4])  
         self.update_distance(recvValue[3], recvValue[4])
-        
-#        for i in range(0..len(self.sensors[:])):
-#            self.sensors.set_distance(recvValue[5+i])
-#            self.notify_distance_observers(self, recvValue[5+i])
-        
+        i = 0
+        for sensor in self.sensors: 
+            sensor.set_distance(recvValue[5+i])
+            i+=1
 #        self.battery.set_charged(recvValue[11])
-
+        self.notify_distance_observers()
 
 
     def moveForward(self, speed):

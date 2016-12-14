@@ -13,7 +13,7 @@
 import sys
 import PyQt5
 from PyQt5 import QtGui
-import cv2
+#import cv2
 import numpy as np
 import GUI.mainwindow_auto
 

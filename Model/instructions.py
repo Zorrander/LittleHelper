@@ -21,8 +21,8 @@ class Instruction():
     """
     
     def __init__(self, action, speed, angle, distance, sleep_time):
-	self.action = action
-	self.speed = speed
+        self.action = action
+        self.speed = speed
         self.angle = angle
         self.distance = distance
         self.sleep_time = sleep_time

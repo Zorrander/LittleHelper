@@ -9,10 +9,10 @@
     Used to handle the communication between the user and the RaspberryPi.
 
 """
-
+import os
 import sys
 import PyQt5
-import cv2
+#import cv2
 from PyQt5.QtWidgets import *
 from PyQt5 import QtGui, QtCore, Qt
 import GUI.mainwindow_auto
@@ -36,10 +36,10 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
         self.ui.setupUi(self)
 
         # Video
-        self.video = video.Video(cv2.VideoCapture(0))
-        self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.play)
-        self.timer.start(27)
+#        self.video = video.Video(cv2.VideoCapture(0))
+ #       self.timer = QtCore.QTimer(self)
+  #      self.timer.timeout.connect(self.play)
+   #     self.timer.start(27)
         # Buttons
         self.ui.myPathsButton.clicked.connect(lambda: self.pressedMyPathsButton())
         self.ui.cmdButton.clicked.connect(lambda: self.pressedCmdButton())
@@ -78,29 +78,27 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
     def checkSensor(self, sensor):
         """
         Perform analysis on the sensor before displaying on the RasPi
-
-        ////!!!!!\\\\\
-        NEED TO BE MODIFIED TO TAKE INTO ACCOUNT ALL THE SENSORS
-        ////!!!!!\\\\\
         """
-        distance = sensor.getDist()
-        if (distance < 40):
-            self.ui.us_ar.setText(str(distance))
-            self.ui.us_ar.setStyleSheet("background-color:red;")
-        elif (distance < 80):
-            self.ui.us_ar.setText(str(distance))
-            self.ui.us_ar.setStyleSheet("background-color:orange;")
-        elif (distance < 180):
-            self.ui.us_ar.setText(str(distance))
-            self.ui.us_ar.setStyleSheet("background-color:green;")
-        elif (distance > 300):
-            print("POTENTIAL ERROR")
+        dist = sensor.getDist()
+        print("==========DATA SENSORS===========")
+        print("SENSOR " + sensor.getName() + " >>> " + str(dist) ) 
+        if (dist < 45):
+            print("STATE >>> RED ")
+        elif(dist < 80):
+            print("STATE >>> ORANGE")
+        elif(dist < 250):
+            print("STATE >>> GREEN")
+        else: 
+            print("STATE >>> BLUE")
+  
+
 
 
     def update(self):
+        os.system('clear')
         for sensor in self.model.sensors:
             self.checkSensor(sensor)
-
+        
 
     def pressedMyPathsButton(self):
         self.tabWidget.setCurrentIndex(1)
