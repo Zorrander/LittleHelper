@@ -103,7 +103,7 @@ class Car(observable.Observable):
         :param distance2: The distance of the wheel 2
         :type distance2: integer
         :param ack_bit: The ack bit send by the STM
-        :type distance2: binary number (0 if false, 1 if true)
+        :type int: binary number (0 if false, 1 if true)
 
 
         """
