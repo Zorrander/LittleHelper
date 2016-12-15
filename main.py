@@ -38,6 +38,7 @@ class MilesApp():
         self.window = window.Window(self.model, self.preloadedPaths)
         self.window.show()
         self.spi.start()
+        self.preloadedPaths.start()
 
     def cleanUp(self):
         self.window.stop()

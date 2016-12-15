@@ -5,7 +5,7 @@
     The path module
     ===============
     Used to represent the path
-    
+
 """
 
 class Path():
@@ -17,14 +17,12 @@ class Path():
             >>> X attribut
             >>> X function
     """
-    
+
     def __init__(self):
         """
         """
         # list of instructions corresponding to the path
         self.instructions_list = []
-        self.distance = [0,0]
-        self.flag = False
 
     def add_instruction(self, instruction):
         """
@@ -45,17 +43,3 @@ class Path():
         """
         """
         return self.instructions_list[0]
-
-    def set_distance(self, left_distance, right_distance):
-        self.distance[0] = left_distance
-        self.distance[1] = right_distance
-        
-    def get_current_distance(self):
-        current_distance = (self.distance[0] + self.distance[1])/2  
-        return current_distance
-
-        
-
-        
-        
-

@@ -41,6 +41,8 @@ class StmController(Thread):
 
         while(1):
             sendData = self.buildFrame()
+#            import time
+#            time.sleep(1)
             recvData = wiringpi.wiringPiSPIDataRW(self.SPIchannel, sendData)
             self.updateModel(recvData)
 

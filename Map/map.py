@@ -1,22 +1,40 @@
-import PIL.Image as Image
-import numpy as np
-import time
-from matplotlib import pyplot as plt
-from matplotlib import animation as anim
-from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg
-import sys
-from PyQt4.QtGui import QApplication, QMainWindow, QVBoxLayout,QTabWidget, QWidget
-from PyQt4.QtCore import SIGNAL
-from threading import Thread
+import PIL.Image as Image 
+import numpy as np 
+import time 
+import sys 
 import random
+
+import os 
+#QT_API = QT_API_PYQT5
+print os.environ.get('QT_API')
+
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout,QTabWidget, QWidget
+from PyQt5.QtCore import pyqtSignal
+
+import matplotlib 
+matplotlib.use("Qt5Agg", force=True)
+#matplotlib.use("TkAgg")
+from matplotlib import pyplot as plt
+print("\n\n\n ok \n\n\n")
+#plt.plot(range(10))
+#plt.show()
+print("\n\n\n ok \n\n\n")
+
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
+
+
+from threading import Thread
+from Model import car 
 
 np.set_printoptions(threshold=np.nan) #pretty array printing
 
 class Display:
-    def __init__(self, map_car):
+    def __init__(self, map_car, model):
         self.a = QApplication(sys.argv)
         self.map_car = map_car
+        self.model = model
         self.w = QMainWindow()
+        self.sig = pyqtSignal()
         t = QTabWidget(self.w)
         Tab1 = QWidget()
         t.addTab(Tab1, '1st Plot')
@@ -32,9 +50,10 @@ class Display:
         
     def triggerUpdate(self):
         while True:
-            self.map_car.set_car_position([7,random.randint(0,99)])
-            self.a.emit(SIGNAL('updatePlot()'));
-            time.sleep(2);
+            self.map_car.set_car_position(self.model.get_position())
+#            self.sig.emit(pyqtSignal("updatePlot()"))
+            self.sig.emit()
+            time.sleep(2)
             print('update triggered!\n')
             
     def updateFunction(self):
@@ -47,11 +66,13 @@ class Map:
        self.img_to_grid()
        self.init_car_position(car_position)
         
-    def img_to_grid(self): 
-        im = Image.open('carte_test1.bmp')
-        shape = (im.height, im.width)
-        data = np.array(list(im.getdata())).reshape(shape)
-        self.grid = (data != 0)*1
+    def img_to_grid(self):
+        with Image.open('carto/carte_test1.bmp') as im:
+            width, height = im.size 
+#        im = Image.open('carto/carte_test1.bmp')
+            shape = (height, width)
+            data = np.array(list(im.getdata())).reshape(shape)
+            self.grid = (data != 0)*1
         
     def init_car_position(self,car_position):
         self.occupancy_grid = self.grid
@@ -89,12 +110,12 @@ class Map:
         self.set_car_position([7,i])
         
     
-map_car = Map([6,0])
-display_car = Display(map_car)
-display_car.a.connect(display_car.a, SIGNAL('updatePlot()'), display_car.updateFunction)
+#map_car = Map([6,0])
+#display_car = Display(map_car)
+#display_car.a.connect(display_car.a, SIGNAL('updatePlot()'), display_car.updateFunction)
 
-t = Thread(target=display_car.triggerUpdate);
-t.start();
-display_car.w.showMaximized()
+#t = Thread(target=display_car.triggerUpdate);
+#t.start();
+#display_car.w.showMaximized()
 
-sys.exit(display_car.a.exec_())
+#sys.exit(display_car.a.exec_())
