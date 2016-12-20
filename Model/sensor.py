@@ -10,7 +10,7 @@
 
 """
 
-class UltrasoundSensor(Sensor):
+class UltrasoundSensor():
 
     """
 

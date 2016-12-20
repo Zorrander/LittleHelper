@@ -1,7 +1,7 @@
 
 
 from car import Car
-
+from path import Path
 class World():
 
     def __init__(self, car):

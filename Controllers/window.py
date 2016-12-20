@@ -29,7 +29,7 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
 
     def __init__(self, model, preloadPath):
 
-        observer.Observer.__init__(self, model)
+        observer.Observer.__init__(self, model.car)
         super(self.__class__, self).__init__()
         self.model = model
         self.preloadPath = preloadPath
@@ -117,19 +117,19 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
         self.tabWidget.setCurrentIndex(5)
 
     def pressedForwardButton(self):
-        self.model.moveForward(20)
+        self.model.car.moveForward(20)
 
     def pressedBackwardButton(self):
-        self.model.moveBackward(20)
+        self.model.car.moveBackward(20)
 
     def pressedStopButton(self):
-        self.model.stop()
+        self.model.car.stop()
 
     def pressedLeftButton(self): 
-        self.model.turnLeft(30)
+        self.model.car.turnLeft(30)
 
     def pressedRightButton(self):
-        self.model.turnRight(30)
+        self.model.car.turnRight(30)
 
     def pressedPathButton(self):
         self.preloadPath.start_path(0)

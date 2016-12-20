@@ -34,7 +34,7 @@ class MilesApp():
         self.app = instance
         instance.aboutToQuit.connect(self.cleanUp)
         self.car = Car()
-        self.model = World(car)
+        self.model = World(self.car)
         self.preloadedPaths = preloadedPath.PreloadedPaths(self.model)
         self.spi = StmController.StmController(self.model)
         self.window = window.Window(self.model, self.preloadedPaths)

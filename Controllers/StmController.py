@@ -10,7 +10,7 @@
 
 """
 
-#import wiringpi
+import wiringpi
 import time
 from threading import Thread
 
@@ -30,16 +30,16 @@ class StmController(Thread):
         self.car = model.car
         self.SPIchannel = 0
         SPIspeed = 562500
-#        wiringpi.wiringPiSetupGpio()
-#        wiringpi.wiringPiSPISetupMode(self.SPIchannel, SPIspeed, 0)
+        wiringpi.wiringPiSetupGpio()
+        wiringpi.wiringPiSPISetupMode(self.SPIchannel, SPIspeed, 0)
 
         Thread.__init__(self)
 
     def run(self):
         while(1):
             sendData = self.modelToFrame()
-#            recvData = wiringpi.wiringPiSPIDataRW(self.SPIchannel, sendData)
-#            self.frame(recvData)
+            recvData = wiringpi.wiringPiSPIDataRW(self.SPIchannel, sendData)
+            self.frameToModel(recvData)
 
     def modelToFrame(self):
         """
@@ -107,14 +107,14 @@ class StmController(Thread):
 
         # read distances values
         # ack for initialisation of the distance is the last bit of the byte
-        self.mode.current_distance = (recvValue[3] + recvValue[4])/2
+        self.model.current_distance = (recvValue[3] + recvValue[4])/2
 
         # read sensors values
         i = 0
-        for sensor in self.modle.car.sensors:
+        for sensor in self.model.car.sensors:
             sensor.distance = recvValue[5+i]
             i+=1
-        self.notify_distance_observers()
+#        self.notify_distance_observers()
 
         # read battery value
         self.model.car.battery.charged = recvValue[11]

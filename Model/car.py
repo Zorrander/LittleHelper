@@ -31,7 +31,7 @@ class Car(Observable):
                 >>> 6 ultrasound sensors to detect obstacles
 
         """
-        observable.Observable.__init__(self)
+        Observable.__init__(self)
 
         # battery
         self.battery = Battery()
