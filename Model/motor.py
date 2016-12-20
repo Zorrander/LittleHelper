@@ -10,9 +10,6 @@
 
 """
 
-import sys
-from abc import ABCMeta, abstractmethod
-
 class FrontMotor():
 
     """
@@ -25,10 +22,7 @@ class FrontMotor():
     """
 
     def __init__(self):
-        self.angle = 0 
-
-    def notify(self):
-        pass
+        self.angle = 0
 
     def turnLeft(self, angle):
         self.angle = angle
@@ -36,7 +30,8 @@ class FrontMotor():
     def turnRight(self, angle):
         self.angle = -angle
 
-    def getAngle(self):
+    @property
+    def angle(self):
         return self.angle
 
 class RearMotor():
@@ -57,15 +52,11 @@ class RearMotor():
         self.speed = speed
 
     def moveBackward(self, speed):
-        self.speed = speed
-    
+        self.speed = -speed
+
     def stop(self):
         self.speed = 0
-    
-    def notify(self):
-        pass
 
-    def getSpeed(self):
+    @property
+    def speed(self):
         return self.speed
-
-

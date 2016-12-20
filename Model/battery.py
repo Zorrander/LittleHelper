@@ -10,9 +10,6 @@
 
 """
 
-import sys
-
-
 class Battery():
 
     """
@@ -20,19 +17,11 @@ class Battery():
         The battery class
         -----------------
 
-        Caracteristics :
-            >>> 1 attribut
-            >>> 1 function
-
     """
 
     def __init__(self):
        self.charged = True
 
-    def set_charged(self, value):
-        if(value == 1):
-            self.charged = True
-        else:
-            self.charged = False     
-
-
+    @property
+    def cherged(self):
+        return self.charged
