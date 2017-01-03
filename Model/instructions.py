@@ -22,19 +22,11 @@ class Instruction():
 
     def __init__(self, action, direction, speed, angle, distance, sleep_time):
         """
-            action:     0 forward
-                        1 backward
-                        2 stop
-
-            direction:  0 left
-                        1 right
-
+            action:     FORWARD, BACKWARD, STOP
+            direction:  LEFT, RIGHT
             speed:      speed of the rear motors
-
             angle:      angle of the front motor
-
             distance:   distance to travel
-
             sleep_time: time to wait if the action is sleep
 
         """
@@ -45,20 +37,26 @@ class Instruction():
         self.distance = distance
         self.sleep_time = sleep_time
 
-    def get_action(self):
+    @property
+    def action(self):
         return self.action
 
-    def get_direction(self):
+    @property
+    def direction(self):
         return self.direction
 
-    def get_speed(self):
+    @property
+    def speed(self):
         return self.speed
 
-    def get_angle(self):
+    @property
+    def angle(self):
         return self.angle
 
-    def get_distance(self):
+    @property
+    def distance(self):
         return self.distance
 
-    def get_sleep_time(self):
+    @property
+    def sleep_time(self):
         return self.sleep_time

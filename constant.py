@@ -1,0 +1,6 @@
+FORWARD = 0
+BACKWARD = 1
+STOP = 2
+# direction
+LEFT = 0
+RIGHT = 1

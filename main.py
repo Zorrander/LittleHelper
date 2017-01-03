@@ -11,7 +11,8 @@ import sys
 import PyQt5
 from PyQt5.QtWidgets import QApplication
 from Controllers import window, StmController, preloadedPath
-from Model import car
+from Model.car import Car
+from Model.world import World
 
 
 
@@ -32,7 +33,8 @@ class MilesApp():
     def __init__(self, instance):
         self.app = instance
         instance.aboutToQuit.connect(self.cleanUp)
-        self.model = car.Car()
+        self.car = Car()
+        self.model = World(self.car)
         self.preloadedPaths = preloadedPath.PreloadedPaths(self.model)
         self.spi = StmController.StmController(self.model)
         self.window = window.Window(self.model, self.preloadedPaths)
@@ -44,9 +46,6 @@ class MilesApp():
         self.window.stop()
         print("window closed")
         #self.spi.stop()
-
-
-
 
 def main():
 
