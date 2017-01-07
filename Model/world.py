@@ -2,33 +2,41 @@
 
 from car import Car
 from path import Path
-class World():
+class World(object):
 
     def __init__(self, car):
-        self.car = car
-        self.path = Path()
-        self.current_distance = 0
-        self.reset_distance = False
+        self.__car = car
+        self.__path = Path()
+        self.__current_distance = 0
+        self.__reset_distance = False
 
     @property
     def car(self):
-        return self.car
+        return self.__car
+    @car.setter
+    def car(self, value):
+        self.__car = value
 
     @property
     def path(self):
-        return self.path
+        return self.__path
+    @path.setter
+    def path(self, value):
+        self.__path = value
 
     @property
     def current_distance(self):
-        return self.current_distance
+        return self.__current_distance
+    @current_distance.setter
+    def current_distance(self, value):
+        self.__current_distance = value
 
     @property
-    def reset_distance_flag(self):
-        return self.reset_distance_flag
-
-    @property
-    def reset_distance_ack(self):
-        return self.reset_distance_ack
+    def reset_distance(self):
+        return self.__reset_distance
+    @reset_distance.setter
+    def reset_distance(self, value):
+        self.__reset_distance = value
 
     def set_distance(self, distance1, distance2):
         self.current_distance = (distance1 + distance2)/2

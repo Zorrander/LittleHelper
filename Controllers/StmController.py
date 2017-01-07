@@ -10,11 +10,11 @@
 
 """
 
-import wiringpi
+#import wiringpi
 import time
-from threading import Thread
+from multiprocessing import Process
 
-class StmController(Thread):
+class StmController(Process):
 
     """
 
@@ -30,16 +30,16 @@ class StmController(Thread):
         self.car = model.car
         self.SPIchannel = 0
         SPIspeed = 562500
-        wiringpi.wiringPiSetupGpio()
-        wiringpi.wiringPiSPISetupMode(self.SPIchannel, SPIspeed, 0)
+#        wiringpi.wiringPiSetupGpio()
+#        wiringpi.wiringPiSPISetupMode(self.SPIchannel, SPIspeed, 0)
 
-        Thread.__init__(self)
+        Process.__init__(self)
 
     def run(self):
         while(1):
             sendData = self.modelToFrame()
-            recvData = wiringpi.wiringPiSPIDataRW(self.SPIchannel, sendData)
-            self.frameToModel(recvData)
+#            recvData = wiringpi.wiringPiSPIDataRW(self.SPIchannel, sendData)
+#            self.frameToModel(recvData)
 
     def modelToFrame(self):
         """
