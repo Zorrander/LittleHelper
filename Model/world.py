@@ -9,6 +9,7 @@ class World():
         self.path = Path()
         self.current_distance = 0
         self.reset_distance = False
+        self.ack_reset_distance = False
 
     @property
     def car(self):
@@ -23,12 +24,12 @@ class World():
         return self.current_distance
 
     @property
-    def reset_distance_flag(self):
-        return self.reset_distance_flag
-
+    def reset_distance(self):
+        return self.reset_distance
+ 
     @property
-    def reset_distance_ack(self):
-        return self.reset_distance_ack
+    def ack_reset_distance(self):
+        return self.ack_reset_distance
 
     def set_distance(self, distance1, distance2):
         self.current_distance = (distance1 + distance2)/2

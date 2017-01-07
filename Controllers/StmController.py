@@ -154,8 +154,10 @@ class StmController(Thread):
         """
         # Convert a int in binary number to read each bits separately
         ack_bin = self.dec2bin(ack_byte)
-        # update of the reset distance bit
-        self.model.reset_distance = int(ack_bin[7])
+        # update of the ack reset distance bit
+        self.model.ack_reset_distance = int(ack_bin[7])
+        if(self.model.ack_reset_distance):
+            self.model.reset_distance = False
 
     @staticmethod
     def dec2bin(d,nb=8):

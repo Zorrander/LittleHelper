@@ -37,9 +37,10 @@ class PreloadedPaths(Thread):
         Control the progress of the path
         """
         while(1):
+            time.sleep(0.01)
             if(self.run_path):
                 if (len(self.current_path.get_path()) != 0):
-                    inst = self.current_path.current_instruction
+                    inst = self.current_path.get_current_instruction()
 
                     # action stop
                     if(inst.action == STOP):
@@ -57,9 +58,9 @@ class PreloadedPaths(Thread):
         # we stop the car
         self.model.car.moveForward(0)
         # Sleep
-        time.sleep(time_sleep)
+        time.sleep(sleep_time)
         # We go on to the next action
-        self.path_copy.del_first_instruction()
+        self.current_path.del_first_instruction()
 
 
     def move_car(self, action, speed, direction, angle, distance):
@@ -75,15 +76,20 @@ class PreloadedPaths(Thread):
             self.model.car.turnRight(angle)
 
         # See if the distance is reach
-        distance_traveled = self.model.distance
+        distance_traveled = self.model.current_distance
         self.distance_management(distance, distance_traveled)
 
     def distance_management(self, distance, distance_traveled):
         if(distance <= distance_traveled):
+            print("distance : "+str(distance)+" - distance travelled : "+str(distance_traveled))
             self.model.reset_distance = True
-            while(self.model.reset_distance):
+            self.model.ack_reset_distance = False
+            while(not(self.model.ack_reset_distance)):
                 pass
-            self.path_copy.del_first_instruction()
+            print(self.model.ack_reset_distance)
+            print("del inst")
+            time.sleep(0.01)
+            self.current_path.del_first_instruction()
 
     def stop_path(self):
         self.run_path = False
