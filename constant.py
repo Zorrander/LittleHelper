@@ -4,3 +4,7 @@ STOP = 2
 # direction
 LEFT = 0
 RIGHT = 1
+
+#camera
+FRAME_EDGE = 480
+BAND_THRESHOLD = 20
