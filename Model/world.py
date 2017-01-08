@@ -1,5 +1,5 @@
 
-
+import threading
 from car import Car
 from path import Path
 class World():
@@ -8,8 +8,17 @@ class World():
         self.car = car
         self.path = Path()
         self.current_distance = 0
+        self.real_distance = 0
         self.reset_distance = False
         self.ack_reset_distance = False
+
+        # Semaphore used in the code
+
+        # semaphore[1] shared with spi process
+        self.sema_distance = threading.Semaphore()
+        # semaphore[1] shared with video process
+        self.sema_band_xcoord = threading.Semaphore()
+
 
     @property
     def car(self):
@@ -24,9 +33,13 @@ class World():
         return self.current_distance
 
     @property
+    def real_distance(self):
+        return self.real_distance
+
+    @property
     def reset_distance(self):
         return self.reset_distance
- 
+
     @property
     def ack_reset_distance(self):
         return self.ack_reset_distance

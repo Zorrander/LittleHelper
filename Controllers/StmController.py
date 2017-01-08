@@ -13,6 +13,7 @@
 import wiringpi
 import time
 from threading import Thread
+from constant import SLEEP_STMCONTROLLER_THREAD
 
 class StmController(Thread):
 
@@ -40,6 +41,9 @@ class StmController(Thread):
             sendData = self.modelToFrame()
             recvData = wiringpi.wiringPiSPIDataRW(self.SPIchannel, sendData)
             self.frameToModel(recvData)
+
+            # Sleep periode to let the hand to an other thread
+            time.sleep(SLEEP_STMCONTROLLER_THREAD)
 
     def modelToFrame(self):
         """

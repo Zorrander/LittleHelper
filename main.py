@@ -10,7 +10,7 @@
 import sys
 import PyQt5
 from PyQt5.QtWidgets import QApplication
-from Controllers import window, StmController, preloadedPath
+from Controllers import window, StmController, preloadedPath, checkDistance
 from Model.car import Car
 from Model.world import World
 
@@ -33,19 +33,27 @@ class MilesApp():
     def __init__(self, instance):
         self.app = instance
         instance.aboutToQuit.connect(self.cleanUp)
+
+        # initialisation
         self.car = Car()
         self.model = World(self.car)
         self.preloadedPaths = preloadedPath.PreloadedPaths(self.model)
         self.spi = StmController.StmController(self.model)
+        # TODO:
+        band_xcoord = 0
+        # end TODO:
+        self.checkDistance = checkDistance.CheckDistance(self.model, band_xcoord, sema_band_xcoord)
         self.window = window.Window(self.model, self.preloadedPaths)
         self.window.show()
+
+        # Start the different threads
         self.spi.start()
         self.preloadedPaths.start()
+        #self.checkDistance.start()
 
     def cleanUp(self):
         self.window.stop()
         print("window closed")
-        #self.spi.stop()
 
 def main():
 

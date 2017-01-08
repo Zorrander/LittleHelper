@@ -12,7 +12,8 @@
 import time
 from Model.path import Path, Paths
 from threading import Thread
-from constant import FORWARD, BACKWARD, STOP, LEFT, RIGHT
+from constant import FORWARD, BACKWARD, STOP, LEFT, RIGHT, \
+    SLEEP_PRELOADEDPATH_THREAD, NON_BLOCKING
 
 class PreloadedPaths(Thread):
 
@@ -37,7 +38,6 @@ class PreloadedPaths(Thread):
         Control the progress of the path
         """
         while(1):
-            time.sleep(0.01)
             if(self.run_path):
                 if (len(self.current_path.get_path()) != 0):
                     inst = self.current_path.get_current_instruction()
@@ -52,6 +52,9 @@ class PreloadedPaths(Thread):
                     # We stop the car if the path is ended
                     self.model.car.moveForward(0)
                     self.run = False
+
+                # Sleep periode to let the hand to an other thread
+                time.sleep(SLEEP_PRELOADEDPATH_THREAD)
 
 
     def stop_car(self, sleep_time):
@@ -80,16 +83,37 @@ class PreloadedPaths(Thread):
         self.distance_management(distance, distance_traveled)
 
     def distance_management(self, distance, distance_traveled):
-        if(distance <= distance_traveled):
-            print("distance : "+str(distance)+" - distance travelled : "+str(distance_traveled))
+        # If we saw a band
+        if(self.model.sema_distance.acquire(NON_BLOCKING)):
+            # Set the reset distance flag and reset the ack
             self.model.reset_distance = True
             self.model.ack_reset_distance = False
+
+            # While we didn't receive the ack we wait
             while(not(self.model.ack_reset_distance)):
                 pass
-            print(self.model.ack_reset_distance)
-            print("del inst")
+
+            # update the new distance to traveled
+            self.current_path.get_current_instruction().distance = distance - self.model.real_distance
+
+            # We release the semaphore
+            self.model.sema_distance.release()
+
+        if(distance <= distance_traveled):
+            # Set the reset distance flag and reset the ack
+            self.model.reset_distance = True
+            self.model.ack_reset_distance = False
+
+            # While we didn't receive the ack we wait
+            while(not(self.model.ack_reset_distance)):
+                pass
+
+            # FIXME: I don't know why but if we don't put the sleep
+            # the next action begin before the distance is reset
             time.sleep(0.01)
+
             self.current_path.del_first_instruction()
+
 
     def stop_path(self):
         self.run_path = False
