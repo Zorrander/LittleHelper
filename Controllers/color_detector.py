@@ -28,15 +28,12 @@ class ColorFilter:
         return self.__colorThresholds
 
     @color_thresholds.setter
-    def color_thresholds(self, lower, upper):
+    def color_thresholds(self, thresholds):
         """
         Set the lower and upper threshold for color filtering
-        :param lower: numpy array of lower threshold, e.g numpy.array([v1, v2, v3])
-        :param upper: numpy array of upper threshold, e.g numpy.array([v1, v2, v3])
         :return: None
         """
-        self.__colorThresholds[0] = lower
-        self.__colorThresholds[1] = upper
+        self.__colorThresholds = thresholds
 
     @property
     def img(self):
@@ -45,15 +42,6 @@ class ColorFilter:
         :return: img
         """
         return self.__img
-
-    @img.setter
-    def img(self, image):
-        """
-        Set the image for filtering
-        :param image: the image for filtering
-        :return: None
-        """
-        self.__img = image
 
     @property
     def mask(self):
@@ -69,7 +57,7 @@ class ColorFilter:
         :return: None
         """
         try:
-            hsv = cv2.cvtColor(self.__img, cv2.COLOR_BGR2HSV)
+            hsv = cv2.cvtColor(self.img, cv2.COLOR_BGR2HSV)
             self.__mask = cv2.inRange(hsv, self.__colorThresholds[0], self.__colorThresholds[1])
         except cv2.error:
             print("process: image not found!!!")

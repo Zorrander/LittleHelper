@@ -27,8 +27,8 @@ class RoadFollower:
     def __init__(self):
         self.__colorDetectV = cd.ColorFilter()
         self.__colorDetectH = cd.ColorFilter()
-        self.__colorDetectV.color_thresholds(LOWER_BLUE, UPPER_BLUE)
-        self.__colorDetectH.color_thresholds(LOWER_GRAY, UPPER_GRAY)
+        self.__colorDetectV.color_thresholds = [LOWER_BLUE, UPPER_BLUE]
+        self.__colorDetectH.color_thresholds = [LOWER_GRAY, UPPER_GRAY]
         self.__kp = RoadFollower.__Kp
         self.__angle = 0
 
@@ -63,11 +63,12 @@ class RoadFollower:
             self.__angle = int(delta * self.__kp / (1.0 - self.__kp))
             if self.__angle <= -45:
                 self.__angle = -45
-            else if self.__angle >= 45:
+            elif self.__angle >= 45:
                 self.__angle = 45 
             return self.__angle
         except TypeError:
             print("compute_deviation: Can't compute, image not found!!!")
+            self.__angle = 0
 
     def display_masks(self):
         try:
