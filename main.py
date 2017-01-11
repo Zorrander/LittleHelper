@@ -10,7 +10,7 @@
 import sys
 import PyQt5
 from PyQt5.QtWidgets import QApplication
-from Controllers import window, StmController, preloadedPath, checkDistance
+from Controllers import window, StmController, preloadedPath, checkDistance, camera
 from Model.car import Car
 from Model.world import World
 
@@ -39,6 +39,7 @@ class MilesApp():
         self.model = World(self.car)
         self.preloadedPaths = preloadedPath.PreloadedPaths(self.model)
         self.spi = StmController.StmController(self.model)
+        self.cam = camera.Camera(self.model)
         # TODO:
         band_xcoord = 0
         # end TODO:
@@ -49,6 +50,7 @@ class MilesApp():
         # Start the different threads
         self.spi.start()
         self.preloadedPaths.start()
+        self.cam.start()
         #self.checkDistance.start()
 
     def cleanUp(self):

@@ -27,6 +27,7 @@ class RoadFollower:
         self.__colorDetectV = cd.ColorFilter()
         self.__colorDetectH = cd.ColorFilter()
         self.__kp = RoadFollower.__Kp
+        self.__angle = 0
 
     def update_frame(self, image):
         try:
@@ -56,7 +57,8 @@ class RoadFollower:
             non_zeros_left = cv2.countNonZero(self.__colorDetectH.mask[:, 0:320])
             non_zeros_right = cv2.countNonZero(self.__colorDetectH.mask[:, 320:640])
             delta = non_zeros_right - non_zeros_left
-            return delta * self.__kp / (1.0 - self.__kp)
+            self.__angle = int(delta * self.__kp / (1.0 - self.__kp))
+            return self.__angle
         except TypeError:
             print("compute_deviation: Can't compute, image not found!!!")
 
