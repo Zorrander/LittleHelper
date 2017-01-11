@@ -61,6 +61,10 @@ class RoadFollower:
             non_zeros_right = cv2.countNonZero(self.__colorDetectH.mask[:, 320:640])
             delta = non_zeros_right - non_zeros_left
             self.__angle = int(delta * self.__kp / (1.0 - self.__kp))
+            if self.__angle <= -45:
+                self.__angle = -45
+            else if self.__angle >= 45:
+                self.__angle = 45 
             return self.__angle
         except TypeError:
             print("compute_deviation: Can't compute, image not found!!!")
