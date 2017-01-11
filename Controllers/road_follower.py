@@ -2,6 +2,7 @@ import color_detector as cd
 import cv2
 import numpy as np
 import math
+from constant import *
 
 
 class RoadFollower:
@@ -26,6 +27,8 @@ class RoadFollower:
     def __init__(self):
         self.__colorDetectV = cd.ColorFilter()
         self.__colorDetectH = cd.ColorFilter()
+        self.__colorDetectV.color_thresholds(LOWER_BLUE, UPPER_BLUE)
+        self.__colorDetectH.color_thresholds(LOWER_GRAY, UPPER_GRAY)
         self.__kp = RoadFollower.__Kp
         self.__angle = 0
 
