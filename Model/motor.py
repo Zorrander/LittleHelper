@@ -30,6 +30,9 @@ class FrontMotor():
     def turnRight(self, angle):
         self.angle = -angle
 
+    def turn(self, angle):
+        self.angle = angle
+
     @property
     def angle(self):
         return self.angle

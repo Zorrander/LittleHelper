@@ -43,7 +43,7 @@ class MilesApp():
         # TODO:
         band_xcoord = 0
         # end TODO:
-        self.checkDistance = checkDistance.CheckDistance(self.model, band_xcoord, sema_band_xcoord)
+        self.checkDistance = checkDistance.CheckDistance(self.model, band_xcoord)
         self.window = window.Window(self.model, self.preloadedPaths)
         self.window.show()
 

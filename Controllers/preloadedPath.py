@@ -47,7 +47,7 @@ class PreloadedPaths(Thread):
                         self.stop_car(inst.sleep_time)
                     # action move
                     else:
-                        self.move_car(inst.action, inst.speed, inst.direction, inst.angle, inst.distance)
+                        self.move_car(inst.action, inst.speed, self.model.car.direction_motor.angle, inst.distance)
                 else:
                     # We stop the car if the path is ended
                     self.model.car.moveForward(0)
@@ -66,17 +66,15 @@ class PreloadedPaths(Thread):
         self.current_path.del_first_instruction()
 
 
-    def move_car(self, action, speed, direction, angle, distance):
+    def move_car(self, action, speed, angle, distance):
 
         if(action == FORWARD):
             self.model.car.moveForward(speed)
         else:
             self.model.car.moveBackward(speed)
 
-        if(direction == LEFT):
-            self.model.car.turnLeft(angle)
-        else:
-            self.model.car.turnRight(angle)
+        # Turn
+        self.model.car.turnLeft(angle)
 
         # See if the distance is reach
         distance_traveled = self.model.current_distance
