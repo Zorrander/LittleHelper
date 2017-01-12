@@ -115,3 +115,23 @@ class PreloadedPaths(Thread):
 
     def stop_path(self):
         self.run_path = False
+
+        
+    def bend(self, direction): #to start 120cm before the bend
+        #direction
+        # -1 : right
+        # 1 : left
+        if(direction == -1):
+            self.model.car.turnRight(45)
+        elif(direction == 1):
+            self.model.car.turnLeft(45)
+            
+        time.sleep(13)
+        
+        self.model.car.turn(0)
+        
+        time.sleep(2)
+        
+        self.current_path.del_first_instruction()
+            
+        
