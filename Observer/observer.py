@@ -16,6 +16,4 @@ class Observer:
         observable.register_observer(self)
 
     def notify_distance(self):
-#        print('Got notified')
         self.update()
-

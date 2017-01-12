@@ -11,17 +11,19 @@
 """
 
 class Battery():
-
     """
-
-        The battery class
-        -----------------
-
     """
-
+    
     def __init__(self):
        self.charged = True
 
     @property
-    def cherged(self):
+    def charged(self):
+        """
+            The state of the battery
+
+            :getter: Returns the state of the battery
+            :setter: Sets the state of the battery
+            :type: Boolean
+        """
         return self.charged

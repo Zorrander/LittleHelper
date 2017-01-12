@@ -10,7 +10,7 @@
 
 from copy import copy
 from instructions import Instruction
-from constant import FORWARD, BACKWARD, STOP, LEFT, RIGHT
+from constant import FORWARD, BACKWARD, STOP, TURN_LEFT, TURN_RIGHT
 
 class Path():
 
@@ -50,18 +50,11 @@ class Paths():
         # ====================================================================
         #                      Creation of the first path
         # ====================================================================
-        # creation of the instructions
-        inst1 = Instruction(FORWARD, LEFT, 35, 0, 200, 0)
-        inst2 = Instruction(FORWARD, LEFT, 35, 40, 150, 0)
-        inst3 = Instruction(FORWARD, LEFT, 35, 0, 100, 0)
-        inst4 = Instruction(STOP, LEFT, 0, 0, 0, 5)
-
-        # creation of the path
         path = Path()
-        path.add_instruction(inst1)
-        path.add_instruction(inst2)
-        path.add_instruction(inst3)
-        path.add_instruction(inst4)
+        path.add_instruction(Instruction(FORWARD, speed=35, distance=100))
+        path.add_instruction(Instruction(FORWARD, speed=35, distance=50))
+        path.add_instruction(Instruction(TURN_LEFT))
+        path.add_instruction(Instruction(STOP, sleep_time=5))
 
         self.paths.append(path)
 

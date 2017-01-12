@@ -1,11 +1,11 @@
 import numpy as np
 
+# Action of the car
 FORWARD = 0
 BACKWARD = 1
 STOP = 2
-# direction
-LEFT = 0
-RIGHT = 1
+TURN_LEFT = 0
+TURN_RIGHT = 1
 
 #camera
 FRAME_EDGE = 480
