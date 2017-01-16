@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-    The Instruction module
+    The instruction module
     ======================
 
     Used to represent the instructions the car is going to execute when going from point A to B
@@ -10,53 +10,69 @@
 """
 
 class Instruction():
-
     """
-    The Instruction class
-    ---------------------
-
     Caracteristics :
        >>> an action to execute
        >>> specification
     """
 
-    def __init__(self, action, direction, speed, angle, distance, sleep_time):
+    def __init__(self, action, speed=0, distance=0, sleep_time=0):
         """
-            action:     FORWARD, BACKWARD, STOP
-            direction:  LEFT, RIGHT
-            speed:      speed of the rear motors
-            angle:      angle of the front motor
-            distance:   distance to travel
-            sleep_time: time to wait if the action is sleep
+            :param action: the action to execute FORWARD, BACKWARD, STOP, TURN_LEFT, TURN_RIGHT
+            :type action: FORWARD, BACKWARD, STOP, TURN_LEFT, TURN_RIGHT
+            :param speed: the speed of the rear motors
+            :type speed: int
+            :param distance: distance to travel
+            :type distance: int
+            :param sleep_time: time to wait if the action is sleep
+            :type sleep_time: int
 
         """
         self.action = action
-        self.direction = direction
         self.speed = speed
-        self.angle = angle
         self.distance = distance
         self.sleep_time = sleep_time
 
     @property
     def action(self):
+        """
+            The action of the instruction
+
+            :getter: Returns the action of the instruction
+            :setter: Sets the action of the instruction
+            :type: FORWARD, BACKWARD, STOP, TURN_LEFT, TURN_RIGHT
+        """
         return self.action
 
     @property
-    def direction(self):
-        return self.direction
-
-    @property
     def speed(self):
+        """
+            The speed of the instruction
+
+            :getter: Returns the speed of the instruction
+            :setter: Sets the speed of the instruction
+            :type: int
+        """
         return self.speed
 
     @property
-    def angle(self):
-        return self.angle
-
-    @property
     def distance(self):
+        """
+            The distance of the instruction
+
+            :getter: Returns the distance of the instruction
+            :setter: Sets the distance of the instruction
+            :type: int
+        """
         return self.distance
 
     @property
     def sleep_time(self):
+        """
+            The time to sleep (to stop the car)
+
+            :getter: Returns the time to sleep
+            :setter: Sets the time to sleep
+            :type: int
+        """
         return self.sleep_time

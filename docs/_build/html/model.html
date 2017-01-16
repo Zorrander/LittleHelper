@@ -1,0 +1,852 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Model &#8212; Little helper 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Little helper 1.0 documentation" href="index.html" />
+    <link rel="prev" title="Welcome to Little helper’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-world">
+<span id="model"></span><h1>Model<a class="headerlink" href="#module-world" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-world-module">
+<h2>The world module<a class="headerlink" href="#the-world-module" title="Permalink to this headline">¶</a></h2>
+<p>Used to represent the world</p>
+<dl class="class">
+<dt id="world.World">
+<em class="property">class </em><code class="descclassname">world.</code><code class="descname">World</code><span class="sig-paren">(</span><em>car</em><span class="sig-paren">)</span><a class="headerlink" href="#world.World" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>The world is composed of :</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">car</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">path</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">current</span> <span class="n">distance</span> <span class="n">traveled</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">real</span> <span class="n">distance</span> <span class="n">traveled</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">boolean</span> <span class="n">to</span> <span class="n">reset</span> <span class="n">the</span> <span class="n">disatance</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">boolean</span> <span class="n">to</span> <span class="n">confirm</span> <span class="n">the</span> <span class="n">reset</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="world.World.ack_reset_distance">
+<code class="descname">ack_reset_distance</code><a class="headerlink" href="#world.World.ack_reset_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>The boolean to ack the reset distance from the stm32.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the ack_reset_distance value</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the ack_reset_distance value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="world.World.car">
+<code class="descname">car</code><a class="headerlink" href="#world.World.car" title="Permalink to this definition">¶</a></dt>
+<dd><p>The object reprenting the car</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the car</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the car</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Car</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="world.World.current_distance">
+<code class="descname">current_distance</code><a class="headerlink" href="#world.World.current_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current distance traveled by the car.
+This distance is calculated thanks to the odometry.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the distance</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the distance</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="world.World.path">
+<code class="descname">path</code><a class="headerlink" href="#world.World.path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The object path representing current path</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the path</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the path</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Path</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="world.World.real_distance">
+<code class="descname">real_distance</code><a class="headerlink" href="#world.World.real_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>The real distance traveled by the car.
+This distance is the distance managed with the band.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the distance</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the distance</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="world.World.reset_distance">
+<code class="descname">reset_distance</code><a class="headerlink" href="#world.World.reset_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>The boolean to ask the stm32 to reset the distance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the reset_distance value</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the reset_distance value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="world.World.set_distance">
+<code class="descname">set_distance</code><span class="sig-paren">(</span><em>distance1</em>, <em>distance2</em><span class="sig-paren">)</span><a class="headerlink" href="#world.World.set_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>The distance save is the average from the distance of both wheels.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>distance1</strong> (<em>int</em>) &#8211; The distance of the first wheel</li>
+<li><strong>distance2</strong> (<em>int</em>) &#8211; The distance of the second wheel</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body"><p class="first">Sets the current distance value</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><p class="first last">int</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-car"></span><div class="section" id="the-car-module">
+<h2>The car module<a class="headerlink" href="#the-car-module" title="Permalink to this headline">¶</a></h2>
+<p>Used to represent the car and its components</p>
+<dl class="class">
+<dt id="car.Car">
+<em class="property">class </em><code class="descclassname">car.</code><code class="descname">Car</code><a class="headerlink" href="#car.Car" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Little Helper v.1 :</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">battery</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">front</span> <span class="n">motor</span> <span class="n">to</span> <span class="n">control</span> <span class="n">the</span> <span class="n">direction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">2</span> <span class="n">rear</span> <span class="n">motors</span> <span class="n">to</span> <span class="n">move</span> <span class="n">the</span> <span class="n">car</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">6</span> <span class="n">ultrasound</span> <span class="n">sensors</span> <span class="n">to</span> <span class="n">detect</span> <span class="n">obstacles</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="car.Car.battery">
+<code class="descname">battery</code><a class="headerlink" href="#car.Car.battery" title="Permalink to this definition">¶</a></dt>
+<dd><p>The battery of the car</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the battery object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the battery object</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Battery</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="car.Car.direction_motor">
+<code class="descname">direction_motor</code><a class="headerlink" href="#car.Car.direction_motor" title="Permalink to this definition">¶</a></dt>
+<dd><p>The direction motor of the car</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the direction_motor object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the direction_motor object</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">FrontMotor</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="car.Car.moveBackward">
+<code class="descname">moveBackward</code><span class="sig-paren">(</span><em>speed</em><span class="sig-paren">)</span><a class="headerlink" href="#car.Car.moveBackward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to transmite the command to move backward to all the motors.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>speed</strong> (<em>int</em>) &#8211; The speed of the car</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="car.Car.moveForward">
+<code class="descname">moveForward</code><span class="sig-paren">(</span><em>speed</em><span class="sig-paren">)</span><a class="headerlink" href="#car.Car.moveForward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to transmite the command to move forward to all the motors.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>speed</strong> (<em>int</em>) &#8211; The speed of the car</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="car.Car.rear_motors">
+<code class="descname">rear_motors</code><a class="headerlink" href="#car.Car.rear_motors" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of the rear motor of the car</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the list of rear_motor object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the list of rear_motor object</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">RearMotor[]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="car.Car.sensors">
+<code class="descname">sensors</code><a class="headerlink" href="#car.Car.sensors" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of the sensors of the car</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the list of sensors object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the list of sensors object</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">UltrasoundSensor[]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="car.Car.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#car.Car.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to transmite the command to stop to all the motors.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="car.Car.turn">
+<code class="descname">turn</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#car.Car.turn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to transmite the command to turn to the direction motor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> &#8211; The angle to turn (-45..45)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="car.Car.turnLeft">
+<code class="descname">turnLeft</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#car.Car.turnLeft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to transmite the command to turn left to the direction motor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> &#8211; The angle to turn (0..45)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="car.Car.turnRight">
+<code class="descname">turnRight</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#car.Car.turnRight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to transmite the command to turn right to the direction motor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> &#8211; The angle to turn (0..45)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-battery"></span><div class="section" id="the-battery-module">
+<h2>The battery module<a class="headerlink" href="#the-battery-module" title="Permalink to this headline">¶</a></h2>
+<p>Used to represent the battery of our car</p>
+<dl class="class">
+<dt id="battery.Battery">
+<em class="property">class </em><code class="descclassname">battery.</code><code class="descname">Battery</code><a class="headerlink" href="#battery.Battery" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="battery.Battery.charged">
+<code class="descname">charged</code><a class="headerlink" href="#battery.Battery.charged" title="Permalink to this definition">¶</a></dt>
+<dd><p>The state of the battery</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the state of the battery</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the state of the battery</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Boolean</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-motor"></span><div class="section" id="the-motor-module">
+<h2>The motor module<a class="headerlink" href="#the-motor-module" title="Permalink to this headline">¶</a></h2>
+<p>Used to handle the behaviours of motors on the car.</p>
+<dl class="class">
+<dt id="motor.FrontMotor">
+<em class="property">class </em><code class="descclassname">motor.</code><code class="descname">FrontMotor</code><a class="headerlink" href="#motor.FrontMotor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to represent the front motor to control the direction of the car</p>
+<dl class="docutils">
+<dt>Caracteristics :</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">an</span> <span class="n">angle</span> <span class="n">to</span> <span class="n">turn</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="motor.FrontMotor.angle">
+<code class="descname">angle</code><a class="headerlink" href="#motor.FrontMotor.angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>The angle to turn</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the angle</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the angle</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="motor.FrontMotor.turn">
+<code class="descname">turn</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#motor.FrontMotor.turn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to set the angle for turning.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> &#8211; The angle to turn (-45..45)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="motor.FrontMotor.turnLeft">
+<code class="descname">turnLeft</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#motor.FrontMotor.turnLeft" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to set the angle for turning to the left.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> &#8211; The angle to turn (0..45)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="motor.FrontMotor.turnRight">
+<code class="descname">turnRight</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#motor.FrontMotor.turnRight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to set the angle for turning to the right.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> &#8211; The angle to turn (0..45)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="motor.RearMotor">
+<em class="property">class </em><code class="descclassname">motor.</code><code class="descname">RearMotor</code><a class="headerlink" href="#motor.RearMotor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to represent the rear motor to control the speed of the car</p>
+<dl class="docutils">
+<dt>Caracteristics :</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="n">speed</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="method">
+<dt id="motor.RearMotor.moveBackward">
+<code class="descname">moveBackward</code><span class="sig-paren">(</span><em>speed</em><span class="sig-paren">)</span><a class="headerlink" href="#motor.RearMotor.moveBackward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to set the speedfor moving backward.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>speed</strong> (<em>int</em>) &#8211; The speed of the car</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="motor.RearMotor.moveForward">
+<code class="descname">moveForward</code><span class="sig-paren">(</span><em>speed</em><span class="sig-paren">)</span><a class="headerlink" href="#motor.RearMotor.moveForward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to set the speed for moving forward.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>speed</strong> (<em>int</em>) &#8211; The speed of the car</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="motor.RearMotor.speed">
+<code class="descname">speed</code><a class="headerlink" href="#motor.RearMotor.speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>The speed of the car</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the speed</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the speed</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="motor.RearMotor.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#motor.RearMotor.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to stop the car ie set the speed to 0</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-sensor"></span><div class="section" id="the-sensor-module">
+<h2>The sensor module<a class="headerlink" href="#the-sensor-module" title="Permalink to this headline">¶</a></h2>
+<p>Used to handle the behaviour of sensors on the car.</p>
+<dl class="class">
+<dt id="sensor.UltrasoundSensor">
+<em class="property">class </em><code class="descclassname">sensor.</code><code class="descname">UltrasoundSensor</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#sensor.UltrasoundSensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to represente the ultrasound sensors of the car.</p>
+<dl class="docutils">
+<dt>Caracteristics :</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="n">distance</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="n">name</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="sensor.UltrasoundSensor.distance">
+<code class="descname">distance</code><a class="headerlink" href="#sensor.UltrasoundSensor.distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>The distance catch by the sensor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the distance</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the distance</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensor.UltrasoundSensor.name">
+<code class="descname">name</code><a class="headerlink" href="#sensor.UltrasoundSensor.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the sensor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the name of the sensor</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the name of the sensor</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-path"></span><div class="section" id="the-path-module">
+<h2>The path module<a class="headerlink" href="#the-path-module" title="Permalink to this headline">¶</a></h2>
+<p>Used to represent the path</p>
+<dl class="class">
+<dt id="path.Path">
+<em class="property">class </em><code class="descclassname">path.</code><code class="descname">Path</code><a class="headerlink" href="#path.Path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to manage the current path followed by the car</p>
+<dl class="docutils">
+<dt>Caracteristics :</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">instructions</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="method">
+<dt id="path.Path.add_instruction">
+<code class="descname">add_instruction</code><span class="sig-paren">(</span><em>instruction</em><span class="sig-paren">)</span><a class="headerlink" href="#path.Path.add_instruction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to add an instruction to the path.
+The instruction is add at the end of the path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>instruction</strong> (<a class="reference internal" href="#instructions.Instruction" title="instructions.Instruction"><em>Instruction</em></a>) &#8211; The instruction to add</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="path.Path.del_first_instruction">
+<code class="descname">del_first_instruction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#path.Path.del_first_instruction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to delete the first instruction of the list of instruction</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="path.Path.get_current_instruction">
+<code class="descname">get_current_instruction</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#path.Path.get_current_instruction" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current instruction of the path</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the first element of the list of instructions</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">Instruction</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="path.Path.get_path">
+<code class="descname">get_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#path.Path.get_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>The path of the car</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the list of instructions</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">Instruction[]</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="path.Paths">
+<em class="property">class </em><code class="descclassname">path.</code><code class="descname">Paths</code><a class="headerlink" href="#path.Paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to build and save the differents path available.</p>
+<dl class="docutils">
+<dt>Caracteristics :</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">paths</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="method">
+<dt id="path.Paths.build_paths">
+<code class="descname">build_paths</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#path.Paths.build_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the differents paths of the car and save them in the list of paths.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="path.Paths.get_path">
+<code class="descname">get_path</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#path.Paths.get_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the path corresponding to the index.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> (<em>int</em>) &#8211; The index of the path asked</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Getter:</th><td class="field-body">Returns the path corresponding to the index number</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Path</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-instructions"></span><div class="section" id="the-instruction-module">
+<h2>The instruction module<a class="headerlink" href="#the-instruction-module" title="Permalink to this headline">¶</a></h2>
+<p>Used to represent the instructions the car is going to execute when going from point A to B</p>
+<dl class="class">
+<dt id="instructions.Instruction">
+<em class="property">class </em><code class="descclassname">instructions.</code><code class="descname">Instruction</code><span class="sig-paren">(</span><em>action</em>, <em>speed=0</em>, <em>distance=0</em>, <em>sleep_time=0</em><span class="sig-paren">)</span><a class="headerlink" href="#instructions.Instruction" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Caracteristics :</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">an</span> <span class="n">action</span> <span class="n">to</span> <span class="n">execute</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">specification</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="instructions.Instruction.action">
+<code class="descname">action</code><a class="headerlink" href="#instructions.Instruction.action" title="Permalink to this definition">¶</a></dt>
+<dd><p>The action of the instruction</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the action of the instruction</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the action of the instruction</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">FORWARD, BACKWARD, STOP, TURN_LEFT, TURN_RIGHT</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="instructions.Instruction.distance">
+<code class="descname">distance</code><a class="headerlink" href="#instructions.Instruction.distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>The distance of the instruction</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the distance of the instruction</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the distance of the instruction</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="instructions.Instruction.sleep_time">
+<code class="descname">sleep_time</code><a class="headerlink" href="#instructions.Instruction.sleep_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>The time to sleep (to stop the car)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the time to sleep</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the time to sleep</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="instructions.Instruction.speed">
+<code class="descname">speed</code><a class="headerlink" href="#instructions.Instruction.speed" title="Permalink to this definition">¶</a></dt>
+<dd><p>The speed of the instruction</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the speed of the instruction</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the speed of the instruction</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Model</a><ul>
+<li><a class="reference internal" href="#the-world-module">The world module</a></li>
+<li><a class="reference internal" href="#the-car-module">The car module</a></li>
+<li><a class="reference internal" href="#the-battery-module">The battery module</a></li>
+<li><a class="reference internal" href="#the-motor-module">The motor module</a></li>
+<li><a class="reference internal" href="#the-sensor-module">The sensor module</a></li>
+<li><a class="reference internal" href="#the-path-module">The path module</a></li>
+<li><a class="reference internal" href="#the-instruction-module">The instruction module</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Little helper&#8217;s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/model.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Miles.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/model.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
