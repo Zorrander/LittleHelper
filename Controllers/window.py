@@ -17,19 +17,19 @@ from PyQt5.QtWidgets import *
 from PyQt5 import QtGui, QtCore, Qt
 import GUI.mainwindow_auto
 from Model import car
-from Observer import observer
+
 import video
 import preloadedPath
 
 
 
-class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
+class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow):
 
 
 
     def __init__(self, model, preloadPath):
 
-        observer.Observer.__init__(self, model.car)
+
         super(self.__class__, self).__init__()
         self.model = model
         self.preloadPath = preloadPath
@@ -62,8 +62,8 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
 
 
     def stop(self):
-        self.timer.stop()
-        self.video.stop()
+        #self.timer.stop()
+        #self.video.stop()
         self.close()
 
     def play(self):
@@ -82,16 +82,16 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
         """
         dist = sensor.getDist()
         print("==========DATA SENSORS===========")
-        print("SENSOR " + sensor.getName() + " >>> " + str(dist) ) 
+        print("SENSOR " + sensor.getName() + " >>> " + str(dist) )
         if (dist < 45):
             print("STATE >>> RED ")
         elif(dist < 80):
             print("STATE >>> ORANGE")
         elif(dist < 250):
             print("STATE >>> GREEN")
-        else: 
+        else:
             print("STATE >>> BLUE")
-  
+
 
 
 
@@ -99,7 +99,7 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
         os.system('clear')
         for sensor in self.model.sensors:
             self.checkSensor(sensor)
-        
+
 
     def pressedMyPathsButton(self):
         self.tabWidget.setCurrentIndex(1)
@@ -125,7 +125,7 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
     def pressedStopButton(self):
         self.model.car.stop()
 
-    def pressedLeftButton(self): 
+    def pressedLeftButton(self):
         self.model.car.turnLeft(30)
 
     def pressedRightButton(self):
@@ -133,5 +133,3 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow, observer.Observer):
 
     def pressedPathButton(self):
         self.preloadPath.start_path(0)
-
-

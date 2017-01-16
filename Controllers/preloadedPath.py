@@ -28,6 +28,7 @@ class PreloadedPaths(Thread):
         self.paths = Paths()
         self.current_path = Path()
         self.run_path = False
+        self.terminated = False
 
     def start_path(self, index):
         self.current_path = self.paths.get_path(index)
@@ -37,7 +38,7 @@ class PreloadedPaths(Thread):
         """
         Control the progress of the path
         """
-        while(1):
+        while not self.terminated:
             if(self.run_path):
                 if (len(self.current_path.get_path()) != 0):
                     inst = self.current_path.get_current_instruction()
@@ -116,7 +117,7 @@ class PreloadedPaths(Thread):
     def stop_path(self):
         self.run_path = False
 
-        
+
     def bend(self, direction): #to start 120cm before the bend
         #direction
         # -1 : right
@@ -125,13 +126,14 @@ class PreloadedPaths(Thread):
             self.model.car.turnRight(45)
         elif(direction == 1):
             self.model.car.turnLeft(45)
-            
+
         time.sleep(13)
-        
+
         self.model.car.turn(0)
-        
+
         time.sleep(2)
-        
+
         self.current_path.del_first_instruction()
-            
-        
+
+    def stop(self):
+        self.terminated = True

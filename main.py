@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#-*- coding: utf-8 -*-
 
 
 """
@@ -14,9 +14,6 @@ from Controllers import window, StmController, preloadedPath, checkDistance #, c
 from Model.car import Car
 from Model.world import World
 
-
-
-
 class MilesApp():
 
     """
@@ -30,32 +27,35 @@ class MilesApp():
 
     """
 
-    def __init__(self, instance):
-        self.app = instance
-        instance.aboutToQuit.connect(self.cleanUp)
+    def __init__(self):
+        app = QApplication(sys.argv)
+
+        app.aboutToQuit.connect(self.cleanUp)
 
         # initialisation
-        self.car = Car()
-        self.model = World(self.car)
-        self.preloadedPaths = preloadedPath.PreloadedPaths(self.model)
-        self.spi = StmController.StmController(self.model)
-        #self.cam = camera.Camera(self.model)
-        # TODO:
-        band_xcoord = 0
-        # end TODO:
-        self.checkDistance = checkDistance.CheckDistance(self.model, band_xcoord)
-        self.window = window.Window(self.model, self.preloadedPaths)
+        car = Car()
+        model = World(car)
+        self.preloadedPaths = preloadedPath.PreloadedPaths(model)
+        self.spi = StmController.StmController(model)
+
+        self.window = window.Window(model, self.preloadedPaths)
         self.window.show()
 
         # Start the different threads
         self.spi.start()
         self.preloadedPaths.start()
-        #self.cam.start()
-        #self.checkDistance.start()
+
+        sys.exit(app.exec_())
+
 
     def cleanUp(self):
         self.window.stop()
         print("window closed")
+        self.spi.stop()
+        self.preloadedPaths.stop()
+        #spi.join()
+        #preloaded.join()
+        print("close ok")
 
 def main():
 
@@ -63,10 +63,11 @@ def main():
          The function starting the application
     """
 
-    app = QApplication(sys.argv)
-    miles = MilesApp(app)
-    sys.exit(app.exec_())
 
+    miles = MilesApp()
+
+
+    print("close ok")
 
 if __name__ == "__main__":
 

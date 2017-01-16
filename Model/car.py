@@ -13,9 +13,8 @@
 from battery import Battery
 from motor import FrontMotor, RearMotor
 from sensor import UltrasoundSensor
-from Observer.observable import Observable
 
-class Car(Observable):
+class Car():
 
     def __init__(self):
 
@@ -31,7 +30,6 @@ class Car(Observable):
                 >>> 6 ultrasound sensors to detect obstacles
 
         """
-        Observable.__init__(self)
 
         # battery
         self.battery = Battery()

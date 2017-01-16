@@ -10,7 +10,7 @@
 
 """
 
-import wiringpi
+#import wiringpi
 import time
 from threading import Thread
 from constant import SLEEP_STMCONTROLLER_THREAD
@@ -31,16 +31,16 @@ class StmController(Thread):
         self.car = model.car
         self.SPIchannel = 0
         SPIspeed = 562500
-        wiringpi.wiringPiSetupGpio()
-        wiringpi.wiringPiSPISetupMode(self.SPIchannel, SPIspeed, 0)
-
+#        wiringpi.wiringPiSetupGpio()
+#        wiringpi.wiringPiSPISetupMode(self.SPIchannel, SPIspeed, 0)
+        self.terminated = False
         Thread.__init__(self)
 
     def run(self):
-        while(1):
+        while not self.terminated:
             sendData = self.modelToFrame()
-            recvData = wiringpi.wiringPiSPIDataRW(self.SPIchannel, sendData)
-            self.frameToModel(recvData)
+#            recvData = wiringpi.wiringPiSPIDataRW(self.SPIchannel, sendData)
+#            self.frameToModel(recvData)
 
             # Sleep periode to let the hand to an other thread
             time.sleep(SLEEP_STMCONTROLLER_THREAD)
@@ -179,3 +179,6 @@ class StmController(Thread):
     @staticmethod
     def bin2dec(s):
         return int(s,2)
+
+    def stop(self):
+        self.terminated = True
