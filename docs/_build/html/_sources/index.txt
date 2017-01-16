@@ -24,18 +24,21 @@ TODO :  add class diagram
 
 Model
 -----
-TODO : linker la page du modele
+
+The model folder contains all the module usefull to represent the world of the project.
+
+.. toctree::
+   :maxdepth: 2
+
+   model
 
 Controllers
 -----------
-TODO : linker la page du Controllers
-
-
 
  .. toctree::
     :maxdepth: 2
 
-    model
+    controllers
 
 
 Indices and tables

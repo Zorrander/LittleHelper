@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-    The Instruction module
+    The instruction module
     ======================
 
     Used to represent the instructions the car is going to execute when going from point A to B

@@ -11,14 +11,12 @@
 """
 
 class UltrasoundSensor():
-
     """
+        Used to represente the ultrasound sensors of the car.
 
-        The ultrasound sensor class
-        ---------------------------
-
-        Adapt the generic behaviour of Sensor to the ultrasound sensors of the car.
-
+        Caracteristics :
+            >>> a distance
+            >>> a name
     """
 
     def __init__(self, name):
@@ -27,9 +25,22 @@ class UltrasoundSensor():
 
     @property
     def name(self):
+        """
+            The name of the sensor
+
+            :getter: Returns the name of the sensor
+            :setter: Sets the name of the sensor
+            :type: str
+        """
         return self.name
 
     @property
     def distance(self):
+        """
+            The distance catch by the sensor
+
+            :getter: Returns the distance
+            :setter: Sets the distance
+            :type: int
+        """
         self.distance = distance
-        

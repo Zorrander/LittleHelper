@@ -18,6 +18,7 @@
 #
 import os
 import sys
+sys.path.insert(0, os.path.abspath('..'))
 sys.path.insert(0, os.path.abspath('../Observer'))
 sys.path.insert(0, os.path.abspath('../Controllers'))
 sys.path.insert(0, os.path.abspath('../GUI'))

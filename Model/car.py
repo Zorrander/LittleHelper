@@ -24,7 +24,6 @@ class Car():
     """
 
     def __init__(self):
-
         # battery
         self.battery = Battery()
 
