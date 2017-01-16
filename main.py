@@ -10,7 +10,7 @@
 import sys
 import PyQt5
 from PyQt5.QtWidgets import QApplication
-from Controllers import window, StmController, preloadedPath, checkDistance #, camera
+from Controllers import window, StmController, preloadedPath, checkDistance, camera
 from Model.car import Car
 from Model.world import World
 
@@ -37,6 +37,7 @@ class MilesApp():
         model = World(car)
         self.preloadedPaths = preloadedPath.PreloadedPaths(model)
         self.spi = StmController.StmController(model)
+        self.cam = camera.Camera(model)
 
         self.window = window.Window(model, self.preloadedPaths)
         self.window.show()
@@ -44,6 +45,7 @@ class MilesApp():
         # Start the different threads
         self.spi.start()
         self.preloadedPaths.start()
+        self.cam.start()
 
         sys.exit(app.exec_())
 
@@ -53,8 +55,7 @@ class MilesApp():
         print("window closed")
         self.spi.stop()
         self.preloadedPaths.stop()
-        #spi.join()
-        #preloaded.join()
+        self.cam.stop()
         print("close ok")
 
 def main():
@@ -65,8 +66,6 @@ def main():
 
 
     miles = MilesApp()
-
-
     print("close ok")
 
 if __name__ == "__main__":

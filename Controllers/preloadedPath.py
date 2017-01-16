@@ -54,8 +54,8 @@ class PreloadedPaths(Thread):
                     self.model.car.moveForward(0)
                     self.run = False
 
-                # Sleep periode to let the hand to an other thread
-                time.sleep(SLEEP_PRELOADEDPATH_THREAD)
+            # Sleep periode to let the hand to an other thread
+            time.sleep(SLEEP_PRELOADEDPATH_THREAD)
 
 
     def stop_car(self, sleep_time):
