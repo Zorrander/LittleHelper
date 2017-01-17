@@ -18,6 +18,11 @@ from constant import *
 
 class RoadFollower:
     """
+    The class RoadFollower contains:
+    >>> Two members which are instances of ColorFilter
+    >>> Two color thresholds which correspond to the color filters above
+    >>> A proportional gain for regulation system
+    >>> An angle for the car to follow
     """
     # frame's factors
     __IMG_SIZE = (640, 480)
@@ -37,6 +42,9 @@ class RoadFollower:
     __Kp = 0.0015
 
     def __init__(self):
+        """
+            Constructor, initialize color thresholds for blue and gray filtering
+        """
         self.__colorDetectV = cd.ColorFilter()
         self.__colorDetectH = cd.ColorFilter()
         self.__colorDetectV.color_thresholds = [LOWER_BLUE, UPPER_BLUE]
@@ -46,6 +54,9 @@ class RoadFollower:
 
     def update_frame(self, image):
         """
+            Update the current frame for processing
+            :param image: the current frame to be updated
+            :type image: numpy array
         """
         try:
             if image.shape[0] != RoadFollower.__IMG_SIZE[1] or image.shape[1] != RoadFollower.__IMG_SIZE[0]:
@@ -60,12 +71,18 @@ class RoadFollower:
 
     def set_thresholds(self, v_thresh, h_thresh):
         """
+            Set the thresholds for other color filtering
+            :param v_thresh: thresholds for vertical window
+            :type v_thresh: list of two numpy array, for lower and upper thresholds
+            :param h_thresh: thresholds for horizontal window
+            :type h_thresh: list of two numpy array, for lower and upper thresholds
         """
         self.__colorDetectV.color_thresholds = v_thresh
         self.__colorDetectH.color_thresholds = h_thresh
 
     def filter(self):
         """
+            Start filtering
         """
         try:
             self.__colorDetectV.process()
@@ -75,6 +92,9 @@ class RoadFollower:
 
     def compute_deviation(self):
         """
+            Calculate the angle for the car to follow
+            :return: the angle to follow
+            :rtype: int
         """
         try:
             non_zeros_left = cv2.countNonZero(self.__colorDetectH.mask[:, 0:320])
@@ -92,6 +112,7 @@ class RoadFollower:
 
     def display_masks(self):
         """
+            Display masked images, for debugging only
         """
         try:
             cv2.imshow('mask V', self.__colorDetectV.mask)
