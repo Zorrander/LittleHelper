@@ -5,21 +5,22 @@
     The PreloadedPaths module
     =========================
 
-    Used to represent the list of paths
+    Used to manage the processing of the paths
 
 """
 
 import time
 from Model.path import Path, Paths
 from threading import Thread
-from constant import FORWARD, BACKWARD, STOP, LEFT, RIGHT, \
+from constant import FORWARD, BACKWARD, STOP, TURN_LEFT, TURN_RIGHT, \
     SLEEP_PRELOADEDPATH_THREAD, NON_BLOCKING
 
 class PreloadedPaths(Thread):
-
     """
-        The PreloadedPaths class
-        --------------
+        The PreloadedPaths is composed of :
+            >>> 1 model world
+            >>> 1 list of paths
+            >>> 1 current path
     """
 
     def __init__(self, model):
@@ -31,15 +32,26 @@ class PreloadedPaths(Thread):
         self.terminated = False
 
     def start_path(self, index):
+        """
+            Allow to choose the index of the path we want to follow
+
+            :param index: the index of the path
+            :type index: int
+        """
         self.current_path = self.paths.get_path(index)
         self.run_path = True
 
     def run(self):
         """
-        Control the progress of the path
+            Run function of the thread.
+            The function that is launch when we start the thread.
+            Control the progress of the path.
         """
         while not self.terminated:
+            # If a path is running
             if(self.run_path):
+
+                # If the path still have instructions
                 if (len(self.current_path.get_path()) != 0):
                     inst = self.current_path.get_current_instruction()
 
@@ -48,9 +60,10 @@ class PreloadedPaths(Thread):
                         self.stop_car(inst.sleep_time)
                     # action move
                     else:
-                        self.move_car(inst.action, inst.speed, self.model.car.direction_motor.angle, inst.distance)
+                        self.move_car(inst.action, inst.speed, inst.distance)
+
+                # If a path is empty (ie all the instruction are done) we stop the car
                 else:
-                    # We stop the car if the path is ended
                     self.model.car.moveForward(0)
                     self.run = False
 
@@ -59,6 +72,12 @@ class PreloadedPaths(Thread):
 
 
     def stop_car(self, sleep_time):
+        """
+            Stop the car during the time indicated.
+
+            :param sleep_time: time to stop in seconds
+            :type sleep_time: float
+        """
         # we stop the car
         self.model.car.moveForward(0)
         # Sleep
@@ -67,22 +86,52 @@ class PreloadedPaths(Thread):
         self.current_path.del_first_instruction()
 
 
-    def move_car(self, action, speed, angle, distance):
+    def move_car(self, action, speed, distance):
+        """
+            Move the car according to the action (forward, backward, turn left, turn right)
 
+            :param action: action to execute
+            :type action: FORWARD, BACKWARD, TURN_LEFT, TURN_RIGHT
+            :param speed: speed for moving backward or forward
+            :type speed: int
+            :param distance: the distance to traveled
+            :type distance: int
+        """
         if(action == FORWARD):
             self.model.car.moveForward(speed)
-        else:
+            # Turn according to the angle detect by the camera
+            self.model.car.turn(self.model.car.direction_motor.angle)
+
+            # See if the distance is reach
+            distance_traveled = self.model.current_distance
+            self.distance_management(distance, distance_traveled)
+        elif(action == BACKWARD):
             self.model.car.moveBackward(speed)
+            # Turn according to the angle detect by the camera
+            self.model.car.turn(self.model.car.direction_motor.angle)
 
-        # Turn
-        self.model.car.turnLeft(angle)
-
-        # See if the distance is reach
-        distance_traveled = self.model.current_distance
-        self.distance_management(distance, distance_traveled)
+            # See if the distance is reach
+            distance_traveled = self.model.current_distance
+            self.distance_management(distance, distance_traveled)
+        elif(action == TURN_LEFT):
+            pass
+            # TODO
+        elif(action == TURN_RIGHT):
+            pass
+            # TODO
 
     def distance_management(self, distance, distance_traveled):
-        # If we saw a band
+        """
+            Manage the distance.
+            If a bend is detected we update the distance_traveled to be more precise.
+            If the distance ordered by the instruction is reach we can go to the next instruction.
+
+            :param distance: distance to reach
+            :type distance: int
+            :param distance_traveled: distance traveled by the car
+            :type distance_traveled: float
+        """
+        # If we saw a bend
         if(self.model.sema_distance.acquire(NON_BLOCKING)):
             # Set the reset distance flag and reset the ack
             self.model.reset_distance = True
@@ -98,6 +147,7 @@ class PreloadedPaths(Thread):
             # We release the semaphore
             self.model.sema_distance.release()
 
+        # If the distance of the instruction is reach
         if(distance <= distance_traveled):
             # Set the reset distance flag and reset the ack
             self.model.reset_distance = True
@@ -115,17 +165,30 @@ class PreloadedPaths(Thread):
 
 
     def stop_path(self):
+        """
+            Allow to stop the path at any moment.
+            In this case the car stop.
+        """
         self.run_path = False
+        self.model.car.moveForward(0)
 
 
-    def bend(self, direction): #to start 120cm before the bend
-        #direction
-        # -1 : right
-        # 1 : left
+    def bend(self, direction):
+        """
+            ALlow to turn an 90° angle on the right or on the left.
+            The turn has to begin 120cm before the bend.
+
+            :param direction: the direction to turn (-1 : right, 1 : left)
+            :type direction: int
+        """
+        # Turn to the right
         if(direction == -1):
             self.model.car.turnRight(45)
+            self.model.car.moveForward(40)
+        # Turn to the left
         elif(direction == 1):
             self.model.car.turnLeft(45)
+            self.model.car.moveForward(40)
 
         time.sleep(13)
 
@@ -136,4 +199,9 @@ class PreloadedPaths(Thread):
         self.current_path.del_first_instruction()
 
     def stop(self):
+        """
+            Allow to stop the thread and quit it.
+            In this case we stop the car
+        """
+        self.model.car.moveForward(0)
         self.terminated = True

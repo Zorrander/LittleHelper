@@ -16,50 +16,55 @@ from threading import Thread
 from constant import SLEEP_STMCONTROLLER_THREAD
 
 class StmController(Thread):
-
     """
-
-        The Stm Class
-        -------------
-
         Start a new thread commuincating with the STM32 and define its behaviour.
 
+        The stmController is composed of :
+            >>> 1 model world
+            >>> spi communication information
     """
 
     def __init__(self, model):
+        # The world model
         self.model = model
-        self.car = model.car
+
+        # Initialisation of the SPI communication
         self.SPIchannel = 0
         SPIspeed = 562500
         wiringpi.wiringPiSetupGpio()
         wiringpi.wiringPiSPISetupMode(self.SPIchannel, SPIspeed, 0)
+
+        # Boolean that allow the thread to be quit
         self.terminated = False
+
+        # Initialise the thread
         Thread.__init__(self)
 
     def run(self):
+        """
+            Run function of the thread.
+            The function that is launch when we start the thread.
+        """
+        # Infinit loop util the programm quit
         while not self.terminated:
             sendData = self.modelToFrame()
             recvData = wiringpi.wiringPiSPIDataRW(self.SPIchannel, sendData)
             self.frameToModel(recvData)
 
-            # Sleep periode to let the hand to an other thread
+            # Sleep periode to let the hand to another thread
             time.sleep(SLEEP_STMCONTROLLER_THREAD)
 
     def modelToFrame(self):
         """
-
-            The modelToFrame function
-            -------------------------
-
             Used to translate the model into a frame that can be sent to the STM32
+
             Model of the frame :
-                     --------------------------------------------------------
+                >>>  --------------------------------------------------------
                 >>> | FrontMotor | rearLeftMotor | rearRightMotor | 00....00 |
-                     --------------------------------------------------------
+                >>>  --------------------------------------------------------
 
             :return: The frame to be sent
-            :rtype: String
-
+            :rtype: str
         """
         frame = ""
 
@@ -84,28 +89,23 @@ class StmController(Thread):
 
     def frameToModel(self, dataReceived):
         """
-
-            The frameToModel function
-            -------------------------
-
             Used to translate a frame received from the STM to update the model
+
             Model of the frame v.1 :
-                     -----------------------------------------------------------
+                >>>  -----------------------------------------------------------
                 >>> | 00..00 | Distance | UltrasoundSensors | Battery | AckByte |
-                     -----------------------------------------------------------
+                >>> -----------------------------------------------------------
 
             Model for the battery:
-                     ---------------------------------------
+                >>>  ---------------------------------------
                 >>> | 0..0 (7 bites) | 0/1 (charged or not) |
-                     ---------------------------------------
+                >>>  ---------------------------------------
 
-            :param a: The received frame
-            :type a: string of 80 characters
-
+            :param dataReceived: The received frame
+            :type dataReceived: str
         """
         # We transform the received Frame data from hexa to integer
         recvValue = map(ord, dataReceived[1])
-
 
         self.set_ack_byte(recvValue[12])
 
@@ -118,13 +118,18 @@ class StmController(Thread):
         for sensor in self.model.car.sensors:
             sensor.distance = recvValue[5+i]
             i+=1
-#        self.notify_distance_observers()
 
         # read battery value
         self.model.car.battery.charged = recvValue[11]
 
     @staticmethod
     def to_chr(n):
+        """
+            Transform an integer in character
+
+            :param n: the number to Transform
+            :type n: int
+        """
         if n<0:
             res=256+n
         else:
@@ -133,11 +138,14 @@ class StmController(Thread):
 
     def get_ack_byte(self):
         """
-        Return the ack byte according to the different information of the car
+            Return the ack byte according to the different information of the car
 
-         -------------------------------------------------------------
-        | 00 | 00 | 00 | 00 | 00 | 00 | reset distance | ack distance |
-         -------------------------------------------------------------
+            >>> -------------------------------------------------------------
+            >>> | 00 | 00 | 00 | 00 | 00 | 00 | reset distance | ack distance |
+            >>>  -------------------------------------------------------------
+
+            :return: The ack byte
+            :rtype: int
         """
         # update of the reset distance bit
         bin_ack = self.dec2bin(0)
@@ -150,11 +158,14 @@ class StmController(Thread):
 
     def set_ack_byte(self, ack_byte):
         """
-        Update the different information of the car according to the ack byte
+            Update the different information of the car according to the ack byte
 
-         -------------------------------------------------------------
-        | 00 | 00 | 00 | 00 | 00 | 00 | reset distance | ack distance |
-         -------------------------------------------------------------
+            >>>  -------------------------------------------------------------
+            >>> | 00 | 00 | 00 | 00 | 00 | 00 | reset distance | ack distance |
+            >>>  -------------------------------------------------------------
+
+            :param ack_byte: the ack byte received
+            :type ack_byte: int
         """
         # Convert a int in binary number to read each bits separately
         ack_bin = self.dec2bin(ack_byte)
@@ -165,7 +176,14 @@ class StmController(Thread):
 
     @staticmethod
     def dec2bin(d,nb=8):
-        """Représentation d'un nombre entier en chaine binaire (nb: nombre de bits du mot)"""
+        """
+            Transform an interger in string of binary number
+
+            :param d: the integer to transform
+            :type d: int
+            :param nb: the number of bits to encode the integer
+            :type nb: int
+        """
         if d == 0:
             return "0".zfill(nb)
         if d<0:
@@ -178,7 +196,16 @@ class StmController(Thread):
 
     @staticmethod
     def bin2dec(s):
+        """
+            Transform a string of binary number in integer
+
+            :param s: the string of binary number
+            :type s: str
+        """
         return int(s,2)
 
     def stop(self):
+        """
+            Allow to stop the thread and quit it
+        """
         self.terminated = True

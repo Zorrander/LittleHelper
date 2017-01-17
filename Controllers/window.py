@@ -12,7 +12,6 @@
 import os
 import sys
 import PyQt5
-#import cv2
 from PyQt5.QtWidgets import *
 from PyQt5 import QtGui, QtCore, Qt
 import GUI.mainwindow_auto
@@ -24,23 +23,16 @@ import preloadedPath
 
 
 class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow):
-
-
-
+    """
+    """
     def __init__(self, model, preloadPath):
-
-
         super(self.__class__, self).__init__()
+
         self.model = model
         self.preloadPath = preloadPath
         self.ui = GUI.mainwindow_auto.Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # Video
-#        self.video = video.Video(cv2.VideoCapture(0))
- #       self.timer = QtCore.QTimer(self)
-  #      self.timer.timeout.connect(self.play)
-   #     self.timer.start(27)
         # Buttons
         self.ui.myPathsButton.clicked.connect(lambda: self.pressedMyPathsButton())
         self.ui.cmdButton.clicked.connect(lambda: self.pressedCmdButton())
@@ -55,15 +47,11 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow):
         self.ui.pathButton.clicked.connect(lambda: self.pressedPathButton())
         self.ui.changeButton.clicked.connect(lambda: self.pressedChangeButton())
 
-
-
     def pressedChangeButton(self):
         self.model.changeValues()
 
 
     def stop(self):
-        #self.timer.stop()
-        #self.video.stop()
         self.close()
 
     def play(self):
@@ -92,14 +80,10 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow):
         else:
             print("STATE >>> BLUE")
 
-
-
-
     def update(self):
         os.system('clear')
         for sensor in self.model.sensors:
             self.checkSensor(sensor)
-
 
     def pressedMyPathsButton(self):
         self.tabWidget.setCurrentIndex(1)

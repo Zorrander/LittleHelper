@@ -40,9 +40,482 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="controllers">
-<h1>Controllers<a class="headerlink" href="#controllers" title="Permalink to this headline">¶</a></h1>
-<p>TODO</p>
+  <div class="section" id="module-camera">
+<span id="controllers"></span><h1>Controllers<a class="headerlink" href="#module-camera" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-camera-module">
+<h2>The camera module<a class="headerlink" href="#the-camera-module" title="Permalink to this headline">¶</a></h2>
+<p>Used to manage the camera</p>
+<dl class="class">
+<dt id="camera.Camera">
+<em class="property">class </em><code class="descclassname">camera.</code><code class="descname">Camera</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="headerlink" href="#camera.Camera" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>The camera is composed of :</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">model</span> <span class="n">world</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">camera</span> <span class="p">(</span><span class="n">PiCamera</span> <span class="nb">object</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">road</span> <span class="n">follower</span> <span class="nb">object</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="method">
+<dt id="camera.Camera.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#camera.Camera.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run function of the thread.
+The function that is launch when we start the thread.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="camera.Camera.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#camera.Camera.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow to stop the thread and quit it.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-checkDistance"></span><div class="section" id="the-check-distance-module">
+<h2>The check distance module<a class="headerlink" href="#the-check-distance-module" title="Permalink to this headline">¶</a></h2>
+<p>Used to reset the distance with band on the road checking</p>
+<dl class="class">
+<dt id="checkDistance.CheckDistance">
+<em class="property">class </em><code class="descclassname">checkDistance.</code><code class="descname">CheckDistance</code><span class="sig-paren">(</span><em>model</em>, <em>band_xcoord</em><span class="sig-paren">)</span><a class="headerlink" href="#checkDistance.CheckDistance" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>The CheckDistance is composed of :</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">model</span> <span class="p">:</span> <span class="n">The</span> <span class="n">world</span><span class="p">,</span> <span class="n">model</span> <span class="n">of</span> <span class="n">the</span> <span class="n">car</span> <span class="ow">and</span> <span class="n">their</span> <span class="n">environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">band_xcoord</span> <span class="p">:</span> <span class="n">shared</span> <span class="n">value</span> <span class="k">with</span> <span class="n">video</span> <span class="n">process</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="method">
+<dt id="checkDistance.CheckDistance.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#checkDistance.CheckDistance.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run function of the thread.
+The function that is launch when we start the thread.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="checkDistance.CheckDistance.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#checkDistance.CheckDistance.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow to stop the thread and quit it.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-color_detector"></span><div class="section" id="the-color-detector-module">
+<h2>The color detector module<a class="headerlink" href="#the-color-detector-module" title="Permalink to this headline">¶</a></h2>
+<p>Used to manage the detection of the color of the road.</p>
+<dl class="class">
+<dt id="color_detector.ColorFilter">
+<em class="property">class </em><code class="descclassname">color_detector.</code><code class="descname">ColorFilter</code><a class="headerlink" href="#color_detector.ColorFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class provides a simple method for color filtering based on the HSV color space, the image sample needs to be
+blurred before being passed to this filter</p>
+<dl class="attribute">
+<dt id="color_detector.ColorFilter.color_thresholds">
+<code class="descname">color_thresholds</code><a class="headerlink" href="#color_detector.ColorFilter.color_thresholds" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Gets the lower and upper threshold for color filtering</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">array of two numpy arrays</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="color_detector.ColorFilter.display">
+<code class="descname">display</code><span class="sig-paren">(</span><em>raw_img=True</em><span class="sig-paren">)</span><a class="headerlink" href="#color_detector.ColorFilter.display" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display the mask and the raw image
+:param raw_img: if True, the raw image will be displayed
+:type raw_img: boolean</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="color_detector.ColorFilter.img">
+<code class="descname">img</code><a class="headerlink" href="#color_detector.ColorFilter.img" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Gets the image before filtered</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="color_detector.ColorFilter.mask">
+<code class="descname">mask</code><a class="headerlink" href="#color_detector.ColorFilter.mask" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Gets the mask after processing</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="color_detector.ColorFilter.process">
+<code class="descname">process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#color_detector.ColorFilter.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start processing</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-preloadedPath"></span><div class="section" id="the-preloadedpaths-module">
+<h2>The PreloadedPaths module<a class="headerlink" href="#the-preloadedpaths-module" title="Permalink to this headline">¶</a></h2>
+<p>Used to manage the processing of the paths</p>
+<dl class="class">
+<dt id="preloadedPath.PreloadedPaths">
+<em class="property">class </em><code class="descclassname">preloadedPath.</code><code class="descname">PreloadedPaths</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="headerlink" href="#preloadedPath.PreloadedPaths" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>The PreloadedPaths is composed of :</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">model</span> <span class="n">world</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">paths</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">current</span> <span class="n">path</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="method">
+<dt id="preloadedPath.PreloadedPaths.bend">
+<code class="descname">bend</code><span class="sig-paren">(</span><em>direction</em><span class="sig-paren">)</span><a class="headerlink" href="#preloadedPath.PreloadedPaths.bend" title="Permalink to this definition">¶</a></dt>
+<dd><p>ALlow to turn an 90° angle on the right or on the left.
+The turn has to begin 120cm before the bend.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>direction</strong> (<em>int</em>) &#8211; the direction to turn (-1 : right, 1 : left)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="preloadedPath.PreloadedPaths.distance_management">
+<code class="descname">distance_management</code><span class="sig-paren">(</span><em>distance</em>, <em>distance_traveled</em><span class="sig-paren">)</span><a class="headerlink" href="#preloadedPath.PreloadedPaths.distance_management" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manage the distance.
+If a bend is detected we update the distance_traveled to be more precise.
+If the distance ordered by the instruction is reach we can go to the next instruction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>distance</strong> (<em>int</em>) &#8211; distance to reach</li>
+<li><strong>distance_traveled</strong> (<em>float</em>) &#8211; distance traveled by the car</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="preloadedPath.PreloadedPaths.move_car">
+<code class="descname">move_car</code><span class="sig-paren">(</span><em>action</em>, <em>speed</em>, <em>distance</em><span class="sig-paren">)</span><a class="headerlink" href="#preloadedPath.PreloadedPaths.move_car" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the car according to the action (forward, backward, turn left, turn right)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>action</strong> (<em>FORWARD, BACKWARD, TURN_LEFT, TURN_RIGHT</em>) &#8211; action to execute</li>
+<li><strong>speed</strong> (<em>int</em>) &#8211; speed for moving backward or forward</li>
+<li><strong>distance</strong> (<em>int</em>) &#8211; the distance to traveled</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="preloadedPath.PreloadedPaths.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preloadedPath.PreloadedPaths.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run function of the thread.
+The function that is launch when we start the thread.
+Control the progress of the path.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="preloadedPath.PreloadedPaths.start_path">
+<code class="descname">start_path</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#preloadedPath.PreloadedPaths.start_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow to choose the index of the path we want to follow</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> (<em>int</em>) &#8211; the index of the path</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="preloadedPath.PreloadedPaths.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preloadedPath.PreloadedPaths.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow to stop the thread and quit it.
+In this case we stop the car</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="preloadedPath.PreloadedPaths.stop_car">
+<code class="descname">stop_car</code><span class="sig-paren">(</span><em>sleep_time</em><span class="sig-paren">)</span><a class="headerlink" href="#preloadedPath.PreloadedPaths.stop_car" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop the car during the time indicated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>sleep_time</strong> (<em>float</em>) &#8211; time to stop in seconds</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="preloadedPath.PreloadedPaths.stop_path">
+<code class="descname">stop_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#preloadedPath.PreloadedPaths.stop_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow to stop the path at any moment.
+In this case the car stop.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-road_follower"></span><div class="section" id="the-road-follower-module">
+<h2>The road follower module<a class="headerlink" href="#the-road-follower-module" title="Permalink to this headline">¶</a></h2>
+<p>Used to manage the car to stay in the center of the road</p>
+<dl class="class">
+<dt id="road_follower.RoadFollower">
+<em class="property">class </em><code class="descclassname">road_follower.</code><code class="descname">RoadFollower</code><a class="headerlink" href="#road_follower.RoadFollower" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="road_follower.RoadFollower.compute_deviation">
+<code class="descname">compute_deviation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#road_follower.RoadFollower.compute_deviation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="road_follower.RoadFollower.display_masks">
+<code class="descname">display_masks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#road_follower.RoadFollower.display_masks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="road_follower.RoadFollower.filter">
+<code class="descname">filter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#road_follower.RoadFollower.filter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="road_follower.RoadFollower.set_thresholds">
+<code class="descname">set_thresholds</code><span class="sig-paren">(</span><em>v_thresh</em>, <em>h_thresh</em><span class="sig-paren">)</span><a class="headerlink" href="#road_follower.RoadFollower.set_thresholds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="road_follower.RoadFollower.update_frame">
+<code class="descname">update_frame</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="headerlink" href="#road_follower.RoadFollower.update_frame" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-StmController"></span><div class="section" id="the-stm-module">
+<h2>The Stm module<a class="headerlink" href="#the-stm-module" title="Permalink to this headline">¶</a></h2>
+<p>Used to handle the communication between the RaspberryPi and the STM32.</p>
+<dl class="class">
+<dt id="StmController.StmController">
+<em class="property">class </em><code class="descclassname">StmController.</code><code class="descname">StmController</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="headerlink" href="#StmController.StmController" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start a new thread commuincating with the STM32 and define its behaviour.</p>
+<dl class="docutils">
+<dt>The stmController is composed of :</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">model</span> <span class="n">world</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">spi</span> <span class="n">communication</span> <span class="n">information</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="staticmethod">
+<dt id="StmController.StmController.bin2dec">
+<em class="property">static </em><code class="descname">bin2dec</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#StmController.StmController.bin2dec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform a string of binary number in integer</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> (<em>str</em>) &#8211; the string of binary number</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="StmController.StmController.dec2bin">
+<em class="property">static </em><code class="descname">dec2bin</code><span class="sig-paren">(</span><em>d</em>, <em>nb=8</em><span class="sig-paren">)</span><a class="headerlink" href="#StmController.StmController.dec2bin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform an interger in string of binary number</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>d</strong> (<em>int</em>) &#8211; the integer to transform</li>
+<li><strong>nb</strong> (<em>int</em>) &#8211; the number of bits to encode the integer</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="StmController.StmController.frameToModel">
+<code class="descname">frameToModel</code><span class="sig-paren">(</span><em>dataReceived</em><span class="sig-paren">)</span><a class="headerlink" href="#StmController.StmController.frameToModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to translate a frame received from the STM to update the model</p>
+<dl class="docutils">
+<dt>Model of the frame v.1 :</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="o">-----------------------------------------------------------</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="o">|</span> <span class="mf">00.</span><span class="o">.</span><span class="mi">00</span> <span class="o">|</span> <span class="n">Distance</span> <span class="o">|</span> <span class="n">UltrasoundSensors</span> <span class="o">|</span> <span class="n">Battery</span> <span class="o">|</span> <span class="n">AckByte</span> <span class="o">|</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="o">-----------------------------------------------------------</span>
+</pre></div>
+</div>
+</dd>
+<dt>Model for the battery:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="o">---------------------------------------</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="o">|</span> <span class="mf">0.</span><span class="o">.</span><span class="mi">0</span> <span class="p">(</span><span class="mi">7</span> <span class="n">bites</span><span class="p">)</span> <span class="o">|</span> <span class="mi">0</span><span class="o">/</span><span class="mi">1</span> <span class="p">(</span><span class="n">charged</span> <span class="ow">or</span> <span class="ow">not</span><span class="p">)</span> <span class="o">|</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="o">---------------------------------------</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dataReceived</strong> (<em>str</em>) &#8211; The received frame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="StmController.StmController.get_ack_byte">
+<code class="descname">get_ack_byte</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#StmController.StmController.get_ack_byte" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the ack byte according to the different information of the car</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="o">-------------------------------------------------------------</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="o">|</span> <span class="mi">00</span> <span class="o">|</span> <span class="mi">00</span> <span class="o">|</span> <span class="mi">00</span> <span class="o">|</span> <span class="mi">00</span> <span class="o">|</span> <span class="mi">00</span> <span class="o">|</span> <span class="mi">00</span> <span class="o">|</span> <span class="n">reset</span> <span class="n">distance</span> <span class="o">|</span> <span class="n">ack</span> <span class="n">distance</span> <span class="o">|</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="o">-------------------------------------------------------------</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The ack byte</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="StmController.StmController.modelToFrame">
+<code class="descname">modelToFrame</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#StmController.StmController.modelToFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to translate the model into a frame that can be sent to the STM32</p>
+<dl class="docutils">
+<dt>Model of the frame :</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="o">--------------------------------------------------------</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="o">|</span> <span class="n">FrontMotor</span> <span class="o">|</span> <span class="n">rearLeftMotor</span> <span class="o">|</span> <span class="n">rearRightMotor</span> <span class="o">|</span> <span class="mf">00.</span><span class="o">...</span><span class="mi">00</span> <span class="o">|</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="o">--------------------------------------------------------</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The frame to be sent</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="StmController.StmController.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#StmController.StmController.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run function of the thread.
+The function that is launch when we start the thread.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="StmController.StmController.set_ack_byte">
+<code class="descname">set_ack_byte</code><span class="sig-paren">(</span><em>ack_byte</em><span class="sig-paren">)</span><a class="headerlink" href="#StmController.StmController.set_ack_byte" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the different information of the car according to the ack byte</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="o">-------------------------------------------------------------</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="o">|</span> <span class="mi">00</span> <span class="o">|</span> <span class="mi">00</span> <span class="o">|</span> <span class="mi">00</span> <span class="o">|</span> <span class="mi">00</span> <span class="o">|</span> <span class="mi">00</span> <span class="o">|</span> <span class="mi">00</span> <span class="o">|</span> <span class="n">reset</span> <span class="n">distance</span> <span class="o">|</span> <span class="n">ack</span> <span class="n">distance</span> <span class="o">|</span>
+<span class="gp">&gt;&gt;&gt; </span> <span class="o">-------------------------------------------------------------</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ack_byte</strong> (<em>int</em>) &#8211; the ack byte received</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="StmController.StmController.stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#StmController.StmController.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allow to stop the thread and quit it</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="StmController.StmController.to_chr">
+<em class="property">static </em><code class="descname">to_chr</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#StmController.StmController.to_chr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform an integer in character</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<em>int</em>) &#8211; the number to Transform</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<span class="target" id="module-window"></span><div class="section" id="the-window-module">
+<h2>The window module<a class="headerlink" href="#the-window-module" title="Permalink to this headline">¶</a></h2>
+<p>Used to handle the communication between the user and the RaspberryPi.</p>
+<dl class="class">
+<dt id="window.Window">
+<em class="property">class </em><code class="descclassname">window.</code><code class="descname">Window</code><span class="sig-paren">(</span><em>model</em>, <em>preloadPath</em><span class="sig-paren">)</span><a class="headerlink" href="#window.Window" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="window.Window.checkSensor">
+<code class="descname">checkSensor</code><span class="sig-paren">(</span><em>sensor</em><span class="sig-paren">)</span><a class="headerlink" href="#window.Window.checkSensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform analysis on the sensor before displaying on the RasPi</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -50,7 +523,21 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Controllers</a><ul>
+<li><a class="reference internal" href="#the-camera-module">The camera module</a></li>
+<li><a class="reference internal" href="#the-check-distance-module">The check distance module</a></li>
+<li><a class="reference internal" href="#the-color-detector-module">The color detector module</a></li>
+<li><a class="reference internal" href="#the-preloadedpaths-module">The PreloadedPaths module</a></li>
+<li><a class="reference internal" href="#the-road-follower-module">The road follower module</a></li>
+<li><a class="reference internal" href="#the-stm-module">The Stm module</a></li>
+<li><a class="reference internal" href="#the-window-module">The window module</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>

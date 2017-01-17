@@ -1,3 +1,14 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+    The road follower module
+    ========================
+
+    Used to manage the car to stay in the center of the road
+
+"""
+
 import color_detector as cd
 import cv2
 import numpy as np
@@ -6,7 +17,8 @@ from constant import *
 
 
 class RoadFollower:
-
+    """
+    """
     # frame's factors
     __IMG_SIZE = (640, 480)
     __BLUR_K_SIZE = (10, 10)
@@ -33,6 +45,8 @@ class RoadFollower:
         self.__angle = 0
 
     def update_frame(self, image):
+        """
+        """
         try:
             if image.shape[0] != RoadFollower.__IMG_SIZE[1] or image.shape[1] != RoadFollower.__IMG_SIZE[0]:
                 image = cv2.resize(image, RoadFollower.__IMG_SIZE)
@@ -45,10 +59,14 @@ class RoadFollower:
             print("update_frame: Can't update, frame not found!!!")
 
     def set_thresholds(self, v_thresh, h_thresh):
+        """
+        """
         self.__colorDetectV.color_thresholds = v_thresh
         self.__colorDetectH.color_thresholds = h_thresh
 
     def filter(self):
+        """
+        """
         try:
             self.__colorDetectV.process()
             self.__colorDetectH.process()
@@ -56,6 +74,8 @@ class RoadFollower:
             print("filter: Can't process, image not found!!!")
 
     def compute_deviation(self):
+        """
+        """
         try:
             non_zeros_left = cv2.countNonZero(self.__colorDetectH.mask[:, 0:320])
             non_zeros_right = cv2.countNonZero(self.__colorDetectH.mask[:, 320:640])
@@ -64,13 +84,15 @@ class RoadFollower:
             if self.__angle <= -45:
                 self.__angle = -45
             elif self.__angle >= 45:
-                self.__angle = 45 
+                self.__angle = 45
             return self.__angle
         except TypeError:
             print("compute_deviation: Can't compute, image not found!!!")
             self.__angle = 0
 
     def display_masks(self):
+        """
+        """
         try:
             cv2.imshow('mask V', self.__colorDetectV.mask)
             cv2.imshow('mask H', self.__colorDetectH.mask)
