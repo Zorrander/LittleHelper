@@ -114,11 +114,9 @@ class PreloadedPaths(Thread):
             distance_traveled = self.model.current_distance
             self.distance_management(distance, distance_traveled)
         elif(action == TURN_LEFT):
-            pass
-            # TODO
+            self.bend(1)
         elif(action == TURN_RIGHT):
-            pass
-            # TODO
+            self.bend(-1)
 
     def distance_management(self, distance, distance_traveled):
         """
@@ -132,20 +130,20 @@ class PreloadedPaths(Thread):
             :type distance_traveled: float
         """
         # If we saw a bend
-        if(self.model.sema_distance.acquire(NON_BLOCKING)):
-            # Set the reset distance flag and reset the ack
-            self.model.reset_distance = True
-            self.model.ack_reset_distance = False
-
-            # While we didn't receive the ack we wait
-            while(not(self.model.ack_reset_distance)):
-                pass
-
-            # update the new distance to traveled
-            self.current_path.get_current_instruction().distance = distance - self.model.real_distance
-
-            # We release the semaphore
-            self.model.sema_distance.release()
+        # if(self.model.sema_distance.acquire(NON_BLOCKING)):
+        #     # Set the reset distance flag and reset the ack
+        #     self.model.reset_distance = True
+        #     self.model.ack_reset_distance = False
+        #
+        #     # While we didn't receive the ack we wait
+        #     while(not(self.model.ack_reset_distance)):
+        #         pass
+        #
+        #     # update the new distance to traveled
+        #     self.current_path.get_current_instruction().distance = distance - self.model.real_distance
+        #
+        #     # We release the semaphore
+        #     self.model.sema_distance.release()
 
         # If the distance of the instruction is reach
         if(distance <= distance_traveled):

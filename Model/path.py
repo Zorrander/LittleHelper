@@ -61,7 +61,7 @@ class Path():
 class Paths():
     """
         Used to build and save the differents path available.
-        
+
         Caracteristics :
             >>> a list of paths
     """
@@ -78,8 +78,7 @@ class Paths():
         #                      Creation of the first path
         # ====================================================================
         path = Path()
-        path.add_instruction(Instruction(FORWARD, speed=35, distance=100))
-        path.add_instruction(Instruction(FORWARD, speed=35, distance=50))
+        path.add_instruction(Instruction(FORWARD, speed=40, distance=50))
         path.add_instruction(Instruction(TURN_LEFT))
         path.add_instruction(Instruction(STOP, sleep_time=5))
 
