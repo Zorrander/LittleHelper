@@ -34,6 +34,9 @@ class World():
         self.real_distance = 0
         self.reset_distance = False
         self.ack_reset_distance = False
+        
+        # Band management
+        self.band_ycoord = 0
 
         # ==========================
         # Semaphore used in the code
@@ -42,7 +45,7 @@ class World():
         # semaphore[1] shared with spi process
         self.sema_distance = threading.Semaphore()
         # semaphore[1] shared with video process
-        self.sema_band_xcoord = threading.Semaphore()
+        self.sema_band_ycoord = threading.Semaphore()
 
 
     @property
