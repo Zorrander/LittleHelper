@@ -51,6 +51,9 @@ class Camera(Thread):
 #            cv2.imshow('frame', frame)
             self.roadFollower.update_frame(frame)
             self.roadFollower.filter()
+
+            self.model.sema_band_ycoord.release()
+            self.model.band_ycoord = self.roadFollower.compute_strip_position()
             self.model.car.direction_motor.angle = self.roadFollower.compute_deviation()
 
             self.rawCapture.seek(0)

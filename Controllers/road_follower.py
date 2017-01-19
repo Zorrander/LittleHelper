@@ -41,6 +41,9 @@ class RoadFollower:
     # default prop factor
     __Kp = 0.0015
 
+    # minimum size for strip detection
+    __STRIP_MIN_SIZE = (50 * 50)
+
     def __init__(self):
         """
             Constructor, initialize color thresholds for blue and gray filtering
@@ -109,6 +112,23 @@ class RoadFollower:
         except TypeError:
             print("compute_deviation: Can't compute, image not found!!!")
             self.__angle = 0
+
+    def compute_strip_position(self):
+        """
+            Compute the position of strip
+            :return: the coordonation (y only) of the strip's center
+            :rtype: int
+        """
+        _, contours, _ = cv2.findContours(self.__colorDetectV.mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        cx, cy = 0
+        if len(contours) != 0:
+            for i in range(len(contours)):
+                moment = cv2.moments(contours[i])
+                if moment['m00'] > RoadFollower.__STRIP_MIN_SIZE:
+                    cx = int(moment['m10'] / moment['m00'])
+                    cy = int(moment['m01'] / moment['m00'])
+                    break
+        return cy
 
     def display_masks(self):
         """
