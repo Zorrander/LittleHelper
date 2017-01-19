@@ -18,10 +18,9 @@ class CheckDistance(Thread):
             >>> 1 band_xcoord : shared value with video process
     """
 
-    def __init__(self, model, band_ycoord):
+    def __init__(self, model):
         Thread.__init__(self)
         self.model = model
-        self.band_ycoord = band_ycoord
         self.band_list = [500, 1000, 1500, 2000, 2500]
         self.terminated = False
 
@@ -33,7 +32,7 @@ class CheckDistance(Thread):
         while(1):
             # Wait from the video process to release the semaphore when a band is seen
             self.model.sema_band_ycoord.acquire(BLOCKING)
-            if(FRAME_EDGE - self.band_ycoord < BAND_THRESHOLD):
+            if(FRAME_EDGE - self.model.band_ycoord < BAND_THRESHOLD):
                 # Use another function that min for later, to accelerate processing.
                 # Check the list with a cursor. Assuming that the right band cannot be backward but is always forward.
                 # If cursor is on item 2, compare the distance with band item 2 and 3.
