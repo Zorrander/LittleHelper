@@ -12,8 +12,7 @@
 import time
 from Model.path import Path, Paths
 from threading import Thread
-from constant import FORWARD, BACKWARD, STOP, TURN_LEFT, TURN_RIGHT, \
-    SLEEP_PRELOADEDPATH_THREAD, NON_BLOCKING
+from constant import FORWARD, BACKWARD, STOP, SLEEP_PRELOADEDPATH_THREAD, NON_BLOCKING
 
 class PreloadedPaths(Thread):
     """
@@ -39,7 +38,18 @@ class PreloadedPaths(Thread):
             :type index: int
         """
         self.current_path = self.paths.get_path(index)
+        # Set the reset distance flag and reset the ack
+        self.model.reset_distance = True
+        self.model.ack_reset_distance = False
+
+        # While we didn't receive the ack we wait
+        while(not(self.model.ack_reset_distance)):
+            pass
+
+        time.sleep(0.01)
+        print "begin path"
         self.run_path = True
+      
 
     def run(self):
         """
@@ -54,7 +64,6 @@ class PreloadedPaths(Thread):
                 # If the path still have instructions
                 if (len(self.current_path.get_path()) != 0):
                     inst = self.current_path.get_current_instruction()
-
                     # action stop
                     if(inst.action == STOP):
                         self.stop_car(inst.sleep_time)
@@ -100,28 +109,29 @@ class PreloadedPaths(Thread):
         if(action == FORWARD):
             self.model.car.moveForward(speed)
             # Turn according to the angle detect by the camera
-            self.model.car.turn(self.model.car.direction_motor.angle)
-
+            self.model.car.turn(self.model.car.direction_motor.angle_camera)
+            
             # See if the distance is reach
             distance_traveled = self.model.current_distance
             self.distance_management(distance, distance_traveled)
         elif(action == BACKWARD):
             self.model.car.moveBackward(speed)
             # Turn according to the angle detect by the camera
-            self.model.car.turn(self.model.car.direction_motor.angle)
+            self.model.car.turn(self.model.car.direction_motor.angle_camera)
 
             # See if the distance is reach
             distance_traveled = self.model.current_distance
             self.distance_management(distance, distance_traveled)
-        elif(action == TURN_LEFT):
+        elif(action == 3):#TURN_LEFT):
+            print 'turn'
             self.bend(1)
-        elif(action == TURN_RIGHT):
+        elif(action == 4):#TURN_RIGHT):
             self.bend(-1)
 
     def distance_management(self, distance, distance_traveled):
         """
             Manage the distance.
-            If a bend is detected we update the distance_traveled to be more precise.
+            If a band is detected we update the distance_traveled to be more precise.
             If the distance ordered by the instruction is reach we can go to the next instruction.
 
             :param distance: distance to reach
@@ -129,7 +139,7 @@ class PreloadedPaths(Thread):
             :param distance_traveled: distance traveled by the car
             :type distance_traveled: float
         """
-        # If we saw a bend
+        # If we saw a band
         # if(self.model.sema_distance.acquire(NON_BLOCKING)):
         #     # Set the reset distance flag and reset the ack
         #     self.model.reset_distance = True
@@ -189,7 +199,7 @@ class PreloadedPaths(Thread):
             self.model.car.moveForward(40)
 
         time.sleep(13)
-
+        
         self.model.car.turn(0)
 
         time.sleep(2)

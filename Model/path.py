@@ -78,8 +78,28 @@ class Paths():
         #                      Creation of the first path
         # ====================================================================
         path = Path()
-        path.add_instruction(Instruction(FORWARD, speed=40, distance=50))
-        path.add_instruction(Instruction(TURN_LEFT))
+        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+#        path.add_instruction(Instruction(TURN_LEFT))
+        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+
+        path.add_instruction(Instruction(STOP, sleep_time=5))
+
+        self.paths.append(path)
+
+        # ====================================================================
+        #                      Creation of the first path
+        # ====================================================================
+        path = Path()
+        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+        path.add_instruction(Instruction(TURN_RIGHT))
         path.add_instruction(Instruction(STOP, sleep_time=5))
 
         self.paths.append(path)

@@ -39,7 +39,7 @@ class RoadFollower:
     __VW_Y2 = __VW_Y1 + 250
 
     # default prop factor
-    __Kp = 0.0015
+    __Kp = 0.005
 
     # minimum size for strip detection
     __STRIP_MIN_SIZE = (50 * 50)
@@ -113,6 +113,7 @@ class RoadFollower:
             print("compute_deviation: Can't compute, image not found!!!")
             self.__angle = 0
 
+
     def compute_strip_position(self):
         """
             Compute the position of strip
@@ -129,6 +130,10 @@ class RoadFollower:
                     cy = int(moment['m01'] / moment['m00'])
                     break
         return cy
+
+    def compute_stripe_size(self):
+        return cv2.countNonZero(self.__colorDetectV.mask)
+
 
     def display_masks(self):
         """

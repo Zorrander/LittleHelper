@@ -4,9 +4,8 @@ import numpy as np
 FORWARD = 0
 BACKWARD = 1
 STOP = 2
-TURN_LEFT = 0
-TURN_RIGHT = 1
-
+TURN_LEFT = 3
+TURN_RIGHT = 4
 #camera
 FRAME_EDGE = 480
 BAND_THRESHOLD = 20
