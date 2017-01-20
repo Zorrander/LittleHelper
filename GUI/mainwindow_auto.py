@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Mon Jan 16 23:19:58 2017
+# Created: Fri Jan 20 14:12:07 2017
 #      by: PyQt5 UI code generator 5.0
 #
 # WARNING! All changes made in this file will be lost!

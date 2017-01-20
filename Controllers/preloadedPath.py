@@ -37,6 +37,7 @@ class PreloadedPaths(Thread):
             :param index: the index of the path
             :type index: int
         """
+        print(len(self.paths.get_path(index).get_inst()))
         self.current_path = self.paths.get_path(index)
         # Set the reset distance flag and reset the ack
         self.model.reset_distance = True
@@ -47,7 +48,7 @@ class PreloadedPaths(Thread):
             pass
 
         time.sleep(0.01)
-        print "begin path"
+        print "begin path "+str(index)
         self.run_path = True
 
 
@@ -75,6 +76,7 @@ class PreloadedPaths(Thread):
                 else:
                     self.model.car.moveForward(0)
                     self.run_path = False
+                    print("end")
 
             # Sleep periode to let the hand to an other thread
             time.sleep(SLEEP_PRELOADEDPATH_THREAD)

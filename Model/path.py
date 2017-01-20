@@ -8,7 +8,7 @@
 
 """
 
-from copy import copy
+from copy import deepcopy
 from instructions import Instruction
 from constant import FORWARD, BACKWARD, STOP, TURN_LEFT, TURN_RIGHT
 
@@ -24,6 +24,9 @@ class Path():
         # list of instructions corresponding to the path
         self.instructions_list = []
 
+    def get_inst(self):
+        return self.instructions_list
+
     def add_instruction(self, instruction):
         """
             Used to add an instruction to the path.
@@ -38,7 +41,8 @@ class Path():
         """
             Used to delete the first instruction of the list of instruction
         """
-        del self.instructions_list[0]
+        if(len(self.instructions_list)>0):
+            del self.instructions_list[0]
 
     def get_path(self):
         """
@@ -79,15 +83,15 @@ class Paths():
         # ====================================================================
         path = Path()
         path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
-        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
-        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
-        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+#        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+#        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+#        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
 #        path.add_instruction(Instruction(TURN_LEFT))
-        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
-        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
-        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+#        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+#        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+#        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
 
-        path.add_instruction(Instruction(STOP, sleep_time=5))
+#        path.add_instruction(Instruction(STOP, sleep_time=5))
 
         self.paths.append(path)
 
@@ -96,11 +100,11 @@ class Paths():
         # ====================================================================
         path = Path()
         path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
-        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
-        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
-        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
-        path.add_instruction(Instruction(TURN_RIGHT))
-        path.add_instruction(Instruction(STOP, sleep_time=5))
+#       path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+#        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+#        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+#        path.add_instruction(Instruction(TURN_RIGHT))
+#        path.add_instruction(Instruction(STOP, sleep_time=5))
 
         self.paths.append(path)
 
@@ -109,13 +113,16 @@ class Paths():
         # ====================================================================
         path = Path()
         path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
-        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
-        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
-        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
-        path.add_instruction(Instruction(TURN_RIGHT))
-        path.add_instruction(Instruction(STOP, sleep_time=5))
+#        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+#        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+#        path.add_instruction(Instruction(FORWARD, speed=40, distance=100))
+#        path.add_instruction(Instruction(TURN_RIGHT))
+#        path.add_instruction(Instruction(STOP, sleep_time=5))
 
         self.paths.append(path)
+
+    def getpath(self):
+        return(self.paths)
 
     def get_path(self, index):
         """
@@ -127,4 +134,4 @@ class Paths():
             :getter: Returns the path corresponding to the index number
             :type: Path
         """
-        return copy(self.paths[index])
+        return deepcopy(self.paths[index])

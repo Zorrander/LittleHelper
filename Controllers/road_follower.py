@@ -121,7 +121,8 @@ class RoadFollower:
             :rtype: int
         """
         _, contours, _ = cv2.findContours(self.__colorDetectV.mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-        cx, cy = 0
+        cx = 0
+        cy = 0
         if len(contours) != 0:
             for i in range(len(contours)):
                 moment = cv2.moments(contours[i])
