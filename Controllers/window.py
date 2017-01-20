@@ -45,6 +45,8 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow):
         self.ui.leftButton.clicked.connect(lambda: self.pressedLeftButton())
         self.ui.rightButton.clicked.connect(lambda: self.pressedRightButton())
         self.ui.pathButton.clicked.connect(lambda: self.pressedPathButton())
+        self.ui.pathButton_2.clicked.connect(lambda: self.pressedPathButton2())
+        self.ui.pathButton_3.clicked.connect(lambda: self.pressedPathButton3())
         self.ui.changeButton.clicked.connect(lambda: self.pressedChangeButton())
 
     def pressedChangeButton(self):
@@ -117,3 +119,9 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow):
 
     def pressedPathButton(self):
         self.preloadPath.start_path(0)
+
+    def pressedPathButton2(self):
+        self.preloadPath.start_path(1)
+
+    def pressedPathButton3(self):
+        self.preloadPath.start_path(2)

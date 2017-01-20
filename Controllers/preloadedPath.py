@@ -49,7 +49,7 @@ class PreloadedPaths(Thread):
         time.sleep(0.01)
         print "begin path"
         self.run_path = True
-      
+
 
     def run(self):
         """
@@ -74,7 +74,7 @@ class PreloadedPaths(Thread):
                 # If a path is empty (ie all the instruction are done) we stop the car
                 else:
                     self.model.car.moveForward(0)
-                    self.run = False
+                    self.run_path = False
 
             # Sleep periode to let the hand to an other thread
             time.sleep(SLEEP_PRELOADEDPATH_THREAD)
@@ -110,7 +110,7 @@ class PreloadedPaths(Thread):
             self.model.car.moveForward(speed)
             # Turn according to the angle detect by the camera
             self.model.car.turn(self.model.car.direction_motor.angle_camera)
-            
+
             # See if the distance is reach
             distance_traveled = self.model.current_distance
             self.distance_management(distance, distance_traveled)
@@ -199,7 +199,7 @@ class PreloadedPaths(Thread):
             self.model.car.moveForward(40)
 
         time.sleep(13)
-        
+
         self.model.car.turn(0)
 
         time.sleep(2)
