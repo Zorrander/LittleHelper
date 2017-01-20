@@ -24,9 +24,6 @@ class Path():
         # list of instructions corresponding to the path
         self.instructions_list = []
 
-    def get_inst(self):
-        return self.instructions_list
-
     def add_instruction(self, instruction):
         """
             Used to add an instruction to the path.
@@ -120,9 +117,6 @@ class Paths():
 #        path.add_instruction(Instruction(STOP, sleep_time=5))
 
         self.paths.append(path)
-
-    def getpath(self):
-        return(self.paths)
 
     def get_path(self, index):
         """
