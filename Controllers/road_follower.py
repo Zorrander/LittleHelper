@@ -39,7 +39,7 @@ class RoadFollower:
     __VW_Y2 = __VW_Y1 + 250
 
     # default prop factor
-    __Kp = 0.0015
+    __Kp = 0.005
 
     def __init__(self):
         """
@@ -109,6 +109,9 @@ class RoadFollower:
         except TypeError:
             print("compute_deviation: Can't compute, image not found!!!")
             self.__angle = 0
+
+    def compute_stripe_size(self):
+        return cv2.countNonZero(self.__colorDetectV.mask)    
 
     def display_masks(self):
         """

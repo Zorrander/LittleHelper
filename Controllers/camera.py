@@ -42,7 +42,7 @@ class Camera(Thread):
     def run(self):
         """
             Run function of the thread.
-            The function that is launch when we start the thread.
+            The function that is launched when we start the thread.
         """
 
         while not self.terminated:
@@ -51,7 +51,7 @@ class Camera(Thread):
 #            cv2.imshow('frame', frame)
             self.roadFollower.update_frame(frame)
             self.roadFollower.filter()
-            self.model.car.direction_motor.angle = self.roadFollower.compute_deviation()
+            self.model.car.direction_motor.angle_camera = self.roadFollower.compute_deviation()
 
             self.rawCapture.seek(0)
             self.rawCapture.truncate(0)

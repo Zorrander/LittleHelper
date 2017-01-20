@@ -20,6 +20,7 @@ class FrontMotor():
 
     def __init__(self):
         self.angle = 0
+        self.angle_camera = 0
 
     def turnLeft(self, angle):
         """
@@ -58,6 +59,17 @@ class FrontMotor():
             :type: int
         """
         return self.angle
+
+    @property
+    def angle_camera(self):
+        """
+            The angle that the camera detect to turn
+
+            :getter: Returns the angle
+            :setter: Sets the angle
+            :type: int
+        """
+        return self.angle_camera
 
 class RearMotor():
     """
