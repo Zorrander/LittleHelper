@@ -21,7 +21,7 @@ class CheckDistance(Thread):
     def __init__(self, model):
         Thread.__init__(self)
         self.model = model
-        self.band_list = [500, 1000, 1500, 2000, 2500]
+        self.band_list = [500, 1000]
         self.cursor = 0
         self.terminated = False
 
@@ -34,13 +34,18 @@ class CheckDistance(Thread):
             # Wait from the video process to release the semaphore when a band is seen
             self.model.sema_band_ycoord.acquire(BLOCKING)
            
-            if(FRAME_EDGE - self.model.band_ycoord < BAND_THRESHOLD):
+            if(self.model.band_ycoord > BAND_THRESHOLD):
                 #Find the closest band from the distance received from odometry
                 # Different methods
                
                 #Method 1
-                self.model.real_distance = findClosest(self.band_list, self.model.current_distance)
-                
+                self.model.real_distance = self.findClosest(self.band_list, self.model.current_distance)
+				# TODO 
+				# SI current distance et real distance != +-20% => on prend pas en compte la bande
+				# donc pas de release
+				
+				
+                print("recalibrate: ", self.model.real_distance)               
                 # Method 2
                 #self.model.real_distance = min(self.band_list, key=lambda(band):abs(band-self.model.current_distance))
                 

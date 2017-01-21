@@ -8,7 +8,7 @@ TURN_LEFT = 3
 TURN_RIGHT = 4
 #camera
 FRAME_EDGE = 480
-BAND_THRESHOLD = 20
+BAND_THRESHOLD = 100
 
 
 # Sleep for the thread
@@ -26,5 +26,5 @@ NON_BLOCKING = False
 LOWER_GRAY = np.array([0, 0, 20])
 UPPER_GRAY = np.array([200, 40, 200])
 
-LOWER_BLUE = np.array([100, 30, 0])
-UPPER_BLUE = np.array([140, 200, 230])
+LOWER_BLUE = np.array([100, 20, 0])
+UPPER_BLUE = np.array([120, 255, 250])

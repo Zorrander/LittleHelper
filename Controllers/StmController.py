@@ -112,6 +112,7 @@ class StmController(Thread):
         # read distances values
         # ack for initialisation of the distance is the last bit of the byte
         self.model.current_distance = (recvValue[3] + recvValue[4])/2
+        print("current distance : "+str((recvValue[3]+recvValue[4])/2))
 
         # read sensors values
         i = 0

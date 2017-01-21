@@ -50,8 +50,8 @@ class RoadFollower:
         """
         self.__colorDetectV = cd.ColorFilter()
         self.__colorDetectH = cd.ColorFilter()
-        self.__colorDetectV.color_thresholds = [LOWER_BLUE, UPPER_BLUE]
-        self.__colorDetectH.color_thresholds = [LOWER_GRAY, UPPER_GRAY]
+        self.__colorDetectV.set_thresholds([LOWER_BLUE, UPPER_BLUE])
+        self.__colorDetectH.set_thresholds([LOWER_GRAY, UPPER_GRAY])
         self.__kp = RoadFollower.__Kp
         self.__angle = 0
 
@@ -130,7 +130,7 @@ class RoadFollower:
                     cx = int(moment['m10'] / moment['m00'])
                     cy = int(moment['m01'] / moment['m00'])
                     break
-        return cy
+        return [cx, cy]
 
     def compute_stripe_size(self):
         return cv2.countNonZero(self.__colorDetectV.mask)

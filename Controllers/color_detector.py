@@ -27,6 +27,9 @@ class ColorFilter:
         self.__mask = None
         self.__colorThresholds = ColorFilter.DEFAULT_COLOR_THRESHOLDS
 
+    def set_thresholds(self, thresh):
+        self.__colorThresholds = thresh
+
     @property
     def color_thresholds(self):
         """
@@ -81,11 +84,30 @@ class ColorFilter:
 
 
 if __name__ == '__main__':
+    from picamera.array import PiRGBArray
+    from picamera import PiCamera
+    from constant import *
+    import time
+
+    # init camera
+    camera = PiCamera()
+    camera.resolution = (640,480)
+    camera.framerate = 32
+    rawCapture = PiRGBArray(camera, size=(640,480))
+
+    #
     roadDetect = ColorFilter()
-    img = cv2.imread('../img/road.jpg')
-    img = cv2.resize(img, (640, 480))
-    img = cv2.blur(img, (10, 10))
-    roadDetect.img = img
-    roadDetect.process()
-    roadDetect.display()
-    cv2.waitKey(0)
+    roadDetect.set_thresholds([np.array([100, 20, 0]), np.array([140, 255, 255])])
+
+    for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+        img = frame.array
+        img = cv2.blur(img, (10, 10))
+        cv2.imshow('hsv', cv2.cvtColor(img, cv2.COLOR_BGR2HSV))
+        roadDetect.img = img
+        roadDetect.process()
+        roadDetect.display(raw_img=False)
+
+        key = cv2.waitKey(1) & 0xFF
+        rawCapture.truncate(0)
+        if key == ord("q"):
+            break

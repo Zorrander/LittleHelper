@@ -37,7 +37,6 @@ class PreloadedPaths(Thread):
             :param index: the index of the path
             :type index: int
         """
-        print(len(self.paths.get_path(index).get_inst()))
         self.current_path = self.paths.get_path(index)
         # Set the reset distance flag and reset the ack
         self.model.reset_distance = True
@@ -48,7 +47,6 @@ class PreloadedPaths(Thread):
             pass
 
         time.sleep(0.01)
-        print "begin path "+str(index)
         self.run_path = True
 
 
@@ -76,7 +74,6 @@ class PreloadedPaths(Thread):
                 else:
                     self.model.car.moveForward(0)
                     self.run_path = False
-                    print("end")
 
             # Sleep periode to let the hand to an other thread
             time.sleep(SLEEP_PRELOADEDPATH_THREAD)
@@ -111,7 +108,7 @@ class PreloadedPaths(Thread):
         if(action == FORWARD):
             self.model.car.moveForward(speed)
             # Turn according to the angle detect by the camera
-            self.model.car.turn(self.model.car.direction_motor.angle_camera)
+            #self.model.car.turn(self.model.car.direction_motor.angle_camera)
 
             # See if the distance is reach
             distance_traveled = self.model.current_distance
@@ -125,7 +122,6 @@ class PreloadedPaths(Thread):
             distance_traveled = self.model.current_distance
             self.distance_management(distance, distance_traveled)
         elif(action == 3):#TURN_LEFT):
-            print 'turn'
             self.bend(1)
         elif(action == 4):#TURN_RIGHT):
             self.bend(-1)
@@ -142,21 +138,20 @@ class PreloadedPaths(Thread):
             :type distance_traveled: float
         """
         # If we saw a band
-        # if(self.model.sema_distance.acquire(NON_BLOCKING)):
-        #     # Set the reset distance flag and reset the ack
-        #     self.model.reset_distance = True
-        #     self.model.ack_reset_distance = False
-        #
-        #     # While we didn't receive the ack we wait
-        #     while(not(self.model.ack_reset_distance)):
-        #         pass
-        #
-        #     # update the new distance to traveled
-        #     self.current_path.get_current_instruction().distance = distance - self.model.real_distance
-        #
-        #     # We release the semaphore
-        #     self.model.sema_distance.release()
-
+        if(self.model.sema_distance.acquire(NON_BLOCKING)):
+            print("preloaded path : sema distance")
+            # Set the reset distance flag and reset the ack
+            self.model.reset_distance = True
+            self.model.ack_reset_distance = False
+        
+            # While we didn't receive the ack we wait
+            while(not(self.model.ack_reset_distance)):
+                pass
+            print("preloaded path : remis à zéro")
+            # update the new distance to traveled
+            # self.current_path.get_current_instruction().distance = distance - self.model.real_distance
+        
+            print("preloaded path : test sema_distance")
         # If the distance of the instruction is reach
         if(distance <= distance_traveled):
             # Set the reset distance flag and reset the ack

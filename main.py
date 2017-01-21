@@ -38,6 +38,7 @@ class MilesApp():
         self.preloadedPaths = preloadedPath.PreloadedPaths(model)
         self.spi = StmController.StmController(model)
         self.cam = camera.Camera(model)
+        self.check_distance = checkDistance.CheckDistance(model)
 
         self.window = window.Window(model, self.preloadedPaths)
         self.window.show()
@@ -46,6 +47,7 @@ class MilesApp():
         self.spi.start()
         self.preloadedPaths.start()
         self.cam.start()
+        self.check_distance.start()
 
         sys.exit(app.exec_())
 
@@ -56,6 +58,7 @@ class MilesApp():
         self.spi.stop()
         self.preloadedPaths.stop()
         self.cam.stop()
+        self.check_distance.stop()
         print("close ok")
 
 def main():
