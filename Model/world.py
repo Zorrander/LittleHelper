@@ -32,6 +32,7 @@ class World():
         # Distance management
         self.current_distance = 0
         self.real_distance = 0
+        self.delta_distance = 0
         self.reset_distance = False
         self.ack_reset_distance = False
         
@@ -43,9 +44,11 @@ class World():
         # ==========================
 
         # semaphore[1] shared with spi process
-        self.sema_distance = threading.Semaphore()
+        self.sema_distance = threading.Semaphore(0)
         # semaphore[1] shared with video process
-        self.sema_band_ycoord = threading.Semaphore()
+        self.sema_band_ycoord = threading.Semaphore(0)
+        # semaphore[1] shared with obstacle detection process
+        self.sema_obstacle = threading.Semaphore(0)
 
 
     @property
@@ -83,16 +86,10 @@ class World():
         return self.current_distance
 
     @property
-    def real_distance(self):
+    def delta_distance(self):
         """
-            The real distance traveled by the car.
-            This distance is the distance managed with the band.
-
-            :getter: Returns the distance
-            :setter: Sets the distance
-            :type: int
         """
-        return self.real_distance
+        return self.delta_distance
 
     @property
     def reset_distance(self):
