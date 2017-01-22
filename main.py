@@ -13,6 +13,8 @@ from PyQt5.QtWidgets import QApplication
 from Controllers import window, StmController, preloadedPath, checkDistance, camera
 from Model.car import Car
 from Model.world import World
+from pygame import mixer
+import time 
 
 class MilesApp():
 
@@ -42,6 +44,13 @@ class MilesApp():
 
         self.window = window.Window(model, self.preloadedPaths)
         self.window.show()
+        
+        mixer.init()
+        mixer.music.load('little_helper.mp3')
+        mixer.music.set_volume(1.0)
+        mixer.music.play()
+
+#        time.sleep(5)
 
         # Start the different threads
         self.spi.start()

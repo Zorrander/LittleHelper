@@ -74,8 +74,7 @@ class StmController(Thread):
         for motor in self.model.car.rear_motors:
             frame = frame + self.to_chr(motor.speed)
         # distance
-        for _ in self.model.car.rear_motors:
-            frame = frame + chr(0)
+        frame = frame + chr(0) + chr(0) + chr(0) + chr(0)
         # sensors
         for _ in self.model.car.sensors:
             frame = frame + chr(0)
@@ -93,7 +92,7 @@ class StmController(Thread):
 
             Model of the frame v.1 :
                 >>>  -----------------------------------------------------------
-                >>> | 00..00 | Distance | UltrasoundSensors | Battery | AckByte |
+                >>> | 00..00 | Distance | Distance | Distance | Distance | UltrasoundSensors | Battery | AckByte |
                 >>> -----------------------------------------------------------
 
             Model for the battery:
@@ -107,21 +106,23 @@ class StmController(Thread):
         # We transform the received Frame data from hexa to integer
         recvValue = map(ord, dataReceived[1])
 
-        self.set_ack_byte(recvValue[12])
-
         # read distances values
         # ack for initialisation of the distance is the last bit of the byte
-        self.model.current_distance = (recvValue[3] + recvValue[4])/2
-        print("current distance : "+str((recvValue[3]+recvValue[4])/2))
+        self.model.current_distance = recvValue[3] + recvValue[4]*(2**8)+recvValue[5] * (2**16) + recvValue[6] * (2**24) + self.model.delta_distance
+#        print("current distance : "+str(self.model.current_distance))
 
         # read sensors values
         i = 0
         for sensor in self.model.car.sensors:
-            sensor.distance = recvValue[5+i]
+            sensor.distance = recvValue[7+i]
             i+=1
 
         # read battery value
-        self.model.car.battery.charged = recvValue[11]
+        self.model.car.battery.charged = recvValue[13]
+        
+        # read ack byte
+        self.set_ack_byte(recvValue[14])
+
 
     @staticmethod
     def to_chr(n):
@@ -210,3 +211,4 @@ class StmController(Thread):
             Allow to stop the thread and quit it
         """
         self.terminated = True
+        print("StmController thread closed")

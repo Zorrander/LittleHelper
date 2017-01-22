@@ -42,7 +42,7 @@ class RoadFollower:
     __Kp = 0.005
 
     # minimum size for strip detection
-    __STRIP_MIN_SIZE = (50 * 50)
+    __STRIP_MIN_SIZE = (100 * 100)
 
     def __init__(self):
         """

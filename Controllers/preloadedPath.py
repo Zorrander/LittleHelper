@@ -11,6 +11,7 @@
 
 import time
 from Model.path import Path, Paths
+from Model.instructions import Instruction
 from threading import Thread
 from constant import FORWARD, BACKWARD, STOP, SLEEP_PRELOADEDPATH_THREAD, NON_BLOCKING
 
@@ -45,7 +46,10 @@ class PreloadedPaths(Thread):
         # While we didn't receive the ack we wait
         while(not(self.model.ack_reset_distance)):
             pass
-
+        print("path "+str(index))
+        print(len(self.current_path.get_path()) != 0)
+        for elem in self.current_path.get_path():
+            print(elem.distance)
         time.sleep(0.01)
         self.run_path = True
 
@@ -74,6 +78,7 @@ class PreloadedPaths(Thread):
                 else:
                     self.model.car.moveForward(0)
                     self.run_path = False
+                    print("end of path")
 
             # Sleep periode to let the hand to an other thread
             time.sleep(SLEEP_PRELOADEDPATH_THREAD)
@@ -139,21 +144,15 @@ class PreloadedPaths(Thread):
         """
         # If we saw a band
         if(self.model.sema_distance.acquire(NON_BLOCKING)):
-            print("preloaded path : sema distance")
-            # Set the reset distance flag and reset the ack
-            self.model.reset_distance = True
-            self.model.ack_reset_distance = False
-        
-            # While we didn't receive the ack we wait
-            while(not(self.model.ack_reset_distance)):
-                pass
-            print("preloaded path : remis à zéro")
-            # update the new distance to traveled
-            # self.current_path.get_current_instruction().distance = distance - self.model.real_distance
-        
-            print("preloaded path : test sema_distance")
+            delta_distance = self.model.real_distance - self.model.current_distance
+            print("preloaded path : sema distance, delta : ", delta_distance)
+            self.current_path.get_current_instruction().distance += delta_distance
+            print("New distance instruction :", self.current_path.get_current_instruction().distance)
+            self.model.delta_distance += delta_distance
+        #print("distance travelled : ", distance_traveled)
         # If the distance of the instruction is reach
         if(distance <= distance_traveled):
+            print("If the distance of the instruction is reach")
             # Set the reset distance flag and reset the ack
             self.model.reset_distance = True
             self.model.ack_reset_distance = False
@@ -176,7 +175,6 @@ class PreloadedPaths(Thread):
         """
         self.run_path = False
         self.model.car.moveForward(0)
-
 
     def bend(self, direction):
         """
@@ -201,6 +199,15 @@ class PreloadedPaths(Thread):
 
         time.sleep(2)
 
+        # Set the reset distance flag and reset the ack
+        self.model.reset_distance = True
+        self.model.ack_reset_distance = False
+
+        # While we didn't receive the ack we wait
+        while(not(self.model.ack_reset_distance)):
+            pass
+        self.model.current_distance = 0
+
         self.current_path.del_first_instruction()
 
     def stop(self):
@@ -210,3 +217,4 @@ class PreloadedPaths(Thread):
         """
         self.model.car.moveForward(0)
         self.terminated = True
+        print("preloadedPath thread closed")
