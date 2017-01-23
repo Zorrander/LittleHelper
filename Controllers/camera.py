@@ -48,12 +48,16 @@ class Camera(Thread):
         while not self.terminated:
             self.camera.capture(self.rawCapture, format=Camera.__VIDEO_CAPTURE_FORMAT)
             frame = self.rawCapture.array
-#            cv2.imshow('frame', frame)
+            # cv2.imshow('frame', frame)
             self.roadFollower.update_frame(frame)
             self.roadFollower.filter()
+            # self.roadFollower.display_masks()
 
-            self.model.sema_band_ycoord.release()
-            self.model.band_ycoord = self.roadFollower.compute_strip_position()
+            self.model.band_ycoord = self.roadFollower.compute_strip_position()[1]
+            if(self.model.band_ycoord > 0):
+                self.model.sema_band_ycoord.release()
+            
+            #print(self.roadFollower.compute_strip_position())
             self.model.car.direction_motor.angle_camera = self.roadFollower.compute_deviation()
 
             self.rawCapture.seek(0)
@@ -67,7 +71,8 @@ class Camera(Thread):
             Allow to stop the thread and quit it.
         """
         self.terminated = True
+        print("camera thread closed")
 
 if __name__ == '__main__':
     cam = Camera(0)
-    cam.start()
+    cam.run()

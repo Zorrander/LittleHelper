@@ -7,7 +7,7 @@
 
     Used to manage the detection of the color of the road.
 """
-#import cv2
+import cv2
 import numpy as np
 
 
@@ -26,9 +26,6 @@ class ColorFilter:
         self.__img = None
         self.__mask = None
         self.__colorThresholds = ColorFilter.DEFAULT_COLOR_THRESHOLDS
-
-    def set_thresholds(self, thresh):
-        self.__colorThresholds = thresh
 
     @property
     def color_thresholds(self):
@@ -50,7 +47,7 @@ class ColorFilter:
     def img(self):
         """
             :getter: Gets the image before filtered
-            :type: numpy.array
+            :type:
         """
         return self.__img
 
@@ -58,7 +55,7 @@ class ColorFilter:
     def mask(self):
         """
             :getter: Gets the mask after processing
-            :type: numpy.array
+            :type:
         """
         return self.__mask
 
@@ -75,7 +72,6 @@ class ColorFilter:
     def display(self, raw_img=True):
         """
             Display the mask and the raw image
-
             :param raw_img: if True, the raw image will be displayed
             :type raw_img: boolean
         """
@@ -85,30 +81,8 @@ class ColorFilter:
 
 
 if __name__ == '__main__':
-    from picamera.array import PiRGBArray
-    from picamera import PiCamera
-    from constant import *
-    import time
-
-    # init camera
-    camera = PiCamera()
-    camera.resolution = (640,480)
-    camera.framerate = 32
-    rawCapture = PiRGBArray(camera, size=(640,480))
-
-    #
     roadDetect = ColorFilter()
-    roadDetect.set_thresholds([np.array([100, 20, 0]), np.array([140, 255, 255])])
-
-    for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-        img = frame.array
-        img = cv2.blur(img, (10, 10))
-        cv2.imshow('hsv', cv2.cvtColor(img, cv2.COLOR_BGR2HSV))
-        roadDetect.img = img
-        roadDetect.process()
-        roadDetect.display(raw_img=False)
-
-        key = cv2.waitKey(1) & 0xFF
-        rawCapture.truncate(0)
-        if key == ord("q"):
-            break
+    img = cv2.blur(img, (10, 10))
+    roadDetect.img = img
+    roadDetect.display()
+    cv2.waitKey(0)
