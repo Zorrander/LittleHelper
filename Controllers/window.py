@@ -103,19 +103,20 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow):
         self.tabWidget.setCurrentIndex(5)
 
     def pressedForwardButton(self):
-        self.model.car.moveForward(20)
+        self.model.car.moveForward(50)
 
     def pressedBackwardButton(self):
-        self.model.car.moveBackward(20)
+        self.model.car.moveBackward(50)
 
     def pressedStopButton(self):
         self.model.car.stop()
+        self.preloadPath.stop_path()
 
     def pressedLeftButton(self):
-        self.model.car.turnLeft(30)
+        self.model.car.turnLeft(40)
 
     def pressedRightButton(self):
-        self.model.car.turnRight(30)
+        self.model.car.turnRight(40)
 
     def pressedPathButton(self):
         self.preloadPath.start_path(0)

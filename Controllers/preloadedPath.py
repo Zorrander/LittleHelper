@@ -11,6 +11,7 @@
 
 import time
 from Model.path import Path, Paths
+from Model.instructions import Instruction
 from threading import Thread
 from constant import FORWARD, BACKWARD, STOP, SLEEP_PRELOADEDPATH_THREAD, NON_BLOCKING
 
@@ -45,7 +46,10 @@ class PreloadedPaths(Thread):
         # While we didn't receive the ack we wait
         while(not(self.model.ack_reset_distance)):
             pass
-
+        print("path "+str(index))
+        print(len(self.current_path.get_path()) != 0)
+        for elem in self.current_path.get_path():
+            print(elem.distance)
         time.sleep(0.01)
         self.run_path = True
 
@@ -59,21 +63,24 @@ class PreloadedPaths(Thread):
         while not self.terminated:
             # If a path is running
             if(self.run_path):
-
-                # If the path still have instructions
-                if (len(self.current_path.get_path()) != 0):
-                    inst = self.current_path.get_current_instruction()
-                    # action stop
-                    if(inst.action == STOP):
-                        self.stop_car(inst.sleep_time)
-                    # action move
-                    else:
-                        self.move_car(inst.action, inst.speed, inst.distance)
-
-                # If a path is empty (ie all the instruction are done) we stop the car
-                else:
+                if(self.model.sema_obstacle.acquire(NON_BLOCKING)):
                     self.model.car.moveForward(0)
-                    self.run_path = False
+                else :
+                    # If the path still have instructions
+                    if (len(self.current_path.get_path()) != 0):
+                        inst = self.current_path.get_current_instruction()
+                        # action stop
+                        if(inst.action == STOP):
+                            self.stop_car(inst.sleep_time)
+                        # action move
+                        else:
+                            self.move_car(inst.action, inst.speed, inst.distance)
+
+                    # If a path is empty (ie all the instruction are done) we stop the car
+                    else:
+                        self.model.car.moveForward(0)
+                        self.run_path = False
+                        print("end of path")
 
             # Sleep periode to let the hand to an other thread
             time.sleep(SLEEP_PRELOADEDPATH_THREAD)
@@ -108,7 +115,7 @@ class PreloadedPaths(Thread):
         if(action == FORWARD):
             self.model.car.moveForward(speed)
             # Turn according to the angle detect by the camera
-            #self.model.car.turn(self.model.car.direction_motor.angle_camera)
+            self.model.car.turn(self.model.car.direction_motor.angle_camera)
 
             # See if the distance is reach
             distance_traveled = self.model.current_distance
@@ -139,21 +146,15 @@ class PreloadedPaths(Thread):
         """
         # If we saw a band
         if(self.model.sema_distance.acquire(NON_BLOCKING)):
-            print("preloaded path : sema distance")
-            # Set the reset distance flag and reset the ack
-            self.model.reset_distance = True
-            self.model.ack_reset_distance = False
-        
-            # While we didn't receive the ack we wait
-            while(not(self.model.ack_reset_distance)):
-                pass
-            print("preloaded path : remis à zéro")
-            # update the new distance to traveled
-            # self.current_path.get_current_instruction().distance = distance - self.model.real_distance
-        
-            print("preloaded path : test sema_distance")
+            delta_distance = self.model.real_distance - self.model.current_distance
+            print("preloaded path : sema distance, delta : ", delta_distance)
+            self.current_path.get_current_instruction().distance += delta_distance
+            print("New distance instruction :", self.current_path.get_current_instruction().distance)
+            self.model.delta_distance += delta_distance
+#        print("distance travelled : ", distance_traveled)
         # If the distance of the instruction is reach
         if(distance <= distance_traveled):
+            print("If the distance of the instruction is reach")
             # Set the reset distance flag and reset the ack
             self.model.reset_distance = True
             self.model.ack_reset_distance = False
@@ -177,7 +178,6 @@ class PreloadedPaths(Thread):
         self.run_path = False
         self.model.car.moveForward(0)
 
-
     def bend(self, direction):
         """
             ALlow to turn an 90° angle on the right or on the left.
@@ -186,12 +186,16 @@ class PreloadedPaths(Thread):
             :param direction: the direction to turn (-1 : right, 1 : left)
             :type direction: int
         """
+        self.model.car.moveForward(50)
+        time.sleep(4)
         # Turn to the right
         if(direction == -1):
+            print("virage droite")
             self.model.car.turnRight(45)
             self.model.car.moveForward(40)
         # Turn to the left
         elif(direction == 1):
+            print("virage gauche")
             self.model.car.turnLeft(45)
             self.model.car.moveForward(40)
 
@@ -200,6 +204,16 @@ class PreloadedPaths(Thread):
         self.model.car.turn(0)
 
         time.sleep(2)
+        print("fin virage")
+
+        # Set the reset distance flag and reset the ack
+        self.model.reset_distance = True
+        self.model.ack_reset_distance = False
+
+        # While we didn't receive the ack we wait
+        while(not(self.model.ack_reset_distance)):
+            pass
+        self.model.current_distance = 0
 
         self.current_path.del_first_instruction()
 
@@ -208,5 +222,6 @@ class PreloadedPaths(Thread):
             Allow to stop the thread and quit it.
             In this case we stop the car
         """
-        self.model.car.moveForward(0)
         self.terminated = True
+        self.model.car.moveForward(0)
+        print("preloadedPath thread closed")
