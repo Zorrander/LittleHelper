@@ -127,3 +127,4 @@ class World():
         """
         self.current_distance = (distance1 + distance2)/2
 #        print("current distance ", self.current_distance)
+

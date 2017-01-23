@@ -37,12 +37,12 @@ class Car():
 
         # sensors
         self.sensors = []
-        self.sensors.append(UltrasoundSensor("front"))
         self.sensors.append(UltrasoundSensor("front left"))
         self.sensors.append(UltrasoundSensor("front right"))
-        self.sensors.append(UltrasoundSensor("rear"))
+        self.sensors.append(UltrasoundSensor("front"))
         self.sensors.append(UltrasoundSensor("rear left"))
         self.sensors.append(UltrasoundSensor("rear right"))
+        self.sensors.append(UltrasoundSensor("rear"))
 
     @property
     def battery(self):

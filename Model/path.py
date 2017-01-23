@@ -43,12 +43,12 @@ class Path():
             :type instruction: Instruction
         """
         self.instructions_list.insert(1,instruction)
-        
+
     def add_move(self, action, speed, distance):
         """
-            Use to add an instruction to the path 
+            Use to add an instruction to the path
             without taking account to the STM specification (maximum 256 cm)
-            
+
             :param action: The action of the instruction
             :type action: FORWARD, BACKWARD
             :param speed: The speed of the car
@@ -98,7 +98,7 @@ class Path():
             return self.instructions_list[1]
 
 class Paths():
-    """        
+    """
         Used to build and save the differents path available.
 
         Caracteristics :
@@ -118,7 +118,9 @@ class Paths():
         # ====================================================================
         path = Path()
         path.add_instruction(Instruction(FORWARD, speed=40, distance=600))
-        # path.add_instruction(Instruction(TURN_LEFT))
+#        path.add_instruction(Instruction(TURN_LEFT))
+#        path.add_instruction(Instruction(TURN_RIGHT))
+#        path.add_instruction(Instruction(FORWARD, speed=50, distance = 400))
 #        path.add_instruction(Instruction(STOP, sleep_time=5))
 
         self.paths.append(path)

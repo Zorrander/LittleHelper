@@ -115,7 +115,7 @@ class PreloadedPaths(Thread):
         if(action == FORWARD):
             self.model.car.moveForward(speed)
             # Turn according to the angle detect by the camera
-            #self.model.car.turn(self.model.car.direction_motor.angle_camera)
+            self.model.car.turn(self.model.car.direction_motor.angle_camera)
 
             # See if the distance is reach
             distance_traveled = self.model.current_distance
@@ -151,8 +151,8 @@ class PreloadedPaths(Thread):
             self.current_path.get_current_instruction().distance += delta_distance
             print("New distance instruction :", self.current_path.get_current_instruction().distance)
             self.model.delta_distance += delta_distance
-        print("distance travelled : ", distance_traveled)
-        
+#        print("distance travelled : ", distance_traveled)
+
         # If the distance of the instruction is reach
         if(distance <= distance_traveled):
             print("If the distance of the instruction is reach")
@@ -187,12 +187,16 @@ class PreloadedPaths(Thread):
             :param direction: the direction to turn (-1 : right, 1 : left)
             :type direction: int
         """
+        self.model.car.moveForward(50)
+        time.sleep(4)
         # Turn to the right
         if(direction == -1):
+            print("virage droite")
             self.model.car.turnRight(45)
             self.model.car.moveForward(40)
         # Turn to the left
         elif(direction == 1):
+            print("virage gauche")
             self.model.car.turnLeft(45)
             self.model.car.moveForward(40)
 
@@ -201,6 +205,16 @@ class PreloadedPaths(Thread):
         self.model.car.turn(0)
 
         time.sleep(2)
+        print("fin virage")
+
+        # Set the reset distance flag and reset the ack
+        self.model.reset_distance = True
+        self.model.ack_reset_distance = False
+
+        # While we didn't receive the ack we wait
+        while(not(self.model.ack_reset_distance)):
+            pass
+        self.model.current_distance = 0
 
         # Set the reset distance flag and reset the ack
         self.model.reset_distance = True
@@ -218,6 +232,6 @@ class PreloadedPaths(Thread):
             Allow to stop the thread and quit it.
             In this case we stop the car
         """
-        self.model.car.moveForward(0)
         self.terminated = True
+        self.model.car.moveForward(0)
         print("preloadedPath thread closed")

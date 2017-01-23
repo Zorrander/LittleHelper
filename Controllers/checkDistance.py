@@ -7,7 +7,7 @@
 import time
 from bisect import bisect_left
 from threading import Thread
-from constant import FRAME_EDGE, BAND_THRESHOLD, SLEEP_CHECKDISTANCE_THREAD, \
+from constant import BAND_THRESHOLD, SLEEP_CHECKDISTANCE_THREAD, \
     BLOCKING
 
 
@@ -21,7 +21,7 @@ class CheckDistance(Thread):
     def __init__(self, model):
         Thread.__init__(self)
         self.model = model
-        self.band_list = [200, 400]
+        self.band_list = [270, 670]
         self.cursor = 0
         self.terminated = False
 
@@ -34,19 +34,20 @@ class CheckDistance(Thread):
             # Wait from the video process to release the semaphore when a band is seen
             self.model.sema_band_ycoord.acquire(BLOCKING)
             print("sema acquire check distance")
-            if(self.model.band_ycoord > BAND_THRESHOLD):
+
+            if(self.model.band_ycoord > 190): #band_threshold = 190
                 #Find the closest band from the distance received from odometry
                 # Different methods
-
+                print("coord cam :", self.model.band_ycoord)
                 #Method 1
                 self.model.real_distance = self.findClosest(self.band_list, self.model.current_distance)
-                #if(abs(self.model.real_distance - self.model.current_distance)/self.model.real_distance < 0.2 ) :
-                print("recalibrate: ", self.model.real_distance)
+                if(abs(self.model.real_distance - self.model.current_distance)/self.model.real_distance < 0.2 ) :
+                    print("recalibrate: ", self.model.real_distance)
                     # Release the semaphore to signal to spi process that the distance is reset to the right value
-                self.model.sema_distance.release()
-                #else:
-                    #print("don't recalibrate")
-                    #self.model.real_distance = self.model.current_distance
+                    self.model.sema_distance.release()
+                else:
+                    print("don't recalibrate")
+                    self.model.real_distance = self.model.current_distance
 
                 # Method 2
                 #self.model.real_distance = min(self.band_list, key=lambda(band):abs(band-self.model.current_distance))
@@ -66,7 +67,7 @@ class CheckDistance(Thread):
         self.model.sema_band_ycoord.release()
         self.terminated = True
         print("checkDistance thread closed")
-        
+
     @staticmethod
     def findClosest(list, number):
         """
