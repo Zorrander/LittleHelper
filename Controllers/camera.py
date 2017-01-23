@@ -56,7 +56,7 @@ class Camera(Thread):
             self.model.band_ycoord = self.roadFollower.compute_strip_position()[1]
             if(self.model.band_ycoord > 0):
                 self.model.sema_band_ycoord.release()
-            
+
             #print(self.roadFollower.compute_strip_position())
             self.model.car.direction_motor.angle_camera = self.roadFollower.compute_deviation()
 

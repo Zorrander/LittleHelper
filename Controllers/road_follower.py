@@ -122,7 +122,7 @@ class RoadFollower:
             Compute the position of strip
 
             :return: the coordonation (y only) of the strip's center
-            :rtype: int
+            :rtype: int[]
         """
         _, contours, _ = cv2.findContours(self.__colorDetectV.mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         cx = 0

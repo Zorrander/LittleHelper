@@ -17,16 +17,8 @@ from pygame import mixer
 import time
 
 class MilesApp():
-
     """
-        The MilesApp class
-        ------------------
-
-        Caracteristics:
-            >>> 3 attributs
-
         This is the main class initializing the model and the controllers. Architecture MVC.
-
     """
 
     def __init__(self):
@@ -76,11 +68,9 @@ class MilesApp():
         print("close ok")
 
 def main():
-
     """
          The function starting the application
     """
-
 
     miles = MilesApp()
     print("close ok")

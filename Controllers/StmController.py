@@ -107,20 +107,17 @@ class StmController(Thread):
         recvValue = map(ord, dataReceived[1])
 
         # read distances values
-        # ack for initialisation of the distance is the last bit of the byte
         self.model.current_distance = recvValue[3] + recvValue[4]*(2**8)+recvValue[5] * (2**16) + recvValue[6] * (2**24) + self.model.delta_distance
-#        print("current distance : "+str(self.model.current_distance))
 
         # read sensors values
         i = 0
         for sensor in self.model.car.sensors:
             sensor.distance = recvValue[7+i]
-            #print("sensor distance ",sensor.distance)
             i+=1
 
         # read battery value
         self.model.car.battery.charged = recvValue[13]
-        
+
         # read ack byte
         self.set_ack_byte(recvValue[14])
 
@@ -132,6 +129,8 @@ class StmController(Thread):
 
             :param n: the number to Transform
             :type n: int
+            :return: The character
+            :rtype: chr
         """
         if n<0:
             res=256+n
@@ -186,6 +185,8 @@ class StmController(Thread):
             :type d: int
             :param nb: the number of bits to encode the integer
             :type nb: int
+            :return: The string of binary number
+            :rtype: str
         """
         if d == 0:
             return "0".zfill(nb)
@@ -204,6 +205,8 @@ class StmController(Thread):
 
             :param s: the string of binary number
             :type s: str
+            :return: The integer
+            :rtype: int
         """
         return int(s,2)
 

@@ -2,6 +2,9 @@
 Controllers
 -----------
 
+Source code
+___________
+
 .. automodule:: camera
   :members:
 
@@ -22,3 +25,10 @@ Controllers
 
 .. automodule:: window
   :members:
+
+
+Class diagramm
+______________
+
+.. image:: model.png
+   :align: center

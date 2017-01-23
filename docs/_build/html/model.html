@@ -52,10 +52,12 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-world">
-<span id="model"></span><h1>Model<a class="headerlink" href="#module-world" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="model">
+<h1>Model<a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-world">
+<span id="source-code"></span><h2>Source code<a class="headerlink" href="#module-world" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="the-world-module">
-<h2>The world module<a class="headerlink" href="#the-world-module" title="Permalink to this headline">¶</a></h2>
+<h3>The world module<a class="headerlink" href="#the-world-module" title="Permalink to this headline">¶</a></h3>
 <p>Used to represent the world</p>
 <dl class="class">
 <dt id="world.World">
@@ -64,10 +66,8 @@
 <dt>The world is composed of :</dt>
 <dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">car</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">path</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">current</span> <span class="n">distance</span> <span class="n">traveled</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">real</span> <span class="n">distance</span> <span class="n">traveled</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">boolean</span> <span class="n">to</span> <span class="n">reset</span> <span class="n">the</span> <span class="n">disatance</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">boolean</span> <span class="n">to</span> <span class="n">confirm</span> <span class="n">the</span> <span class="n">reset</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Variables</span> <span class="k">for</span> <span class="n">the</span> <span class="n">distance</span> <span class="n">management</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Variables</span> <span class="k">for</span> <span class="n">the</span> <span class="n">band</span> <span class="n">management</span>
 </pre></div>
 </div>
 </dd>
@@ -93,7 +93,7 @@
 <dl class="attribute">
 <dt id="world.World.car">
 <code class="descname">car</code><a class="headerlink" href="#world.World.car" title="Permalink to this definition">¶</a></dt>
-<dd><p>The object reprenting the car</p>
+<dd><p>The object representing the car</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -128,6 +128,24 @@ This distance is calculated thanks to the odometry.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="world.World.delta_distance">
+<code class="descname">delta_distance</code><a class="headerlink" href="#world.World.delta_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>The delta distance between the current distance and the real distance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the delta distance</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the delta distance</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="world.World.path">
 <code class="descname">path</code><a class="headerlink" href="#world.World.path" title="Permalink to this definition">¶</a></dt>
 <dd><p>The object path representing current path</p>
@@ -140,25 +158,6 @@ This distance is calculated thanks to the odometry.</p>
 <tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the path</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">Path</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="world.World.real_distance">
-<code class="descname">real_distance</code><a class="headerlink" href="#world.World.real_distance" title="Permalink to this definition">¶</a></dt>
-<dd><p>The real distance traveled by the car.
-This distance is the distance managed with the band.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Returns the distance</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Setter:</th><td class="field-body">Sets the distance</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">int</td>
 </tr>
 </tbody>
 </table>
@@ -210,7 +209,7 @@ This distance is the distance managed with the band.</p>
 
 </div>
 <span class="target" id="module-car"></span><div class="section" id="the-car-module">
-<h2>The car module<a class="headerlink" href="#the-car-module" title="Permalink to this headline">¶</a></h2>
+<h3>The car module<a class="headerlink" href="#the-car-module" title="Permalink to this headline">¶</a></h3>
 <p>Used to represent the car and its components</p>
 <dl class="class">
 <dt id="car.Car">
@@ -377,7 +376,7 @@ This distance is the distance managed with the band.</p>
 
 </div>
 <span class="target" id="module-battery"></span><div class="section" id="the-battery-module">
-<h2>The battery module<a class="headerlink" href="#the-battery-module" title="Permalink to this headline">¶</a></h2>
+<h3>The battery module<a class="headerlink" href="#the-battery-module" title="Permalink to this headline">¶</a></h3>
 <p>Used to represent the battery of our car</p>
 <dl class="class">
 <dt id="battery.Battery">
@@ -411,7 +410,7 @@ This distance is the distance managed with the band.</p>
 
 </div>
 <span class="target" id="module-motor"></span><div class="section" id="the-motor-module">
-<h2>The motor module<a class="headerlink" href="#the-motor-module" title="Permalink to this headline">¶</a></h2>
+<h3>The motor module<a class="headerlink" href="#the-motor-module" title="Permalink to this headline">¶</a></h3>
 <p>Used to handle the behaviours of motors on the car.</p>
 <dl class="class">
 <dt id="motor.FrontMotor">
@@ -571,7 +570,7 @@ This distance is the distance managed with the band.</p>
 
 </div>
 <span class="target" id="module-sensor"></span><div class="section" id="the-sensor-module">
-<h2>The sensor module<a class="headerlink" href="#the-sensor-module" title="Permalink to this headline">¶</a></h2>
+<h3>The sensor module<a class="headerlink" href="#the-sensor-module" title="Permalink to this headline">¶</a></h3>
 <p>Used to handle the behaviour of sensors on the car.</p>
 <dl class="class">
 <dt id="sensor.UltrasoundSensor">
@@ -625,7 +624,7 @@ This distance is the distance managed with the band.</p>
 
 </div>
 <span class="target" id="module-path"></span><div class="section" id="the-path-module">
-<h2>The path module<a class="headerlink" href="#the-path-module" title="Permalink to this headline">¶</a></h2>
+<h3>The path module<a class="headerlink" href="#the-path-module" title="Permalink to this headline">¶</a></h3>
 <p>Used to represent the path</p>
 <dl class="class">
 <dt id="path.Path">
@@ -732,7 +731,7 @@ The instruction is add at the end of the path.</p>
 
 </div>
 <span class="target" id="module-instructions"></span><div class="section" id="the-instruction-module">
-<h2>The instruction module<a class="headerlink" href="#the-instruction-module" title="Permalink to this headline">¶</a></h2>
+<h3>The instruction module<a class="headerlink" href="#the-instruction-module" title="Permalink to this headline">¶</a></h3>
 <p>Used to represent the instructions the car is going to execute when going from point A to B</p>
 <dl class="class">
 <dt id="instructions.Instruction">
@@ -821,6 +820,11 @@ The instruction is add at the end of the path.</p>
 
 </div>
 </div>
+<div class="section" id="class-diagramm">
+<h2>Class diagramm<a class="headerlink" href="#class-diagramm" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/model.png" class="align-center" src="_images/model.png" />
+</div>
+</div>
 
 
           </div>
@@ -831,6 +835,7 @@ The instruction is add at the end of the path.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Model</a><ul>
+<li><a class="reference internal" href="#module-world">Source code</a><ul>
 <li><a class="reference internal" href="#the-world-module">The world module</a></li>
 <li><a class="reference internal" href="#the-car-module">The car module</a></li>
 <li><a class="reference internal" href="#the-battery-module">The battery module</a></li>
@@ -838,6 +843,9 @@ The instruction is add at the end of the path.</p>
 <li><a class="reference internal" href="#the-sensor-module">The sensor module</a></li>
 <li><a class="reference internal" href="#the-path-module">The path module</a></li>
 <li><a class="reference internal" href="#the-instruction-module">The instruction module</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#class-diagramm">Class diagramm</a></li>
 </ul>
 </li>
 </ul>

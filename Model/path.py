@@ -34,34 +34,6 @@ class Path():
         """
         self.instructions_list.append(instruction)
 
-    def add_next_instruction(self, instruction):
-        """
-            Used to add an instruction to the path.
-            The instruction is at the index 1.
-
-            :param instruction: The instruction to add
-            :type instruction: Instruction
-        """
-        self.instructions_list.insert(1,instruction)
-
-    def add_move(self, action, speed, distance):
-        """
-            Use to add an instruction to the path
-            without taking account to the STM specification (maximum 256 cm)
-
-            :param action: The action of the instruction
-            :type action: FORWARD, BACKWARD
-            :param speed: The speed of the car
-            :type speed: int
-            :param distance: The distance to traveled
-            :type distance: int
-        """
-        nb_instruction = int(distance / 250)
-        last_distance = distance%250
-        for _ in range(nb_instruction):
-            self.add_instruction(Instruction(action, speed=speed, distance=250))
-        self.add_instruction(Instruction(action, speed=speed, distance=last_distance))
-
     def del_first_instruction(self):
         """
             Used to delete the first instruction of the list of instruction
@@ -87,16 +59,6 @@ class Path():
         """
         return self.instructions_list[0]
 
-    def get_next_instruction(self):
-        """
-            The next instruction of the path
-
-            :getter: Returns the first element of the list of instructions
-            :type: Instruction
-        """
-        if(len(self.instructions_list)>1):
-            return self.instructions_list[1]
-
 class Paths():
     """
         Used to build and save the differents path available.
@@ -117,11 +79,7 @@ class Paths():
         #                      Creation of the first path
         # ====================================================================
         path = Path()
-        path.add_instruction(Instruction(FORWARD, speed=40, distance=600))
-#        path.add_instruction(Instruction(TURN_LEFT))
-#        path.add_instruction(Instruction(TURN_RIGHT))
-#        path.add_instruction(Instruction(FORWARD, speed=50, distance = 400))
-#        path.add_instruction(Instruction(STOP, sleep_time=5))
+        path.add_instruction(Instruction(FORWARD, speed=50, distance=600))
 
         self.paths.append(path)
 
@@ -129,9 +87,9 @@ class Paths():
         #                      Creation of the second path
         # ====================================================================
         path = Path()
-        path.add_move(FORWARD, 40, 200)
-        # path.add_instruction(Instruction(TURN_RIGHT))
-        # path.add_instruction(Instruction(STOP, sleep_time=5))
+        path.add_instruction(Instruction(FORWARD, speed=50, distance=200))
+        path.add_instruction(Instruction(TURN_RIGHT))
+        path.add_instruction(Instruction(FORWARD, speed=50, distance=200))
 
         self.paths.append(path)
 
@@ -139,9 +97,9 @@ class Paths():
         #                      Creation of the third path
         # ====================================================================
         path = Path()
-        path.add_move(FORWARD, 40, 200)
-        # path.add_instruction(Instruction(TURN_RIGHT))
-        # path.add_instruction(Instruction(STOP, sleep_time=5))
+        path.add_instruction(Instruction(FORWARD, speed=50, distance=200))
+        path.add_instruction(Instruction(STOP, sleep_time=5))
+        path.add_instruction(Instruction(FORWARD, speed=50, distance=200))
 
         self.paths.append(path)
 

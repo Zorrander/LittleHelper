@@ -2,6 +2,10 @@
 Model
 -----
 
+Source code
+___________
+
+
 .. automodule:: world
   :members:
 
@@ -22,3 +26,10 @@ Model
 
 .. automodule:: instructions
   :members:
+
+
+Class diagramm
+______________
+
+.. image:: model.png
+   :align: center

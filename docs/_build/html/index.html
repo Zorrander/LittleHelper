@@ -50,51 +50,67 @@
             
   <div class="section" id="welcome-to-little-helper-s-documentation">
 <h1>Welcome to Little helper&#8217;s documentation!<a class="headerlink" href="#welcome-to-little-helper-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
 <p>In the context of our final year project, we are working on an autonomous vehicle.
 Our project is to build a car that will be able to autonomously transport food in a closed or quiet environment,
 such as a hospital or a retirement home.
 The hospital staff will have choices between different preloaded paths between the hospital kitchen and
 the other buildings in the area, and the car will avoid collisions and going off the road.</p>
 <p>You will find here the complete documentation of the code for the Raspberry pi part.</p>
-<div class="section" id="class-diagram">
-<h2>Class Diagram<a class="headerlink" href="#class-diagram" title="Permalink to this headline">¶</a></h2>
-<p>TODO :  add class diagram</p>
-</div>
+<p>The code is divide in two main folder <a class="reference internal" href="#model">model</a> and <a class="reference internal" href="#controllers">controllers</a>.
+At the end of this page you will also find a <a class="reference internal" href="#classdiagram">classdiagram</a> and a diagram of all <a class="reference internal" href="#threads">threads</a> used.</p>
 <div class="section" id="model">
-<h2>Model<a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>Model<a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h2>
 <p>The model folder contains all the module usefull to represent the environment of the project.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="model.html">Model</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="model.html#the-world-module">The world module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="model.html#the-car-module">The car module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="model.html#the-battery-module">The battery module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="model.html#the-motor-module">The motor module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="model.html#the-sensor-module">The sensor module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="model.html#the-path-module">The path module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="model.html#the-instruction-module">The instruction module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="model.html#module-world">Source code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="model.html#the-world-module">The world module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="model.html#the-car-module">The car module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="model.html#the-battery-module">The battery module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="model.html#the-motor-module">The motor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="model.html#the-sensor-module">The sensor module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="model.html#the-path-module">The path module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="model.html#the-instruction-module">The instruction module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="model.html#class-diagramm">Class diagramm</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div class="section" id="controllers">
-<h2>Controllers<a class="headerlink" href="#controllers" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>Controllers<a class="headerlink" href="#controllers" title="Permalink to this headline">¶</a></h2>
 <p>The controllers folder contains all the module usefull to control the car.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="controllers.html">Controllers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="controllers.html#the-camera-module">The camera module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="controllers.html#the-check-distance-module">The check distance module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="controllers.html#the-color-detector-module">The color detector module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="controllers.html#the-preloaded-paths-module">The preloaded paths module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="controllers.html#the-road-follower-module">The road follower module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="controllers.html#the-stm-controller-module">The stm controller module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="controllers.html#the-window-module">The window module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="controllers.html#module-camera">Source code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="controllers.html#the-camera-module">The camera module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controllers.html#the-check-distance-module">The check distance module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controllers.html#the-color-detector-module">The color detector module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controllers.html#the-preloaded-paths-module">The preloaded paths module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controllers.html#the-road-follower-module">The road follower module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controllers.html#the-stm-controller-module">The stm controller module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="controllers.html#the-window-module">The window module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="controllers.html#class-diagramm">Class diagramm</a></li>
 </ul>
 </li>
 </ul>
+</div>
+</div>
+<div class="section" id="diagramm">
+<h2>Diagramm<a class="headerlink" href="#diagramm" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="class-diagram">
+<span id="classdiagram"></span><h3>Class diagram<a class="headerlink" href="#class-diagram" title="Permalink to this headline">¶</a></h3>
+<img alt="_images/diagram.png" class="align-center" src="_images/diagram.png" />
+</div>
+<div class="section" id="thread-diagram">
+<span id="threads"></span><h3>Thread diagram<a class="headerlink" href="#thread-diagram" title="Permalink to this headline">¶</a></h3>
+<img alt="_images/threads.png" class="align-center" src="_images/threads.png" />
 </div>
 </div>
 </div>
@@ -116,9 +132,13 @@ the other buildings in the area, and the car will avoid collisions and going off
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Welcome to Little helper&#8217;s documentation!</a><ul>
-<li><a class="reference internal" href="#class-diagram">Class Diagram</a></li>
 <li><a class="reference internal" href="#model">Model</a></li>
 <li><a class="reference internal" href="#controllers">Controllers</a></li>
+<li><a class="reference internal" href="#diagramm">Diagramm</a><ul>
+<li><a class="reference internal" href="#class-diagram">Class diagram</a></li>
+<li><a class="reference internal" href="#thread-diagram">Thread diagram</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>

@@ -151,7 +151,6 @@ class PreloadedPaths(Thread):
             self.current_path.get_current_instruction().distance += delta_distance
             print("New distance instruction :", self.current_path.get_current_instruction().distance)
             self.model.delta_distance += delta_distance
-#        print("distance travelled : ", distance_traveled)
 
         # If the distance of the instruction is reach
         if(distance <= distance_traveled):

@@ -48,10 +48,12 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-camera">
-<span id="controllers"></span><h1>Controllers<a class="headerlink" href="#module-camera" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="controllers">
+<h1>Controllers<a class="headerlink" href="#controllers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-camera">
+<span id="source-code"></span><h2>Source code<a class="headerlink" href="#module-camera" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="the-camera-module">
-<h2>The camera module<a class="headerlink" href="#the-camera-module" title="Permalink to this headline">¶</a></h2>
+<h3>The camera module<a class="headerlink" href="#the-camera-module" title="Permalink to this headline">¶</a></h3>
 <p>Used to manage the camera</p>
 <dl class="class">
 <dt id="camera.Camera">
@@ -82,7 +84,7 @@ The function that is launched when we start the thread.</p>
 
 </div>
 <span class="target" id="module-checkDistance"></span><div class="section" id="the-check-distance-module">
-<h2>The check distance module<a class="headerlink" href="#the-check-distance-module" title="Permalink to this headline">¶</a></h2>
+<h3>The check distance module<a class="headerlink" href="#the-check-distance-module" title="Permalink to this headline">¶</a></h3>
 <p>Used to reset the distance with band on the road checking</p>
 <dl class="class">
 <dt id="checkDistance.CheckDistance">
@@ -130,7 +132,7 @@ The function that is launch when we start the thread.</p>
 
 </div>
 <span class="target" id="module-color_detector"></span><div class="section" id="the-color-detector-module">
-<h2>The color detector module<a class="headerlink" href="#the-color-detector-module" title="Permalink to this headline">¶</a></h2>
+<h3>The color detector module<a class="headerlink" href="#the-color-detector-module" title="Permalink to this headline">¶</a></h3>
 <p>Used to manage the detection of the color of the road.</p>
 <dl class="class">
 <dt id="color_detector.ColorFilter">
@@ -206,7 +208,7 @@ blurred before being passed to this filter</p>
 
 </div>
 <span class="target" id="module-preloadedPath"></span><div class="section" id="the-preloaded-paths-module">
-<h2>The preloaded paths module<a class="headerlink" href="#the-preloaded-paths-module" title="Permalink to this headline">¶</a></h2>
+<h3>The preloaded paths module<a class="headerlink" href="#the-preloaded-paths-module" title="Permalink to this headline">¶</a></h3>
 <p>Used to manage the processing of the paths</p>
 <dl class="class">
 <dt id="preloadedPath.PreloadedPaths">
@@ -328,7 +330,7 @@ In this case the car stop.</p>
 
 </div>
 <span class="target" id="module-road_follower"></span><div class="section" id="the-road-follower-module">
-<h2>The road follower module<a class="headerlink" href="#the-road-follower-module" title="Permalink to this headline">¶</a></h2>
+<h3>The road follower module<a class="headerlink" href="#the-road-follower-module" title="Permalink to this headline">¶</a></h3>
 <p>Used to manage the car to stay in the center of the road</p>
 <dl class="class">
 <dt id="road_follower.RoadFollower">
@@ -369,7 +371,7 @@ In this case the car stop.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the coordonation (y only) of the strip&#8217;s center</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int[]</td>
 </tr>
 </tbody>
 </table>
@@ -439,7 +441,7 @@ In this case the car stop.</p>
 
 </div>
 <span class="target" id="module-StmController"></span><div class="section" id="the-stm-controller-module">
-<h2>The stm controller module<a class="headerlink" href="#the-stm-controller-module" title="Permalink to this headline">¶</a></h2>
+<h3>The stm controller module<a class="headerlink" href="#the-stm-controller-module" title="Permalink to this headline">¶</a></h3>
 <p>Used to handle the communication between the RaspberryPi and the STM32.</p>
 <dl class="class">
 <dt id="StmController.StmController">
@@ -463,6 +465,10 @@ In this case the car stop.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> (<em>str</em>) &#8211; the string of binary number</td>
 </tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The integer</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
 </tbody>
 </table>
 </dd></dl>
@@ -475,10 +481,16 @@ In this case the car stop.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>d</strong> (<em>int</em>) &#8211; the integer to transform</li>
 <li><strong>nb</strong> (<em>int</em>) &#8211; the number of bits to encode the integer</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The string of binary number</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
 </td>
 </tr>
 </tbody>
@@ -492,7 +504,7 @@ In this case the car stop.</p>
 <dl class="docutils">
 <dt>Model of the frame v.1 :</dt>
 <dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span> <span class="o">-----------------------------------------------------------</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="o">|</span> <span class="mf">00.</span><span class="o">.</span><span class="mi">00</span> <span class="o">|</span> <span class="n">Distance</span> <span class="o">|</span> <span class="n">UltrasoundSensors</span> <span class="o">|</span> <span class="n">Battery</span> <span class="o">|</span> <span class="n">AckByte</span> <span class="o">|</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="o">|</span> <span class="mf">00.</span><span class="o">.</span><span class="mi">00</span> <span class="o">|</span> <span class="n">Distance</span> <span class="o">|</span> <span class="n">Distance</span> <span class="o">|</span> <span class="n">Distance</span> <span class="o">|</span> <span class="n">Distance</span> <span class="o">|</span> <span class="n">UltrasoundSensors</span> <span class="o">|</span> <span class="n">Battery</span> <span class="o">|</span> <span class="n">AckByte</span> <span class="o">|</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="o">-----------------------------------------------------------</span>
 </pre></div>
 </div>
@@ -603,6 +615,10 @@ The function that is launch when we start the thread.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> (<em>int</em>) &#8211; the number to Transform</td>
 </tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The character</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">chr</td>
+</tr>
 </tbody>
 </table>
 </dd></dl>
@@ -611,7 +627,7 @@ The function that is launch when we start the thread.</p>
 
 </div>
 <span class="target" id="module-window"></span><div class="section" id="the-window-module">
-<h2>The window module<a class="headerlink" href="#the-window-module" title="Permalink to this headline">¶</a></h2>
+<h3>The window module<a class="headerlink" href="#the-window-module" title="Permalink to this headline">¶</a></h3>
 <p>Used to handle the communication between the user and the RaspberryPi.</p>
 <dl class="class">
 <dt id="window.Window">
@@ -627,6 +643,11 @@ The function that is launch when we start the thread.</p>
 
 </div>
 </div>
+<div class="section" id="class-diagramm">
+<h2>Class diagramm<a class="headerlink" href="#class-diagramm" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/model.png" class="align-center" src="_images/model.png" />
+</div>
+</div>
 
 
           </div>
@@ -637,6 +658,7 @@ The function that is launch when we start the thread.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Controllers</a><ul>
+<li><a class="reference internal" href="#module-camera">Source code</a><ul>
 <li><a class="reference internal" href="#the-camera-module">The camera module</a></li>
 <li><a class="reference internal" href="#the-check-distance-module">The check distance module</a></li>
 <li><a class="reference internal" href="#the-color-detector-module">The color detector module</a></li>
@@ -644,6 +666,9 @@ The function that is launch when we start the thread.</p>
 <li><a class="reference internal" href="#the-road-follower-module">The road follower module</a></li>
 <li><a class="reference internal" href="#the-stm-controller-module">The stm controller module</a></li>
 <li><a class="reference internal" href="#the-window-module">The window module</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#class-diagramm">Class diagramm</a></li>
 </ul>
 </li>
 </ul>

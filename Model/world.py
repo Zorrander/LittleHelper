@@ -19,10 +19,8 @@ class World():
         The world is composed of :
             >>> 1 car
             >>> 1 path
-            >>> 1 current distance traveled
-            >>> 1 real distance traveled
-            >>> 1 boolean to reset the disatance
-            >>> 1 boolean to confirm the reset
+            >>> Variables for the distance management
+            >>> Variables for the band management
     """
 
     def __init__(self, car):
@@ -35,7 +33,7 @@ class World():
         self.delta_distance = 0
         self.reset_distance = False
         self.ack_reset_distance = False
-        
+
         # Band management
         self.band_ycoord = 0
 
@@ -54,7 +52,7 @@ class World():
     @property
     def car(self):
         """
-            The object reprenting the car
+            The object representing the car
 
             :getter: Returns the car
             :setter: Sets the car
@@ -88,6 +86,11 @@ class World():
     @property
     def delta_distance(self):
         """
+            The delta distance between the current distance and the real distance
+
+            :getter: Returns the delta distance
+            :setter: Sets the delta distance
+            :type: int
         """
         return self.delta_distance
 
@@ -126,5 +129,3 @@ class World():
             :type: int
         """
         self.current_distance = (distance1 + distance2)/2
-#        print("current distance ", self.current_distance)
-

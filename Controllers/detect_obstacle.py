@@ -6,7 +6,7 @@
 
 import time
 from threading import Thread
-#from constant import SLEEP_DETECTOBSTACLE_THREAD
+from constant import SLEEP_DETECTOBSTACLE_THREAD
 
 class DetectObstacle(Thread):
 
@@ -25,9 +25,7 @@ class DetectObstacle(Thread):
             if(self.model.car.sensors[0].distance < 50): #sensor avant gauche
             #and self.model.car.sensors[1].distance < 70 and self.model.car.sensors[2].distance < 70):
                 self.model.sema_obstacle.release()
-
-
-            time.sleep(0.01)
+            time.sleep(SLEEP_DETECTOBSTACLE_THREAD)
 
     def stop(self):
         """
