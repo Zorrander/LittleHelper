@@ -10,7 +10,7 @@
 """
 
 import color_detector as cd
-import cv2
+#import cv2
 import numpy as np
 import math
 from constant import *
@@ -18,11 +18,11 @@ from constant import *
 
 class RoadFollower:
     """
-    The class RoadFollower contains:
-    >>> Two members which are instances of ColorFilter
-    >>> Two color thresholds which correspond to the color filters above
-    >>> A proportional gain for regulation system
-    >>> An angle for the car to follow
+        The class RoadFollower contains:
+            >>> Two members which are instances of ColorFilter
+            >>> Two color thresholds which correspond to the color filters above
+            >>> A proportional gain for regulation system
+            >>> An angle for the car to follow
     """
     # frame's factors
     __IMG_SIZE = (640, 480)
@@ -58,6 +58,7 @@ class RoadFollower:
     def update_frame(self, image):
         """
             Update the current frame for processing
+
             :param image: the current frame to be updated
             :type image: numpy array
         """
@@ -75,6 +76,7 @@ class RoadFollower:
     def set_thresholds(self, v_thresh, h_thresh):
         """
             Set the thresholds for other color filtering
+
             :param v_thresh: thresholds for vertical window
             :type v_thresh: list of two numpy array, for lower and upper thresholds
             :param h_thresh: thresholds for horizontal window
@@ -96,6 +98,7 @@ class RoadFollower:
     def compute_deviation(self):
         """
             Calculate the angle for the car to follow
+
             :return: the angle to follow
             :rtype: int
         """
@@ -117,6 +120,7 @@ class RoadFollower:
     def compute_strip_position(self):
         """
             Compute the position of strip
+
             :return: the coordonation (y only) of the strip's center
             :rtype: int
         """
@@ -133,6 +137,12 @@ class RoadFollower:
         return cy
 
     def compute_stripe_size(self):
+        """
+            Count the number of zeros pixels
+
+            :return: the number of pixels
+            :rtypr: int
+        """
         return cv2.countNonZero(self.__colorDetectV.mask)
 
 

@@ -8,7 +8,7 @@
     
     <title>Controllers &#8212; Little helper 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
@@ -24,16 +24,24 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Little helper 1.0 documentation" href="index.html" />
-    <link rel="prev" title="Model" href="model.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <link rel="prev" title="Model" href="model.html" /> 
   </head>
   <body role="document">
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="model.html" title="Model"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Little helper 1.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
@@ -61,7 +69,7 @@
 <dt id="camera.Camera.run">
 <code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#camera.Camera.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run function of the thread.
-The function that is launch when we start the thread.</p>
+The function that is launched when we start the thread.</p>
 </dd></dl>
 
 <dl class="method">
@@ -78,7 +86,7 @@ The function that is launch when we start the thread.</p>
 <p>Used to reset the distance with band on the road checking</p>
 <dl class="class">
 <dt id="checkDistance.CheckDistance">
-<em class="property">class </em><code class="descclassname">checkDistance.</code><code class="descname">CheckDistance</code><span class="sig-paren">(</span><em>model</em>, <em>band_xcoord</em><span class="sig-paren">)</span><a class="headerlink" href="#checkDistance.CheckDistance" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">checkDistance.</code><code class="descname">CheckDistance</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="headerlink" href="#checkDistance.CheckDistance" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>The CheckDistance is composed of :</dt>
 <dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span> <span class="n">model</span> <span class="p">:</span> <span class="n">The</span> <span class="n">world</span><span class="p">,</span> <span class="n">model</span> <span class="n">of</span> <span class="n">the</span> <span class="n">car</span> <span class="ow">and</span> <span class="n">their</span> <span class="n">environment</span>
@@ -87,6 +95,24 @@ The function that is launch when we start the thread.</p>
 </div>
 </dd>
 </dl>
+<dl class="staticmethod">
+<dt id="checkDistance.CheckDistance.findClosest">
+<em class="property">static </em><code class="descname">findClosest</code><span class="sig-paren">(</span><em>list</em>, <em>number</em><span class="sig-paren">)</span><a class="headerlink" href="#checkDistance.CheckDistance.findClosest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the closest item of a number into a list</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>list</strong> (<em>int[]</em>) &#8211; list of number</li>
+<li><strong>number</strong> (<em>int</em>) &#8211; Number to find (or the closest item) in the list</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="checkDistance.CheckDistance.run">
 <code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#checkDistance.CheckDistance.run" title="Permalink to this definition">¶</a></dt>
@@ -129,9 +155,15 @@ blurred before being passed to this filter</p>
 <dl class="method">
 <dt id="color_detector.ColorFilter.display">
 <code class="descname">display</code><span class="sig-paren">(</span><em>raw_img=True</em><span class="sig-paren">)</span><a class="headerlink" href="#color_detector.ColorFilter.display" title="Permalink to this definition">¶</a></dt>
-<dd><p>Display the mask and the raw image
-:param raw_img: if True, the raw image will be displayed
-:type raw_img: boolean</p>
+<dd><p>Display the mask and the raw image</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>raw_img</strong> (<em>boolean</em>) &#8211; if True, the raw image will be displayed</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -143,7 +175,7 @@ blurred before being passed to this filter</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Gets the image before filtered</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body"></td>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">numpy.array</td>
 </tr>
 </tbody>
 </table>
@@ -158,7 +190,7 @@ blurred before being passed to this filter</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Getter:</th><td class="field-body">Gets the mask after processing</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body"></td>
+<tr class="field-even field"><th class="field-name">Type:</th><td class="field-body">numpy.array</td>
 </tr>
 </tbody>
 </table>
@@ -173,8 +205,8 @@ blurred before being passed to this filter</p>
 </dd></dl>
 
 </div>
-<span class="target" id="module-preloadedPath"></span><div class="section" id="the-preloadedpaths-module">
-<h2>The PreloadedPaths module<a class="headerlink" href="#the-preloadedpaths-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-preloadedPath"></span><div class="section" id="the-preloaded-paths-module">
+<h2>The preloaded paths module<a class="headerlink" href="#the-preloaded-paths-module" title="Permalink to this headline">¶</a></h2>
 <p>Used to manage the processing of the paths</p>
 <dl class="class">
 <dt id="preloadedPath.PreloadedPaths">
@@ -207,7 +239,7 @@ The turn has to begin 120cm before the bend.</p>
 <dt id="preloadedPath.PreloadedPaths.distance_management">
 <code class="descname">distance_management</code><span class="sig-paren">(</span><em>distance</em>, <em>distance_traveled</em><span class="sig-paren">)</span><a class="headerlink" href="#preloadedPath.PreloadedPaths.distance_management" title="Permalink to this definition">¶</a></dt>
 <dd><p>Manage the distance.
-If a bend is detected we update the distance_traveled to be more precise.
+If a band is detected we update the distance_traveled to be more precise.
 If the distance ordered by the instruction is reach we can go to the next instruction.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -301,36 +333,113 @@ In this case the car stop.</p>
 <dl class="class">
 <dt id="road_follower.RoadFollower">
 <em class="property">class </em><code class="descclassname">road_follower.</code><code class="descname">RoadFollower</code><a class="headerlink" href="#road_follower.RoadFollower" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><dl class="docutils">
+<dt>The class RoadFollower contains:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Two</span> <span class="n">members</span> <span class="n">which</span> <span class="n">are</span> <span class="n">instances</span> <span class="n">of</span> <span class="n">ColorFilter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Two</span> <span class="n">color</span> <span class="n">thresholds</span> <span class="n">which</span> <span class="n">correspond</span> <span class="n">to</span> <span class="n">the</span> <span class="n">color</span> <span class="n">filters</span> <span class="n">above</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="n">proportional</span> <span class="n">gain</span> <span class="k">for</span> <span class="n">regulation</span> <span class="n">system</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">An</span> <span class="n">angle</span> <span class="k">for</span> <span class="n">the</span> <span class="n">car</span> <span class="n">to</span> <span class="n">follow</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="method">
 <dt id="road_follower.RoadFollower.compute_deviation">
 <code class="descname">compute_deviation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#road_follower.RoadFollower.compute_deviation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Calculate the angle for the car to follow</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the angle to follow</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="road_follower.RoadFollower.compute_strip_position">
+<code class="descname">compute_strip_position</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#road_follower.RoadFollower.compute_strip_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the position of strip</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the coordonation (y only) of the strip&#8217;s center</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="road_follower.RoadFollower.compute_stripe_size">
+<code class="descname">compute_stripe_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#road_follower.RoadFollower.compute_stripe_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Count the number of zeros pixels</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the number of pixels</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Rtypr:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="road_follower.RoadFollower.display_masks">
 <code class="descname">display_masks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#road_follower.RoadFollower.display_masks" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Display masked images, for debugging only</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="road_follower.RoadFollower.filter">
 <code class="descname">filter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#road_follower.RoadFollower.filter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Start filtering</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="road_follower.RoadFollower.set_thresholds">
 <code class="descname">set_thresholds</code><span class="sig-paren">(</span><em>v_thresh</em>, <em>h_thresh</em><span class="sig-paren">)</span><a class="headerlink" href="#road_follower.RoadFollower.set_thresholds" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Set the thresholds for other color filtering</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>v_thresh</strong> (<em>list of two numpy array, for lower and upper thresholds</em>) &#8211; thresholds for vertical window</li>
+<li><strong>h_thresh</strong> (<em>list of two numpy array, for lower and upper thresholds</em>) &#8211; thresholds for horizontal window</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="road_follower.RoadFollower.update_frame">
 <code class="descname">update_frame</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="headerlink" href="#road_follower.RoadFollower.update_frame" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Update the current frame for processing</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> (<em>numpy array</em>) &#8211; the current frame to be updated</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
 </div>
-<span class="target" id="module-StmController"></span><div class="section" id="the-stm-module">
-<h2>The Stm module<a class="headerlink" href="#the-stm-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-StmController"></span><div class="section" id="the-stm-controller-module">
+<h2>The stm controller module<a class="headerlink" href="#the-stm-controller-module" title="Permalink to this headline">¶</a></h2>
 <p>Used to handle the communication between the RaspberryPi and the STM32.</p>
 <dl class="class">
 <dt id="StmController.StmController">
@@ -507,7 +616,8 @@ The function that is launch when we start the thread.</p>
 <dl class="class">
 <dt id="window.Window">
 <em class="property">class </em><code class="descclassname">window.</code><code class="descname">Window</code><span class="sig-paren">(</span><em>model</em>, <em>preloadPath</em><span class="sig-paren">)</span><a class="headerlink" href="#window.Window" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>Initialize the GUI and connect all the buttons</p>
+<dl class="method">
 <dt id="window.Window.checkSensor">
 <code class="descname">checkSensor</code><span class="sig-paren">(</span><em>sensor</em><span class="sig-paren">)</span><a class="headerlink" href="#window.Window.checkSensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform analysis on the sensor before displaying on the RasPi</p>
@@ -530,21 +640,17 @@ The function that is launch when we start the thread.</p>
 <li><a class="reference internal" href="#the-camera-module">The camera module</a></li>
 <li><a class="reference internal" href="#the-check-distance-module">The check distance module</a></li>
 <li><a class="reference internal" href="#the-color-detector-module">The color detector module</a></li>
-<li><a class="reference internal" href="#the-preloadedpaths-module">The PreloadedPaths module</a></li>
+<li><a class="reference internal" href="#the-preloaded-paths-module">The preloaded paths module</a></li>
 <li><a class="reference internal" href="#the-road-follower-module">The road follower module</a></li>
-<li><a class="reference internal" href="#the-stm-module">The Stm module</a></li>
+<li><a class="reference internal" href="#the-stm-controller-module">The stm controller module</a></li>
 <li><a class="reference internal" href="#the-window-module">The window module</a></li>
 </ul>
 </li>
 </ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="model.html" title="previous chapter">Model</a></li>
-  </ul></li>
-</ul>
-</div>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="model.html"
+                        title="previous chapter">Model</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -566,20 +672,24 @@ The function that is launch when we start the thread.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2017, Miles.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
-      
-      |
-      <a href="_sources/controllers.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="model.html" title="Model"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Little helper 1.0 documentation</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Miles.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
+    </div>
   </body>
 </html>

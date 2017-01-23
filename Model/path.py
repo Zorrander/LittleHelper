@@ -60,7 +60,7 @@ class Path():
         return self.instructions_list[0]
 
 class Paths():
-    """
+    """        
         Used to build and save the differents path available.
 
         Caracteristics :

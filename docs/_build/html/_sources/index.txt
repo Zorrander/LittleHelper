@@ -25,7 +25,7 @@ TODO :  add class diagram
 Model
 -----
 
-The model folder contains all the module usefull to represent the world of the project.
+The model folder contains all the module usefull to represent the environment of the project.
 
 .. toctree::
    :maxdepth: 2
@@ -35,10 +35,12 @@ The model folder contains all the module usefull to represent the world of the p
 Controllers
 -----------
 
- .. toctree::
-    :maxdepth: 2
+The controllers folder contains all the module usefull to control the car.
 
-    controllers
+.. toctree::
+  :maxdepth: 2
+
+  controllers
 
 
 Indices and tables

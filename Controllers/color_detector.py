@@ -7,7 +7,7 @@
 
     Used to manage the detection of the color of the road.
 """
-import cv2
+#import cv2
 import numpy as np
 
 
@@ -47,7 +47,7 @@ class ColorFilter:
     def img(self):
         """
             :getter: Gets the image before filtered
-            :type:
+            :type: numpy.array
         """
         return self.__img
 
@@ -55,7 +55,7 @@ class ColorFilter:
     def mask(self):
         """
             :getter: Gets the mask after processing
-            :type:
+            :type: numpy.array
         """
         return self.__mask
 
@@ -72,6 +72,7 @@ class ColorFilter:
     def display(self, raw_img=True):
         """
             Display the mask and the raw image
+
             :param raw_img: if True, the raw image will be displayed
             :type raw_img: boolean
         """

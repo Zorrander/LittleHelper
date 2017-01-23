@@ -12,8 +12,10 @@
 
 class Battery():
     """
+        Caracteristics :
+           >>> a state : charged or not charged
     """
-    
+
     def __init__(self):
        self.charged = True
 

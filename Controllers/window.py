@@ -17,13 +17,12 @@ from PyQt5 import QtGui, QtCore, Qt
 import GUI.mainwindow_auto
 from Model import car
 
-import video
 import preloadedPath
-
-
 
 class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow):
     """
+        Initialize the GUI and connect all the buttons
+
     """
     def __init__(self, model, preloadPath):
         super(self.__class__, self).__init__()
@@ -52,13 +51,11 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow):
     def pressedChangeButton(self):
         self.model.changeValues()
 
-
     def stop(self):
         self.close()
 
     def play(self):
            try:
-
                self.video.captureNextFrame()
                self.video.displayCamera(self.ui)
                #self.video.displayEdgeDetection(self.ui)
@@ -68,7 +65,7 @@ class Window(QMainWindow, GUI.mainwindow_auto.Ui_MainWindow):
 
     def checkSensor(self, sensor):
         """
-        Perform analysis on the sensor before displaying on the RasPi
+            Perform analysis on the sensor before displaying on the RasPi
         """
         dist = sensor.getDist()
         print("==========DATA SENSORS===========")

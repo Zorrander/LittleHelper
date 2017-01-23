@@ -3,14 +3,14 @@
 
 """
 
-    The Stm module
-    ==============
+    The stm controller module
+    =========================
 
     Used to handle the communication between the RaspberryPi and the STM32.
 
 """
 
-import wiringpi
+#import wiringpi
 import time
 from threading import Thread
 from constant import SLEEP_STMCONTROLLER_THREAD

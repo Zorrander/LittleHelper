@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-    The PreloadedPaths module
-    =========================
+    The preloaded paths module
+    ==========================
 
     Used to manage the processing of the paths
 
@@ -142,20 +142,20 @@ class PreloadedPaths(Thread):
             :type distance_traveled: float
         """
         # If we saw a band
-        # if(self.model.sema_distance.acquire(NON_BLOCKING)):
-        #     # Set the reset distance flag and reset the ack
-        #     self.model.reset_distance = True
-        #     self.model.ack_reset_distance = False
-        #
-        #     # While we didn't receive the ack we wait
-        #     while(not(self.model.ack_reset_distance)):
-        #         pass
-        #
-        #     # update the new distance to traveled
-        #     self.current_path.get_current_instruction().distance = distance - self.model.real_distance
-        #
-        #     # We release the semaphore
-        #     self.model.sema_distance.release()
+        if(self.model.sema_distance.acquire(NON_BLOCKING)):
+            # Set the reset distance flag and reset the ack
+            self.model.reset_distance = True
+            self.model.ack_reset_distance = False
+
+            # While we didn't receive the ack we wait
+            while(not(self.model.ack_reset_distance)):
+                pass
+
+            # update the new distance to traveled
+            self.current_path.get_current_instruction().distance = distance - self.model.real_distance
+
+            # We release the semaphore
+            self.model.sema_distance.release()
 
         # If the distance of the instruction is reach
         if(distance <= distance_traveled):

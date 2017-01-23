@@ -10,13 +10,13 @@
 """
 
 # import the necessary packages
-from picamera.array import PiRGBArray
-from picamera import PiCamera
+#from picamera.array import PiRGBArray
+#from picamera import PiCamera
 from road_follower import RoadFollower
 from threading import Thread
 from constant import *
 import time
-import cv2
+#import cv2
 
 class Camera(Thread):
     """
