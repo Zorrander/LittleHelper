@@ -10,7 +10,7 @@
 """
 
 import color_detector as cd
-#import cv2
+import cv2
 import numpy as np
 import math
 from constant import *

@@ -7,7 +7,7 @@
 
     Used to manage the detection of the color of the road.
 """
-#import cv2
+import cv2
 import numpy as np
 
 

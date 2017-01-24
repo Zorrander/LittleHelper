@@ -10,7 +10,7 @@
 
 """
 
-#import wiringpi
+import wiringpi
 import time
 from threading import Thread
 from constant import SLEEP_STMCONTROLLER_THREAD
