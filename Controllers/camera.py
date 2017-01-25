@@ -58,7 +58,7 @@ class Camera(Thread):
                 self.model.sema_band_ycoord.release()
 
             #print(self.roadFollower.compute_strip_position())
-            self.model.car.direction_motor.angle_camera = self.roadFollower.compute_deviation()
+            self.model.car.direction_motor.angle_camera = -self.roadFollower.compute_deviation()
 
             self.rawCapture.seek(0)
             self.rawCapture.truncate(0)

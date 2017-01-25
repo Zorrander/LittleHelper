@@ -116,7 +116,7 @@ class PreloadedPaths(Thread):
             self.model.car.moveForward(speed)
             # Turn according to the angle detect by the camera
             self.model.car.turn(self.model.car.direction_motor.angle_camera)
-
+#            print("angle ", self.model.car.direction_motor.angle_camera)
             # See if the distance is reach
             distance_traveled = self.model.current_distance
             self.distance_management(distance, distance_traveled)
@@ -186,20 +186,23 @@ class PreloadedPaths(Thread):
             :param direction: the direction to turn (-1 : right, 1 : left)
             :type direction: int
         """
+        print("forward before bend")
         self.model.car.moveForward(50)
         time.sleep(4)
         # Turn to the right
         if(direction == -1):
             print("virage droite")
-            self.model.car.turnRight(45)
+            self.model.car.turn(-44)
+            #time.sleep(0.5)
             self.model.car.moveForward(40)
         # Turn to the left
         elif(direction == 1):
             print("virage gauche")
-            self.model.car.turnLeft(45)
+            self.model.car.turn(40)
             self.model.car.moveForward(40)
 
         time.sleep(13)
+        print("angle 0")
 
         self.model.car.turn(0)
 

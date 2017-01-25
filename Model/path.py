@@ -87,7 +87,7 @@ class Paths():
         #                      Creation of the second path
         # ====================================================================
         path = Path()
-        path.add_instruction(Instruction(FORWARD, speed=50, distance=200))
+        path.add_instruction(Instruction(FORWARD, speed=50, distance=690))
         path.add_instruction(Instruction(TURN_RIGHT))
         path.add_instruction(Instruction(FORWARD, speed=50, distance=200))
 

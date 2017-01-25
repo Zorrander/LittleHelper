@@ -39,7 +39,7 @@ class RoadFollower:
     __VW_Y2 = __VW_Y1 + 250
 
     # default prop factor
-    __Kp = 0.005
+    __Kp = 0.0025
 
     # minimum size for strip detection
     __STRIP_MIN_SIZE = (100 * 100)

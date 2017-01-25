@@ -43,12 +43,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	cv2.circle(hsv, (coor[0], coor[1]), 5, (255, 255, 255), thickness=5)
 	cv2.imshow("hsv", hsv)
 
-	if not 45.0 >= alpha >= -45.0:
+	if alpha >= 45.0:
 		alpha = 45.0
+	elif alpha <= -45.0:
+		alpha = -45.0
 	point_a = (200, 150)
 	point_b = (int(200 + 100 * math.tan(math.radians(alpha))), 50)
 	cv2.line(simulation, point_a, point_b, (255, 0, 0), thickness=5)
-	# cv2.imshow("sim", simulation)
+	cv2.imshow("sim", simulation)
 	simulation = np.zeros((200, 400, 3), np.uint8)
 	
 
